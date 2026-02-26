@@ -1,4 +1,4 @@
-import 'package:educational_complex_director_app/utils/config.dart';
+import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:flutter/cupertino.dart';
 
 class SResponsiveLayout extends StatelessWidget {

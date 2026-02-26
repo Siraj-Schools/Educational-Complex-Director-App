@@ -9,11 +9,38 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get appTitle => 'Siraj';
+  String get appTitle => 'سراج';
 
   @override
-  String get welcome => 'Welcome';
+  String get welcome => 'مرحباً بك';
 
   @override
-  String get login => 'Login';
+  String get loginTitle => 'تسجيل الدخول إلى النظام';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get password => 'كلمة المرور';
+
+  @override
+  String get forgotPassword => 'هل نسيت كلمة المرور؟';
+
+  @override
+  String get login => 'تسجيل الدخول';
+
+  @override
+  String get systemName => 'نظام سراج لإدارة المجمعات التربوية';
+
+  @override
+  String get systemDescription => 'منصة متكاملة لإدارة المدارس، الكوادر التعليمية، والطلاب بكفاءة واحترافية.';
+
+  @override
+  String get emailRequired => 'البريد الإلكتروني مطلوب';
+
+  @override
+  String get invalidEmail => 'صيغة البريد الإلكتروني غير صحيحة';
+
+  @override
+  String get passwordRequired => 'كلمة المرور مطلوبة';
 }

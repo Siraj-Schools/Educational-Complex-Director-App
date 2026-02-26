@@ -1,8 +1,8 @@
 
 
 import 'package:educational_complex_director_app/routes/middle_ware.dart';
-import 'package:educational_complex_director_app/view/pages/auth_page.dart';
-import 'package:educational_complex_director_app/view/pages/main_layout.dart';
+import 'package:educational_complex_director_app/view/pages/authpageresponsive/auth_page.dart';
+import 'package:educational_complex_director_app/view/mainlayoutresponsive/main_layout.dart';
 
 
 

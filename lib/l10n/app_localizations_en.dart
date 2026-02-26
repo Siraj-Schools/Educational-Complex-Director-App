@@ -15,5 +15,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcome => 'Welcome';
 
   @override
+  String get loginTitle => 'Login to the System';
+
+  @override
+  String get email => 'Email Address';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get forgotPassword => 'Forgot your password?';
+
+  @override
   String get login => 'Login';
+
+  @override
+  String get systemName => 'Siraj System for Educational Complex Management';
+
+  @override
+  String get systemDescription => 'An integrated platform for managing schools, educational staff, and students efficiently and professionally.';
+
+  @override
+  String get emailRequired => 'Email is required';
+
+  @override
+  String get invalidEmail => 'Invalid email format';
+
+  @override
+  String get passwordRequired => 'Password is required';
 }

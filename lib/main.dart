@@ -5,7 +5,7 @@ import 'package:educational_complex_director_app/l10n/app_localizations.dart';
 
 import 'package:educational_complex_director_app/services/local_storage_services.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
-import 'package:educational_complex_director_app/utils/config.dart';
+import 'package:educational_complex_director_app/utils/s_config.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,7 +46,7 @@ class MyApp extends ConsumerWidget {
       title: 'Flutter Doctor App',
       debugShowCheckedModeBanner: false,
       theme: SConfig.lightTheme,
-
+      
       initialRoute: Sroutes.auth,
       getPages: SAppRoute.pages,
       darkTheme: SConfig.darkTheme,

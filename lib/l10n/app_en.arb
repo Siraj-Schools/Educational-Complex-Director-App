@@ -2,5 +2,20 @@
   "@@locale": "en",
   "appTitle": "Siraj",
   "welcome": "Welcome",
-  "login": "Login"
+
+  "loginTitle": "Login to the System",
+  "email": "Email Address",
+  "password": "Password",
+  "forgotPassword": "Forgot your password?",
+  "login": "Login",
+  "systemName": "Siraj System for Educational Complex Management",
+  "systemDescription": "An integrated platform for managing schools, educational staff, and students efficiently and professionally.",
+  "emailRequired": "Email is required",
+ 
+
+  "invalidEmail": "Invalid email format",
+  
+
+  "passwordRequired": "Password is required"
+ 
 }
