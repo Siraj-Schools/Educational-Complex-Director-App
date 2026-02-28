@@ -5,8 +5,8 @@ class SConfig {
   static MediaQueryData? mediaQueryData;
   static double? screenWidth;
   static double? screenHeight;
-
-  static final String baseUrl = 'http://192.168.54.238:5001';
+  const SConfig._();
+  static const String baseUrl = 'http://192.168.54.238:5001';
 
   // ----------- INIT ------------
   static void init(BuildContext context) {

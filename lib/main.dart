@@ -19,7 +19,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalStorageService.init();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,]);
 
   runApp(
     ProviderScope(

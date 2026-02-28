@@ -39,8 +39,41 @@ class AppLocalizationsAr extends AppLocalizations {
   String get emailRequired => 'البريد الإلكتروني مطلوب';
 
   @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get director => 'مدير المجمع التربوي';
+
+  @override
   String get invalidEmail => 'صيغة البريد الإلكتروني غير صحيحة';
 
   @override
   String get passwordRequired => 'كلمة المرور مطلوبة';
+
+  @override
+  String get home => 'الرئيسية';
+
+  @override
+  String get schools => 'المدارس';
+
+  @override
+  String get applications => 'الطلبات';
+
+  @override
+  String get settings => 'الإعدادات';
+
+  @override
+  String get loggingIn => 'جاري تسجيل الدخول ...';
+
+  @override
+  String get checkingCredentials => 'يرجى الانتظار بينما يتم التحقق من بيانات تسجيل الدخول.';
+
+  @override
+  String get markAllAsRead => 'تحديد الكل كمقروء';
+
+  @override
+  String get deleteAll => 'حذف الكل';
+
+  @override
+  String get notifications => 'الإشعارات';
 }

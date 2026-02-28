@@ -155,6 +155,18 @@ abstract class AppLocalizations {
   /// **'Email is required'**
   String get emailRequired;
 
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @director.
+  ///
+  /// In en, this message translates to:
+  /// **'Educational Complex Director'**
+  String get director;
+
   /// No description provided for @invalidEmail.
   ///
   /// In en, this message translates to:
@@ -166,6 +178,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password is required'**
   String get passwordRequired;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @schools.
+  ///
+  /// In en, this message translates to:
+  /// **'Schools'**
+  String get schools;
+
+  /// No description provided for @applications.
+  ///
+  /// In en, this message translates to:
+  /// **'Applications'**
+  String get applications;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @loggingIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Logging in ...'**
+  String get loggingIn;
+
+  /// No description provided for @checkingCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we check your credentials.'**
+  String get checkingCredentials;
+
+  /// No description provided for @markAllAsRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark All as Read'**
+  String get markAllAsRead;
+
+  /// No description provided for @deleteAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete All'**
+  String get deleteAll;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

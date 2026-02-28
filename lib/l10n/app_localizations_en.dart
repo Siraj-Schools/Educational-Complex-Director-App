@@ -39,8 +39,41 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailRequired => 'Email is required';
 
   @override
+  String get logout => 'Logout';
+
+  @override
+  String get director => 'Educational Complex Director';
+
+  @override
   String get invalidEmail => 'Invalid email format';
 
   @override
   String get passwordRequired => 'Password is required';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get schools => 'Schools';
+
+  @override
+  String get applications => 'Applications';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get loggingIn => 'Logging in ...';
+
+  @override
+  String get checkingCredentials => 'Please wait while we check your credentials.';
+
+  @override
+  String get markAllAsRead => 'Mark All as Read';
+
+  @override
+  String get deleteAll => 'Delete All';
+
+  @override
+  String get notifications => 'Notifications';
 }

@@ -2,7 +2,6 @@
   "@@locale": "en",
   "appTitle": "Siraj",
   "welcome": "Welcome",
-
   "loginTitle": "Login to the System",
   "email": "Email Address",
   "password": "Password",
@@ -11,11 +10,17 @@
   "systemName": "Siraj System for Educational Complex Management",
   "systemDescription": "An integrated platform for managing schools, educational staff, and students efficiently and professionally.",
   "emailRequired": "Email is required",
- 
-
+  "logout": "Logout",
+  "director": "Educational Complex Director",
   "invalidEmail": "Invalid email format",
-  
-
-  "passwordRequired": "Password is required"
- 
+  "passwordRequired": "Password is required",
+  "home": "Home",
+  "schools": "Schools",
+  "applications": "Applications",
+  "settings": "Settings",
+  "loggingIn": "Logging in ...",
+  "checkingCredentials": "Please wait while we check your credentials.",
+  "markAllAsRead": "Mark All as Read",
+  "deleteAll": "Delete All",
+  "notifications": "Notifications"
 }
