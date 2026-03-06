@@ -1,18 +1,13 @@
-
-
 import 'package:educational_complex_director_app/routes/middle_ware.dart';
-import 'package:educational_complex_director_app/view/pages/authpageresponsive/auth_page.dart';
+import 'package:educational_complex_director_app/view/pages/authpage/auth_page.dart';
 import 'package:educational_complex_director_app/view/mainlayout/main_layout.dart';
-
-
-
 
 import 'package:get/get_navigation/get_navigation.dart';
 
 class Sroutes {
   static const auth = '/';
   static const main = '/main';
-const Sroutes._();
+  const Sroutes._();
 }
 
 class SAppRoute {
@@ -27,6 +22,5 @@ class SAppRoute {
       page: () => const MainLayout(),
       middlewares: [AuthGuardMiddleware()],
     ),
-   
   ];
 }

@@ -76,4 +76,118 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notifications => 'Notifications';
+
+  @override
+  String get addSchool => 'Add School';
+
+  @override
+  String get schoolDetails => 'School Details';
+
+  @override
+  String get phone => 'Phone';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get stateId => 'State';
+
+  @override
+  String get cityId => 'City';
+
+  @override
+  String get schoolType => 'School Type';
+
+  @override
+  String get emisNumber => 'EMIS Number';
+
+  @override
+  String get seeDetails => 'See Details';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get privateSchool => 'Private';
+
+  @override
+  String get publicSchool => 'Public';
+
+  @override
+  String get searchSchool => 'Search school...';
+
+  @override
+  String get schoolInformation => 'School Information';
+
+  @override
+  String get managerInformation => 'Manager Information';
+
+  @override
+  String get schoolName => 'School Name';
+
+  @override
+  String get schoolEmail => 'School Email';
+
+  @override
+  String get managerEmail => 'Manager Email';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get nationalId => 'National ID';
+
+  @override
+  String get firstName => 'First Name';
+
+  @override
+  String get middleName => 'Middle Name';
+
+  @override
+  String get lastName => 'Last Name';
+
+  @override
+  String get managerPhone => 'Manager Phone';
+
+  @override
+  String get dateOfBirth => 'Date of Birth';
+
+  @override
+  String get invalidPhone => 'Invalid Phone';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get back => 'back';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get single => 'Single';
+
+  @override
+  String get married => 'Married';
+
+  @override
+  String get divorced => 'Divorced';
+
+  @override
+  String get widowed => 'Widowed';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get maritalStatus => 'Marital Status';
+
+  @override
+  String get country => 'Country';
 }

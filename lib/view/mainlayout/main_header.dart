@@ -1,7 +1,6 @@
-
-
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
+
 import 'package:educational_complex_director_app/view/mainlayout/notification_bell.dart';
 import 'package:flutter/material.dart';
 
@@ -20,55 +19,59 @@ class MainHeader extends StatelessWidget implements PreferredSizeWidget {
         color: theme.colorScheme.surface,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(13 ),
+            color: Colors.black.withAlpha(13),
             blurRadius: 10,
           ),
         ],
       ),
-      child: Row(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (!SConfig.isDesktop())
-            Builder(
-              builder: (context) => IconButton(
-                icon: const Icon(Icons.menu_rounded),
-                color: SConfig.primaryColor,
-                onPressed: () => Scaffold.of(context).openDrawer(),
-              ),
-            ),
-
-          const Spacer(),
-
-         
-
-          // 👤 User Info with Avatar
           Row(
-            spacing: 14,
             children: [
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: SConfig.primaryColor.withAlpha(25),
-                child: const Icon(Icons.person, color: SConfig.primaryColor),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.director,
-                    style: theme.textTheme.titleMedium,
+              if (!SConfig.isDesktop())
+                Builder(
+                  builder: (context) => IconButton(
+                    icon: const Icon(Icons.menu_rounded),
+                    color: SConfig.primaryColor,
+                    onPressed: () => Scaffold.of(context).openDrawer(),
                   ),
-                  Text(
-                    "director@siraj.edu",
-                    style: theme.textTheme.bodyMedium,
+                ),
+
+              const Spacer(),
+
+              // 👤 User Info with Avatar
+              Row(
+                spacing: 14,
+                children: [
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundColor: SConfig.primaryColor.withAlpha(25),
+                    child: const Icon(
+                      Icons.person,
+                      color: SConfig.primaryColor,
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.director,
+                        style: theme.textTheme.titleMedium,
+                      ),
+                      Text(
+                        "director@siraj.edu",
+                        style: theme.textTheme.bodyMedium,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            
+              const SizedBox(width: 25),
+              const NotifiactionBell(),
             ],
           ),
-          const SizedBox(width: 25),
-         const NotifiactionBell(),
-
         ],
       ),
     );
@@ -77,4 +80,3 @@ class MainHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(75);
 }
-

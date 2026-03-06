@@ -8,7 +8,7 @@ class NotifiactionBell extends ConsumerWidget {
   const NotifiactionBell({
     super.key,
   });
-  //TODO notifications icon with badge
+  //TODO notifications icon with badge and add notifications ;pgic
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,7 +18,6 @@ class NotifiactionBell extends ConsumerWidget {
       onPressed: () async {
         await Get.dialog(
           const NotificationsDialog(),
-          
         );
       },
     );

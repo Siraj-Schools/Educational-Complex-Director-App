@@ -1,3 +1,5 @@
+import 'package:educational_complex_director_app/l10n/app_localizations.dart';
+import 'package:educational_complex_director_app/utils/enums/screen_names.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -7,6 +9,24 @@ class SConfig {
   static double? screenHeight;
   const SConfig._();
   static const String baseUrl = 'http://192.168.54.238:5001';
+  static String getTitle(BuildContext context, ScreenNames page) {
+    final loc = AppLocalizations.of(context)!;
+
+    switch (page) {
+      case ScreenNames.home:
+        return loc.home;
+      case ScreenNames.schools:
+        return loc.schools;
+      case ScreenNames.applications:
+        return loc.applications;
+      case ScreenNames.settings:
+        return loc.settings;
+      case ScreenNames.addSchool:
+        return loc.addSchool;
+      case ScreenNames.schoolDetails:
+        return loc.schoolDetails;
+    }
+  }
 
   // ----------- INIT ------------
   static void init(BuildContext context) {
@@ -99,7 +119,11 @@ class SConfig {
   static final ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-
+    scrollbarTheme: ScrollbarThemeData(
+      thumbColor: WidgetStatePropertyAll(primaryColor.withAlpha(200)),
+      thickness: const WidgetStatePropertyAll(5),
+      mainAxisMargin: 5,
+    ),
     fontFamily: GoogleFonts.cairo().fontFamily, // Clean Arabic font
 
     colorScheme: const ColorScheme.light(
@@ -136,10 +160,13 @@ class SConfig {
     // ✏️ INPUT FIELDS (Login / Forms / Search)
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
+
       fillColor: Colors.white,
       hintStyle: const TextStyle(color: Colors.black45),
       border: _border(Colors.grey.shade300),
+
       enabledBorder: _border(secondaryBackground),
+      disabledBorder: _border(secondaryBackground),
       focusedBorder: _border(primaryColor, width: 1.5),
       errorBorder: _border(errorColor),
       focusedErrorBorder: _border(errorColor, width: 1.5),
@@ -147,23 +174,20 @@ class SConfig {
         color: primaryColor,
         fontWeight: FontWeight.w600,
       ),
-  
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     ),
 
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.white,
       selectedItemColor: primaryColor,
       unselectedItemColor: Colors.grey.shade500,
-      selectedLabelStyle:
-          const TextStyle(fontWeight: FontWeight.bold),
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
     ),
 
     // ============================================================
     // 📝 TEXT THEME (Where to Use Each)
     // ============================================================
-
     textTheme: const TextTheme(
       // 🔹 Main page titles
       // Example: "لوحة التحكم", "المقررات"
@@ -204,8 +228,9 @@ class SConfig {
       ),
     ),
 
-    progressIndicatorTheme:
-        const ProgressIndicatorThemeData(color: primaryColor),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: primaryColor,
+    ),
   );
 
   // ============================================================
@@ -267,8 +292,9 @@ class SConfig {
       ),
     ),
 
-    progressIndicatorTheme:
-        const ProgressIndicatorThemeData(color: accentColor),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: accentColor,
+    ),
   );
 
   // ============================================================

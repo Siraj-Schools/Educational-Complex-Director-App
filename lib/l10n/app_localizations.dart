@@ -232,6 +232,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notifications'**
   String get notifications;
+
+  /// No description provided for @addSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Add School'**
+  String get addSchool;
+
+  /// No description provided for @schoolDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'School Details'**
+  String get schoolDetails;
+
+  /// No description provided for @phone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get phone;
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get address;
+
+  /// No description provided for @stateId.
+  ///
+  /// In en, this message translates to:
+  /// **'State'**
+  String get stateId;
+
+  /// No description provided for @cityId.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get cityId;
+
+  /// No description provided for @schoolType.
+  ///
+  /// In en, this message translates to:
+  /// **'School Type'**
+  String get schoolType;
+
+  /// No description provided for @emisNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'EMIS Number'**
+  String get emisNumber;
+
+  /// No description provided for @seeDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'See Details'**
+  String get seeDetails;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @privateSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Private'**
+  String get privateSchool;
+
+  /// No description provided for @publicSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Public'**
+  String get publicSchool;
+
+  /// No description provided for @searchSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Search school...'**
+  String get searchSchool;
+
+  /// No description provided for @schoolInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'School Information'**
+  String get schoolInformation;
+
+  /// No description provided for @managerInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager Information'**
+  String get managerInformation;
+
+  /// No description provided for @schoolName.
+  ///
+  /// In en, this message translates to:
+  /// **'School Name'**
+  String get schoolName;
+
+  /// No description provided for @schoolEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'School Email'**
+  String get schoolEmail;
+
+  /// No description provided for @managerEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager Email'**
+  String get managerEmail;
+
+  /// No description provided for @username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @nationalId.
+  ///
+  /// In en, this message translates to:
+  /// **'National ID'**
+  String get nationalId;
+
+  /// No description provided for @firstName.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get firstName;
+
+  /// No description provided for @middleName.
+  ///
+  /// In en, this message translates to:
+  /// **'Middle Name'**
+  String get middleName;
+
+  /// No description provided for @lastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name'**
+  String get lastName;
+
+  /// No description provided for @managerPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager Phone'**
+  String get managerPhone;
+
+  /// No description provided for @dateOfBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
+  String get dateOfBirth;
+
+  /// No description provided for @invalidPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Phone'**
+  String get invalidPhone;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'back'**
+  String get back;
+
+  /// No description provided for @gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get gender;
+
+  /// No description provided for @single.
+  ///
+  /// In en, this message translates to:
+  /// **'Single'**
+  String get single;
+
+  /// No description provided for @married.
+  ///
+  /// In en, this message translates to:
+  /// **'Married'**
+  String get married;
+
+  /// No description provided for @divorced.
+  ///
+  /// In en, this message translates to:
+  /// **'Divorced'**
+  String get divorced;
+
+  /// No description provided for @widowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Widowed'**
+  String get widowed;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// No description provided for @maritalStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Marital Status'**
+  String get maritalStatus;
+
+  /// No description provided for @country.
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get country;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

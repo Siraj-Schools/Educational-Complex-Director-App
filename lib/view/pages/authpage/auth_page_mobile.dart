@@ -1,4 +1,3 @@
-
 import 'package:educational_complex_director_app/utils/s_config.dart';
 
 import 'package:flutter/material.dart';
@@ -8,15 +7,13 @@ class AuthPageMobile extends StatelessWidget {
   final Widget form;
   @override
   Widget build(BuildContext context) {
-    
     SConfig.init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: SingleChildScrollView(
-         
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -24,10 +21,9 @@ class AuthPageMobile extends StatelessWidget {
                 // 🔷 LOGO
                 Image.asset(
                   "assets/logo.png",
-                  height:300,
+                  height: 300,
                 ),
-            
-               
+
                 form,
               ],
             ),
