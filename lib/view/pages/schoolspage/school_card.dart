@@ -1,16 +1,17 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
-import 'package:educational_complex_director_app/models/school.dart';
+import 'package:educational_complex_director_app/models/helpers/localization_string_extension.dart';
+import 'package:educational_complex_director_app/models/school/school.dart';
+import 'package:educational_complex_director_app/routes/routes.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SchoolCard extends StatelessWidget {
   final School school;
-  final VoidCallback onDetails;
 
   const SchoolCard({
     super.key,
     required this.school,
-    required this.onDetails,
   });
 
   Widget _infoBlock(
@@ -34,6 +35,7 @@ class SchoolCard extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           value,
+          overflow: TextOverflow.ellipsis,
           style: theme.textTheme.bodyLarge?.copyWith(
             fontWeight: FontWeight.w600,
           ),
@@ -45,6 +47,7 @@ class SchoolCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+
     final theme = Theme.of(context);
     SConfig.init(context);
     return Card(
@@ -162,14 +165,14 @@ class SchoolCard extends StatelessWidget {
                         child: _infoBlock(
                           context,
                           loc.stateId,
-                          school.stateId,
+                          school.stateName.localized(loc),
                         ),
                       ),
                       Expanded(
                         child: _infoBlock(
                           context,
                           loc.cityId,
-                          school.cityId,
+                          school.cityName.localized(loc),
                         ),
                       ),
                     ],
@@ -178,10 +181,26 @@ class SchoolCard extends StatelessWidget {
                   SConfig.spaceSmall,
 
                   /// TYPE
-                  _infoBlock(
-                    context,
-                    loc.schoolType,
-                    school.schoolTypeId,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 8,
+                    children: [
+                      Expanded(
+                        child: _infoBlock(
+                          context,
+                          loc.schoolType,
+                          school.schoolTypeName.localized(loc),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: _infoBlock(
+                          context,
+                          "",
+                          school.schoolTypeDescription,
+                        ),
+                      ),
+                    ],
                   ),
 
                   const SizedBox(height: 10),
@@ -200,7 +219,14 @@ class SchoolCard extends StatelessWidget {
                           vertical: 10,
                         ),
                       ),
-                      onPressed: onDetails,
+                      onPressed: () async {
+                        // print('/school/details/${school.id}');
+                        await Get.toNamed(
+                          Sroutes.schoolDetails,
+                          id: Sroutes.schoolsNavigationId,
+                          arguments: school.id,
+                        );
+                      },
                       child: Text(
                         loc.seeDetails,
                         style: theme.textTheme.labelLarge,

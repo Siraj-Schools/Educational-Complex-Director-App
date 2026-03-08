@@ -6,15 +6,13 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LoadingDialog extends StatelessWidget {
   final String? extraMessage;
-
-  const LoadingDialog( {super.key,this.extraMessage});
-
+  final Widget? loading;
+  const LoadingDialog({super.key, this.extraMessage, this.loading});
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-  SConfig.init(context);
-    
+    SConfig.init(context);
 
     return Dialog(
       elevation: 0,
@@ -44,39 +42,43 @@ class LoadingDialog extends StatelessWidget {
                 color: Colors.black.withAlpha(30),
                 blurRadius: 25,
                 spreadRadius: 2,
-              )
+              ),
             ],
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               // 🔄 Animated Loader
-            //  const SizedBox(
-            //     height: 90,
-            //     width: 90,
-            //     child: CircularProgressIndicator(
-            //       strokeWidth: 6,
-            //       color: SConfig.primaryColor,
-            //     ),
-            //   ),
-            LoadingAnimationWidget.flickr(leftDotColor: SConfig.secondaryBackground, rightDotColor: SConfig.successColor, size: 90),
+              //  const SizedBox(
+              //     height: 90,
+              //     width: 90,
+              //     child: CircularProgressIndicator(
+              //       strokeWidth: 6,
+              //       color: SConfig.primaryColor,
+              //     ),
+              //   ),
+              loading != null
+                  ? loading!
+                  : LoadingAnimationWidget.flickr(
+                      leftDotColor: SConfig.secondaryBackground,
+                      rightDotColor: SConfig.successColor,
+                      size: 90,
+                    ),
 
               const SizedBox(height: 24),
 
               // 📝 Main Text
-             
-
               if (extraMessage != null) ...[
                 const SizedBox(height: 12),
                 Text(
                   extraMessage!,
-               
+
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                        color: isDark
-                            ? Colors.white.withAlpha(200)
-                            : Colors.black.withAlpha(200),
-                      ),
+                    color: isDark
+                        ? Colors.white.withAlpha(200)
+                        : Colors.black.withAlpha(200),
+                  ),
                 ),
               ],
             ],

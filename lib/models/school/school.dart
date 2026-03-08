@@ -4,9 +4,11 @@ class School {
   final String email;
   final String phone;
   final String address;
-  final String stateId;
-  final String cityId;
-  final String schoolTypeId;
+  final String stateName;
+  final String cityName;
+  final String schoolTypeName;
+  final String schoolTypeDescription;
+  final String schoolType;
   final String emisNumber;
 
   School({
@@ -15,9 +17,11 @@ class School {
     required this.email,
     required this.phone,
     required this.address,
-    required this.stateId,
-    required this.cityId,
-    required this.schoolTypeId,
+    required this.stateName,
+    required this.cityName,
+    required this.schoolTypeName,
+    required this.schoolTypeDescription,
+    required this.schoolType,
     required this.emisNumber,
   });
 
@@ -28,23 +32,12 @@ class School {
       email: json['email'],
       phone: json['phone'],
       address: json['address'],
-      stateId: json['stateId'],
-      cityId: json['cityId'],
-      schoolTypeId: json['schoolTypeId'],
+      stateName: json['stateName'],
+      cityName: json['cityName'],
+      schoolTypeName: json['schoolTypeName'],
+      schoolTypeDescription: json['schoolTypeDescription'],
+      schoolType: json['schoolType'],
       emisNumber: json['emisNumber'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'email': email,
-      'phone': phone,
-      'address': address,
-      'stateId': stateId,
-      'cityId': cityId,
-      'schoolTypeId': schoolTypeId,
-      'emisNumber': emisNumber,
-    };
   }
 }

@@ -45,8 +45,7 @@ class NotificationsDialog extends ConsumerWidget {
         filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
         child: Container(
           // width: dialogWidth,
-          constraints:const BoxConstraints(
-          
+          constraints: const BoxConstraints(
             maxWidth: 450,
           ),
           padding: const EdgeInsets.all(24),
@@ -84,7 +83,7 @@ class NotificationsDialog extends ConsumerWidget {
                       if (Get.isDialogOpen!) {
                         Get.back();
                       }
-                    } ,
+                    },
                     icon: const Icon(Icons.close),
                     color: SConfig.primaryColor,
                   ),
@@ -97,6 +96,7 @@ class NotificationsDialog extends ConsumerWidget {
               SizedBox(
                 height: 300,
                 child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
                   itemCount: notifications.length,
                   separatorBuilder: (_, _) => const SizedBox(height: 12),
                   itemBuilder: (context, index) {
@@ -158,28 +158,30 @@ class NotificationsDialog extends ConsumerWidget {
               // 🔘 Action Buttons
               Row(
                 children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: SConfig.secondaryBackground,
-                        padding: const EdgeInsets.all(16),
-                       
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                      ),
-                      child: Text(
+                  // Expanded(
+                  //   child: ElevatedButton(
+                  //     onPressed: () {},
+                  //     style: ElevatedButton.styleFrom(
+                  //       backgroundColor: SConfig.secondaryBackground,
+                  //       padding: const EdgeInsets.all(16),
 
-                        maxLines: 1,
-                        AppLocalizations.of(context)!.markAllAsRead,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.labelLarge!.copyWith(fontSize:SConfig.isMobile() ? 16 : 19),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 6),
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(14),
+                  //       ),
+                  //     ),
+                  //     child: Text(
+                  //       maxLines: 1,
+                  //       AppLocalizations.of(context)!.markAllAsRead,
+                  //       style:
+                  //           Theme.of(
+                  //             context,
+                  //           ).textTheme.labelLarge!.copyWith(
+                  //             fontSize: SConfig.isMobile() ? 16 : 19,
+                  //           ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // const SizedBox(width: 6),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {},
@@ -193,9 +195,12 @@ class NotificationsDialog extends ConsumerWidget {
                       ),
                       child: Text(
                         AppLocalizations.of(context)!.deleteAll,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.labelLarge!.copyWith(fontSize:SConfig.isMobile() ? 16 : 19),
+                        style:
+                            Theme.of(
+                              context,
+                            ).textTheme.labelLarge!.copyWith(
+                              fontSize: SConfig.isMobile() ? 16 : 19,
+                            ),
                       ),
                     ),
                   ),

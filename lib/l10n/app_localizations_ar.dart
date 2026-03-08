@@ -57,7 +57,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get schools => 'المدارس';
 
   @override
-  String get applications => 'الطلبات';
+  String get teachers => 'المدرسين';
+
+  @override
+  String get addTeacher => 'إضافة مدرس';
+
+  @override
+  String get teacherDetails => 'تفاصيل المدرس';
 
   @override
   String get settings => 'الإعدادات';
@@ -66,7 +72,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get loggingIn => 'جاري تسجيل الدخول ...';
 
   @override
-  String get checkingCredentials => 'يرجى الانتظار بينما يتم التحقق من بيانات تسجيل الدخول.';
+  String get checkingCredentials => 'يرجى الانتظار بينما نتحقق من بيانات تسجيل الدخول.';
+
+  @override
+  String get savingForm => 'يرجى الانتظار بينما نقوم بحفظ التغييرات.';
 
   @override
   String get markAllAsRead => 'تحديد الكل كمقروء';
@@ -106,12 +115,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get all => 'الكل';
-
-  @override
-  String get privateSchool => 'خاصة';
-
-  @override
-  String get publicSchool => 'حكومية';
 
   @override
   String get searchSchool => 'ابحث عن مدرسة';
@@ -190,4 +193,115 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get country => 'البلد';
+
+  @override
+  String get primary => 'ابتدائي';
+
+  @override
+  String get middle => 'إعدادي';
+
+  @override
+  String get secondary => 'ثانوي';
+
+  @override
+  String get syria => 'سوريا';
+
+  @override
+  String get saudiArabia => 'السعودية';
+
+  @override
+  String get jordan => 'الأردن';
+
+  @override
+  String get lebanon => 'لبنان';
+
+  @override
+  String get iraq => 'العراق';
+
+  @override
+  String get qatar => 'قطر';
+
+  @override
+  String get uae => 'الإمارات العربية المتحدة';
+
+  @override
+  String get kuwait => 'الكويت';
+
+  @override
+  String get oman => 'عُمان';
+
+  @override
+  String get bahrain => 'البحرين';
+
+  @override
+  String get damascus => 'دمشق';
+
+  @override
+  String get ruralDamascus => 'ريف دمشق';
+
+  @override
+  String get aleppo => 'حلب';
+
+  @override
+  String get homs => 'حمص';
+
+  @override
+  String get hama => 'حماة';
+
+  @override
+  String get lattakia => 'اللاذقية';
+
+  @override
+  String get tartous => 'طرطوس';
+
+  @override
+  String get idlib => 'إدلب';
+
+  @override
+  String get daraa => 'درعا';
+
+  @override
+  String get suwayda => 'السويداء';
+
+  @override
+  String get deirEzzor => 'دير الزور';
+
+  @override
+  String get raqqa => 'الرقة';
+
+  @override
+  String get hasakah => 'الحسكة';
+
+  @override
+  String get quneitra => 'القنيطرة';
+
+  @override
+  String get registrationNumber => 'رقم التسجيل';
+
+  @override
+  String get joinedAt => 'تاريخ الانضمام';
+
+  @override
+  String get schoolDetailsDescription => 'تفاصيل المدرسة';
+
+  @override
+  String get manager => 'المدير';
+
+  @override
+  String get info => 'معلومات';
+
+  @override
+  String get confirm => 'تأكيد';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get ok => 'حسناً';
+
+  @override
+  String get confirmAction => 'هل أنت متأكد أنك تريد المتابعة؟';
+
+  @override
+  String get errorOccurred => 'حدث خطأ ما. يرجى المحاولة مرة أخرى.';
 }

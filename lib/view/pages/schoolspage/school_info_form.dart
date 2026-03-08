@@ -1,25 +1,31 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
-import 'package:educational_complex_director_app/models/enums/gender.dart';
-import 'package:educational_complex_director_app/models/enums/marital_status.dart';
-import 'package:educational_complex_director_app/models/school_details.dart';
+import 'package:educational_complex_director_app/models/constants/countries.dart';
+import 'package:educational_complex_director_app/models/constants/gender.dart';
+import 'package:educational_complex_director_app/models/constants/marital_status.dart';
+import 'package:educational_complex_director_app/models/constants/school_types.dart';
+import 'package:educational_complex_director_app/models/constants/states.dart';
+import 'package:educational_complex_director_app/models/helpers/lookup_items.dart';
+import 'package:educational_complex_director_app/models/school/school_details.dart';
+import 'package:educational_complex_director_app/routes/routes.dart';
 
 import 'package:educational_complex_director_app/utils/s_config.dart';
+import 'package:educational_complex_director_app/view/components/confirmation_dialog.dart';
+import 'package:educational_complex_director_app/view/components/error_dialog.dart';
 import 'package:educational_complex_director_app/view/components/loading_dialog.dart';
+import 'package:educational_complex_director_app/view_model/bread_crumb_notifier.dart';
 
-import 'package:educational_complex_director_app/view_model/schools_page_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/state_manager.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SchoolInfoForm extends ConsumerStatefulWidget {
   final SchoolDetails? details;
-  final bool isEditing;
 
   const SchoolInfoForm({
     super.key,
     this.details,
-    this.isEditing = true,
   });
 
   @override
@@ -62,42 +68,40 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
   late TextEditingController middleName;
   late TextEditingController lastName;
   late TextEditingController managerPhone;
-  String? schoolStateId;
-  String? schoolCityId;
-  String? schoolTypeId;
 
-  String? managerCountryId;
-  String? managerStateId;
-  String? managerCityId;
+  String schoolStateId = "1";
+  String schoolCityId = "1";
+  String schoolTypeId = "1";
 
-  GenderEnum selectedGender = GenderEnum.male;
-  MaritalStatusEnum selectedMarital = MaritalStatusEnum.single;
+  String managerCountryId = "1";
+  String managerStateId = "1";
+  String managerCityId = "1";
+
+  int selectedGender = 1;
+  int selectedMarital = 1;
   DateTime? dateOfBirth;
   String gender = "Male";
   String maritalStatus = "Single";
 
   final emailRegex = RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$");
   final phoneRegex = RegExp(r"^[0-9]{7,15}$");
-
+  late final bool isAdding;
+  bool isEditing = true;
   @override
   void initState() {
     super.initState();
-
     final d = widget.details;
-
+    isAdding = d == null;
+    isEditing = isAdding ? true : false;
     name = TextEditingController(text: d?.school.name ?? "");
     schoolEmail = TextEditingController(text: d?.school.email ?? "");
     phone = TextEditingController(text: d?.school.phone ?? "");
     address = TextEditingController(text: d?.school.address ?? "");
     emis = TextEditingController(text: d?.school.emisNumber ?? "");
 
-    schoolStateId = d?.school.stateId ?? "1";
-    schoolCityId = d?.school.cityId ?? "1";
-    schoolTypeId = d?.school.schoolTypeId ?? "1";
-
-    managerEmail = TextEditingController(text: d?.manager.managerEmail ?? "");
+    managerEmail = TextEditingController(text: d?.manager.email ?? "");
     username = TextEditingController(text: d?.manager.userName ?? "");
-    password = TextEditingController(text: d?.manager.password ?? "");
+    password = TextEditingController(text: "");
 
     nationalId = TextEditingController(text: d?.manager.nationalId ?? "");
 
@@ -106,40 +110,34 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
     lastName = TextEditingController(text: d?.manager.lastName ?? "");
 
     managerPhone = TextEditingController(
-      text: d?.manager.managerMobileNumber ?? "",
+      text: d?.manager.mobileNumber ?? "",
     );
+    if (!isAdding) {
+      selectedGender = GenderEnum.values
+          .firstWhere(
+            (element) => element.name == d?.manager.gender,
+          )
+          .index;
+      selectedMarital = MaritalStatusEnum.values
+          .firstWhere(
+            (element) => element.name == d?.manager.maritalStatus,
+          )
+          .index;
 
-    selectedGender = d?.manager.gender ?? GenderEnum.male;
-    selectedMarital = d?.manager.maritalStatus ?? MaritalStatusEnum.single;
+      schoolStateId = syrianStatesMap[d!.school.stateName]!;
+      schoolCityId = syrianStatesMap[d.school.cityName]!;
+      schoolTypeId = schoolTypesMap[d.school.schoolTypeName]!;
 
-    managerCountryId = d?.manager.managerCountryId ?? "1";
-    managerStateId = d?.manager.managerStateId ?? "1";
-    managerCityId = d?.manager.managerCityId ?? "1";
+      managerCountryId = countriesMap[d.manager.countryName]!;
+      managerStateId = syrianStatesMap[d.manager.stateName]!;
+      managerCityId = syrianStatesMap[d.manager.cityName]!;
+    }
 
     dateOfBirth = d?.manager.dateOfBirth;
   }
 
-  Widget _dropdown<T>({
-    required String label,
-    required T value,
-    required List<DropdownMenuItem<T>> items,
-    required Function(T?) onChanged,
-    bool enabled = true,
-  }) {
-    return SizedBox(
-      width: _fieldWidth(),
-      child: DropdownButtonFormField<T>(
-        initialValue: value,
-        items: items,
-        onChanged: enabled ? onChanged : null,
-        decoration: InputDecoration(labelText: label),
-      ),
-    );
-  }
-
   Widget _topBar(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final navVm = ref.read(schoolsPageNavigationProvider.notifier);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -150,12 +148,14 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
           iconSize: 40,
           padding: EdgeInsets.zero,
           onPressed: () {
-            navVm.goBackToList();
+            ref.read(schoolsBreadcrumbProvider.notifier).pop();
+
+            Get.back(id: Sroutes.schoolsNavigationId);
           },
         ),
 
         /// Edit
-        if (!widget.isEditing && widget.details != null)
+        if (!isEditing && widget.details != null)
           ElevatedButton.icon(
             style: ElevatedButton.styleFrom(
               backgroundColor: SConfig.accentColor,
@@ -164,7 +164,12 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                 borderRadius: BorderRadius.circular(14),
               ),
             ),
-            onPressed: navVm.enableEdit,
+            onPressed: () {
+              setState(() {
+                isEditing = true;
+              });
+            },
+            iconAlignment: IconAlignment.end,
             icon: const Icon(
               Icons.edit,
               color: Colors.white,
@@ -184,8 +189,9 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
     return SizedBox(
       width: _fieldWidth(),
       child: TextFormField(
-        enabled: widget.isEditing,
+        enabled: isEditing,
         readOnly: true,
+        style: const TextStyle(fontWeight: FontWeight.bold),
         controller: TextEditingController(
           text: dateOfBirth == null
               ? ""
@@ -198,7 +204,7 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
             color: SConfig.secondaryBackground,
           ),
         ),
-        onTap: widget.isEditing
+        onTap: isEditing
             ? () async {
                 final picked = await showDatePicker(
                   context: context,
@@ -220,8 +226,61 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
 
   double _fieldWidth() {
     if (SConfig.isMobile()) return double.infinity;
-    if (SConfig.isTablet()) return 350;
-    return 420;
+
+    if (SConfig.isTablet()) return 300;
+
+    return 340;
+  }
+
+  Widget buildDropdown({
+    required String label,
+    required List<LookupItem> items,
+    required String value,
+    required Function(String?) onChanged,
+  }) {
+    return SizedBox(
+      width: _fieldWidth(),
+      child: DropdownButtonFormField<String>(
+        initialValue: value,
+        menuMaxHeight: 300,
+        isExpanded: true,
+
+        decoration: InputDecoration(
+          labelText: label,
+        ),
+        items: [
+          ...items.map(
+            (e) => DropdownMenuItem(
+              value: e.id,
+              child: Text(e.value),
+            ),
+          ),
+        ],
+        onChanged: isEditing ? onChanged : null,
+      ),
+    );
+  }
+
+  Widget buildDropdownEnums({
+    required String label,
+    required List<DropdownMenuItem<int>> items,
+    required int value,
+    required Function(int?) onChanged,
+  }) {
+    return SizedBox(
+      width: _fieldWidth(),
+      child: DropdownButtonFormField<int>(
+        initialValue: value,
+        menuMaxHeight: 300,
+        isExpanded: true,
+
+        decoration: InputDecoration(
+          labelText: label,
+        ),
+        items: items,
+        onChanged: isEditing ? onChanged : null,
+      ),
+    );
   }
 
   @override
@@ -231,328 +290,392 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
     final loc = AppLocalizations.of(context)!;
 
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(32),
-      child: Card(
-        margin: EdgeInsets.zero,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(26, 8, 26, 26),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                /// 🔙 Top Bar
-                _topBar(context),
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 32),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 900),
+        child: Card(
+          margin: EdgeInsets.zero,
+          child: Padding(
+            padding: const EdgeInsets.all(28),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// 🔙 Top Bar
+                  _topBar(context),
 
-                SConfig.spaceBig,
+                  SConfig.spaceBig,
 
-                /// =========================
-                /// 🏫 SCHOOL SECTION
-                /// =========================
-                _sectionTitle(context, loc.schoolInformation),
+                  /// =========================
+                  /// 🏫 SCHOOL SECTION
+                  /// =========================
+                  _sectionTitle(context, loc.schoolInformation),
 
-                /// School Name
-                Wrap(
-                  spacing: 20,
-                  runSpacing: 20,
-                  children: [
-                    _textField(
-                      context,
-                      name,
-                      loc.schoolName,
-                      enabled: widget.isEditing,
-                    ),
-                    _textField(
-                      context,
-                      emis,
-                      loc.emisNumber,
-                      enabled: widget.isEditing,
-                    ),
-                    _dropdown<String>(
-                      label: loc.schoolType,
-                      value: schoolTypeId!,
-                      enabled: widget.isEditing,
-                      onChanged: (v) => setState(() => schoolTypeId = v),
-                      items: const [
-                        DropdownMenuItem(value: "1", child: Text("Public")),
-                        DropdownMenuItem(value: "2", child: Text("Private")),
-                      ],
-                    ),
-                  ],
-                ),
-
-                SConfig.spaceBig,
-
-                /// Contact
-                Wrap(
-                  spacing: 20,
-                  runSpacing: 20,
-                  children: [
-                    _textField(
-                      context,
-                      schoolEmail,
-                      loc.schoolEmail,
-                      keyboard: TextInputType.emailAddress,
-                      validator: (v) =>
-                          emailRegex.hasMatch(v!) ? null : loc.invalidEmail,
-                      enabled: widget.isEditing,
-                    ),
-                    _textField(
-                      context,
-                      phone,
-                      loc.phone,
-                      keyboard: TextInputType.phone,
-                      validator: (v) =>
-                          phoneRegex.hasMatch(v!) ? null : loc.invalidPhone,
-                      enabled: widget.isEditing,
-                    ),
-                  ],
-                ),
-
-                SConfig.spaceBig,
-
-                /// Address
-
-                /// EMIS + Location
-                Wrap(
-                  spacing: 20,
-                  runSpacing: 20,
-                  children: [
-                    _textField(
-                      context,
-                      address,
-                      loc.address,
-                      enabled: widget.isEditing,
-                    ),
-                    _dropdown<String>(
-                      label: loc.stateId,
-                      value: schoolStateId!,
-                      enabled: widget.isEditing,
-                      onChanged: (v) => setState(() => schoolStateId = v),
-                      items: const [
-                        DropdownMenuItem(value: "1", child: Text("State 1")),
-                        DropdownMenuItem(value: "2", child: Text("State 2")),
-                      ],
-                    ),
-
-                    _dropdown<String>(
-                      label: loc.cityId,
-                      value: schoolCityId!,
-                      enabled: widget.isEditing,
-                      onChanged: (v) => setState(() => schoolCityId = v),
-                      items: const [
-                        DropdownMenuItem(value: "1", child: Text("City 1")),
-                        DropdownMenuItem(value: "2", child: Text("City 2")),
-                      ],
-                    ),
-                  ],
-                ),
-
-                SConfig.spaceBig,
-
-                /// =========================
-                /// 👤 MANAGER SECTION
-                /// =========================
-                _sectionTitle(context, loc.managerInformation),
-
-                /// Account Info
-                Wrap(
-                  spacing: 20,
-                  runSpacing: 20,
-                  children: [
-                    _textField(
-                      context,
-                      managerEmail,
-                      loc.managerEmail,
-                      enabled: widget.isEditing,
-                    ),
-                    _textField(
-                      context,
-                      username,
-                      loc.username,
-                      enabled: widget.isEditing,
-                    ),
-                    _textField(
-                      context,
-                      password,
-                      loc.password,
-                      enabled: widget.isEditing,
-                    ),
-                    _textField(
-                      context,
-                      managerPhone,
-                      loc.managerPhone,
-                      keyboard: TextInputType.phone,
-                      enabled: widget.isEditing,
-                    ),
-                  ],
-                ),
-
-                SConfig.spaceBig,
-
-                /// Manager Name
-                Wrap(
-                  spacing: 20,
-                  runSpacing: 20,
-                  children: [
-                    _textField(
-                      context,
-                      firstName,
-                      loc.firstName,
-                      enabled: widget.isEditing,
-                    ),
-                    _textField(
-                      context,
-                      middleName,
-                      loc.middleName,
-                      enabled: widget.isEditing,
-                    ),
-                    _textField(
-                      context,
-                      lastName,
-                      loc.lastName,
-                      enabled: widget.isEditing,
-                    ),
-                    _textField(
-                      context,
-                      nationalId,
-                      loc.nationalId,
-                      keyboard: TextInputType.number,
-                      enabled: widget.isEditing,
-                    ),
-                  ],
-                ),
-
-                SConfig.spaceBig,
-
-                /// Identity
-
-                /// Personal Info
-                Wrap(
-                  spacing: 20,
-                  runSpacing: 20,
-                  children: [
-                    _dropdown<GenderEnum>(
-                      label: loc.gender,
-                      value: selectedGender,
-                      enabled: widget.isEditing,
-                      onChanged: (v) => setState(() => selectedGender = v!),
-                      items: GenderEnum.values
-                          .map(
-                            (g) => DropdownMenuItem(
-                              value: g,
-                              child: Text(g.loc(loc)),
-                            ),
-                          )
-                          .toList(),
-                    ),
-
-                    _dropdown<MaritalStatusEnum>(
-                      label: loc.maritalStatus,
-                      value: selectedMarital,
-                      enabled: widget.isEditing,
-                      onChanged: (v) => setState(() => selectedMarital = v!),
-                      items: MaritalStatusEnum.values
-                          .map(
-                            (m) => DropdownMenuItem(
-                              value: m,
-                              child: Text(m.loc(loc)),
-                            ),
-                          )
-                          .toList(),
-                    ),
-
-                    _dateField(context),
-                  ],
-                ),
-
-                SConfig.spaceBig,
-
-                /// Manager Location
-                Wrap(
-                  spacing: 20,
-                  runSpacing: 20,
-                  children: [
-                    _dropdown<String>(
-                      label: loc.country,
-                      value: managerCountryId!,
-                      enabled: widget.isEditing,
-                      onChanged: (v) => setState(() => managerCountryId = v),
-                      items: const [
-                        DropdownMenuItem(value: "1", child: Text("Syria")),
-                        DropdownMenuItem(value: "2", child: Text("Jordan")),
-                      ],
-                    ),
-
-                    _dropdown<String>(
-                      label: loc.stateId,
-                      value: managerStateId!,
-                      enabled: widget.isEditing,
-                      onChanged: (v) => setState(() => managerStateId = v),
-                      items: const [
-                        DropdownMenuItem(value: "1", child: Text("Damascus")),
-                        DropdownMenuItem(value: "2", child: Text("Homs")),
-                      ],
-                    ),
-
-                    _dropdown<String>(
-                      label: loc.cityId,
-                      value: managerCityId!,
-                      enabled: widget.isEditing,
-                      onChanged: (v) => setState(() => managerCityId = v),
-                      items: const [
-                        DropdownMenuItem(value: "1", child: Text("City 1")),
-                        DropdownMenuItem(value: "2", child: Text("City 2")),
-                      ],
-                    ),
-                  ],
-                ),
-
-                SConfig.spaceBig,
-
-                /// =========================
-                /// SAVE BUTTON
-                /// =========================
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Wrap(
-                    spacing: 16,
+                  /// School Name
+                  Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      if (widget.isEditing)
-                        ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: SConfig.successColor,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 32,
-                              vertical: 16,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                          ),
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              await Get.showOverlay(
-                                asyncFunction: () async => await Future.delayed(
-                                  const Duration(seconds: 4),
-                                ),
-                                loadingWidget: const LoadingDialog(
-                                  extraMessage:
-                                      "Please wait while we save the form.",
-                                ),
-                              );
-                              ref
-                                  .read(schoolsPageNavigationProvider.notifier)
-                                  .goBackToList();
-                            }
-                          },
-                          icon: const Icon(Icons.save),
-                          label: Text(loc.save),
-                        ),
+                      _textField(
+                        context,
+                        name,
+                        loc.schoolName,
+                        enabled: isEditing,
+                      ),
+                      _textField(
+                        context,
+                        emis,
+                        loc.emisNumber,
+                        enabled: isEditing,
+                        hint: "EMIS-2024-001",
+                      ),
+                      buildDropdown(
+                        label: loc.schoolType,
+                        value: schoolTypeId,
+
+                        onChanged: (v) => setState(() => schoolTypeId = v!),
+                        items: getSchoolTypes(loc),
+                      ),
                     ],
                   ),
-                ),
-              ],
+
+                  SConfig.spaceBig,
+
+                  /// Contact
+                  Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      _textField(
+                        context,
+                        schoolEmail,
+                        loc.schoolEmail,
+                        hint: "suhaib@example.com",
+                        keyboard: TextInputType.emailAddress,
+                        validator: (v) =>
+                            emailRegex.hasMatch(v!) ? null : loc.invalidEmail,
+                        enabled: isEditing,
+                      ),
+                      _textField(
+                        context,
+                        phone,
+                        loc.phone,
+                        keyboard: TextInputType.phone,
+                        validator: (v) =>
+                            phoneRegex.hasMatch(v!) ? null : loc.invalidPhone,
+                        enabled: isEditing,
+                        hint: "09498561",
+                      ),
+                    ],
+                  ),
+
+                  SConfig.spaceBig,
+
+                  /// Address
+
+                  // Location
+                  Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      _textField(
+                        context,
+                        address,
+                        loc.address,
+                        enabled: isEditing,
+                      ),
+                      buildDropdown(
+                        label: loc.stateId,
+                        value: schoolStateId,
+
+                        onChanged: (v) => setState(() => schoolStateId = v!),
+                        items: getSyrianStates(loc),
+                      ),
+
+                      buildDropdown(
+                        label: loc.cityId,
+                        value: schoolCityId,
+
+                        onChanged: (v) => setState(() => schoolCityId = v!),
+                        items: getSyrianStates(loc),
+                      ),
+                    ],
+                  ),
+
+                  SConfig.spaceBig,
+
+                  /// =========================
+                  /// 👤 MANAGER SECTION
+                  /// =========================
+                  _sectionTitle(context, loc.managerInformation),
+
+                  /// Account Info
+                  Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      _textField(
+                        context,
+                        managerEmail,
+                        loc.managerEmail,
+                        enabled: isEditing,
+                        hint: "suhaib@example.com",
+                      ),
+                      _textField(
+                        context,
+                        username,
+                        loc.username,
+                        enabled: isEditing,
+                      ),
+
+                      if (isAdding)
+                        _textField(
+                          context,
+                          password,
+                          loc.password,
+                          enabled: isEditing,
+                        ),
+                      _textField(
+                        context,
+                        managerPhone,
+                        loc.managerPhone,
+                        keyboard: TextInputType.phone,
+                        enabled: isEditing,
+                        hint: "09498561",
+                      ),
+                    ],
+                  ),
+
+                  SConfig.spaceBig,
+
+                  /// Manager Name
+                  Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      _textField(
+                        context,
+                        firstName,
+                        loc.firstName,
+                        enabled: isEditing,
+                      ),
+                      _textField(
+                        context,
+                        middleName,
+                        loc.middleName,
+                        enabled: isEditing,
+                      ),
+                      _textField(
+                        context,
+                        lastName,
+                        loc.lastName,
+                        enabled: isEditing,
+                      ),
+                      _textField(
+                        context,
+                        nationalId,
+                        loc.nationalId,
+                        keyboard: TextInputType.number,
+                        enabled: isEditing,
+                        hint: "***03180036",
+                      ),
+                    ],
+                  ),
+
+                  SConfig.spaceBig,
+
+                  /// Identity
+
+                  /// Personal Info
+                  Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      buildDropdownEnums(
+                        label: loc.gender,
+                        value: selectedGender,
+
+                        onChanged: (v) => setState(() => selectedGender = v!),
+                        items: GenderEnum.values
+                            .map(
+                              (g) => DropdownMenuItem(
+                                enabled: isEditing,
+                                value: g.index,
+                                child: Text(g.loc(loc)),
+                              ),
+                            )
+                            .toList(),
+                      ),
+
+                      buildDropdownEnums(
+                        label: loc.maritalStatus,
+                        value: selectedMarital,
+
+                        onChanged: (v) => setState(() => selectedMarital = v!),
+                        items: MaritalStatusEnum.values
+                            .map(
+                              (g) => DropdownMenuItem(
+                                value: g.index,
+                                enabled: isEditing,
+
+                                child: Text(g.loc(loc)),
+                              ),
+                            )
+                            .toList(),
+                      ),
+
+                      _dateField(context),
+                    ],
+                  ),
+
+                  SConfig.spaceBig,
+
+                  /// Manager Location
+                  Wrap(
+                    spacing: 20,
+                    runSpacing: 20,
+                    alignment: WrapAlignment.start,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      buildDropdown(
+                        label: loc.country,
+                        value: managerCountryId,
+
+                        onChanged: (v) => setState(() => managerCountryId = v!),
+                        items: getCountries(loc),
+                      ),
+
+                      buildDropdown(
+                        label: loc.stateId,
+                        value: managerStateId,
+
+                        onChanged: (v) => setState(() => managerStateId = v!),
+                        items: getSyrianStates(loc),
+                      ),
+
+                      buildDropdown(
+                        label: loc.cityId,
+                        value: managerCityId,
+
+                        onChanged: (v) => setState(() => managerCityId = v!),
+                        items: getSyrianStates(loc),
+                      ),
+                    ],
+                  ),
+
+                  SConfig.spaceBig,
+
+                  /// =========================
+                  /// SAVE BUTTON
+                  /// =========================
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Wrap(
+                      spacing: 16,
+                      alignment: WrapAlignment.start,
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        if (isEditing)
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: SConfig.successColor,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 16,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            iconAlignment: IconAlignment.end,
+                            icon: const Icon(
+                              Icons.save,
+                              // color: Colors.white,
+                            ),
+                            label: Text(
+                              loc.save,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                            onPressed: () async {
+                              ///TODO apply logic api either addinf or updating:
+                              ///adding: return {
+                              //   "email": email,
+                              //   "username": username,
+                              //   "password": password,
+                              //   "nationalId": NAT-nationalId,
+                              //   "firstName": firstName,
+                              //   "middleName": middleName,
+                              //   "lastName": lastName,
+                              //   "phone": phone,
+                              //   "gender": gender,
+                              //   "maritalStatus": maritalStatus,
+                              //   "dateOfBirth": dateOfBirth.toIso8601String(),
+                              //   "countryId": countryId,
+                              //   "stateId": stateId,
+                              //   "cityId": cityId,
+                              // };
+                              // if (_formKey.currentState!.validate()) {
+                              final bool? continuee = await Get.dialog<bool>(
+                                ConfirmationDialog(
+                                  message: loc.confirmAction,
+                                  onConfirm: () {
+                                    Get.back<bool>(result: true);
+                                  },
+                                ),
+                                barrierDismissible: false,
+                              );
+
+                              if (continuee != null && continuee) {
+                                await Get.showOverlay(
+                                  asyncFunction: () async =>
+                                      await Future.delayed(
+                                        const Duration(seconds: 4),
+                                      ),
+                                  loadingWidget: LoadingDialog(
+                                    extraMessage: loc.savingForm,
+                                    loading:
+                                        LoadingAnimationWidget.discreteCircle(
+                                          color: SConfig.secondaryBackground,
+                                          secondRingColor: SConfig.accentColor,
+                                          thirdRingColor: SConfig.primaryColor,
+                                          size: 90,
+                                        ),
+                                  ),
+                                );
+                                ref
+                                    .read(schoolsBreadcrumbProvider.notifier)
+                                    .pop();
+                                Get.back(id: Sroutes.schoolsNavigationId);
+                              } else {
+                                await Get.dialog<bool>(
+                                  ErrorDialog(
+                                    message: loc.errorOccurred,
+                                  ),
+                                  barrierDismissible: false,
+                                );
+                              }
+
+                              // }
+                            },
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -572,8 +695,9 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
         ),
         SConfig.spaceMedium,
 
-        const Divider(
-          color: SConfig.primaryColor,
+        Divider(
+          color: SConfig.primaryColor.withAlpha(120),
+          thickness: 1.2,
         ),
         SConfig.spaceMedium,
       ],
@@ -585,8 +709,8 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
     TextEditingController controller,
     String label, {
     bool enabled = true,
-
     TextInputType? keyboard,
+    String? hint,
     String? Function(String?)? validator,
   }) {
     return SizedBox(
@@ -599,6 +723,7 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
         keyboardType: keyboard,
         validator: validator ?? (v) => v!.isEmpty ? "Required" : null,
         decoration: InputDecoration(
+          hintText: hint,
           labelText: label,
         ),
       ),

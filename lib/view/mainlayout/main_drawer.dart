@@ -18,14 +18,11 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SConfig.init(context);
-    
 
     return Drawer(
       elevation: 0,
       backgroundColor: Colors.transparent,
-      shape: SConfig.isDesktop()
-          ? const BeveledRectangleBorder()
-          : null,
+      shape: SConfig.isDesktop() ? const BeveledRectangleBorder() : null,
       child: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -49,8 +46,7 @@ class MainDrawer extends StatelessWidget {
 
               // Soft separator
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Divider(
                   color: Colors.white.withAlpha(51),
                   thickness: 1,
@@ -60,16 +56,35 @@ class MainDrawer extends StatelessWidget {
               const SizedBox(height: 10),
 
               // NAVIGATION
-              _buildItem(context, Icons.home, AppLocalizations.of(context)!.home, 0),
-              _buildItem(context, Icons.school_rounded, AppLocalizations.of(context)!.schools, 1),
-              _buildItem(context, Icons.app_registration_rounded, AppLocalizations.of(context)!.applications, 2),
-              _buildItem(context, Icons.settings_rounded, AppLocalizations.of(context)!.settings, 3),
+              _buildItem(
+                context,
+                Icons.home,
+                AppLocalizations.of(context)!.home,
+                0,
+              ),
+              _buildItem(
+                context,
+                Icons.school_rounded,
+                AppLocalizations.of(context)!.schools,
+                1,
+              ),
+              _buildItem(
+                context,
+                Icons.app_registration_rounded,
+                AppLocalizations.of(context)!.teachers,
+                2,
+              ),
+              _buildItem(
+                context,
+                Icons.settings_rounded,
+                AppLocalizations.of(context)!.settings,
+                3,
+              ),
 
               const Spacer(),
 
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 24),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Divider(
                   color: Colors.white.withAlpha(51),
                   thickness: 1,
@@ -138,18 +153,13 @@ class MainDrawer extends StatelessWidget {
       child: ListTile(
         leading: Icon(
           icon,
-          color: isSelected
-              ? SConfig.highlightColor
-              : Colors.white,
+          color: isSelected ? SConfig.highlightColor : Colors.white,
         ),
         title: Text(
           title,
           style: theme.textTheme.bodyLarge!.copyWith(
-            color: isSelected
-                ? SConfig.highlightColor
-                : Colors.white,
-            fontWeight:
-                isSelected ? FontWeight.bold : FontWeight.w500,
+            color: isSelected ? SConfig.highlightColor : Colors.white,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
           ),
         ),
       ),
@@ -169,12 +179,10 @@ class MainDrawer extends StatelessWidget {
         await Get.offAllNamed(Sroutes.auth);
       },
       child: ListTile(
-        leading: const Icon(Icons.logout_rounded,
-            color: Colors.white),
+        leading: const Icon(Icons.logout_rounded, color: Colors.white),
         title: Text(
           AppLocalizations.of(context)!.logout,
-          style: theme.textTheme.bodyLarge!
-              .copyWith(color: Colors.white),
+          style: theme.textTheme.bodyLarge!.copyWith(color: Colors.white),
         ),
       ),
     );
@@ -204,16 +212,15 @@ class _HoverTileState extends State<_HoverTile> {
     final backgroundColor = widget.isSelected
         ? Colors.white.withAlpha(38)
         : isHovering
-            ? SConfig.highlightColor.withAlpha(40)
-            : Colors.transparent;
+        ? SConfig.highlightColor.withAlpha(40)
+        : Colors.transparent;
 
     return MouseRegion(
       onEnter: (_) => setState(() => isHovering = true),
       onExit: (_) => setState(() => isHovering = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        margin:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(14),

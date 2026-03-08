@@ -191,11 +191,23 @@ abstract class AppLocalizations {
   /// **'Schools'**
   String get schools;
 
-  /// No description provided for @applications.
+  /// No description provided for @teachers.
   ///
   /// In en, this message translates to:
-  /// **'Applications'**
-  String get applications;
+  /// **'Teachers'**
+  String get teachers;
+
+  /// No description provided for @addTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Teacher'**
+  String get addTeacher;
+
+  /// No description provided for @teacherDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher Details'**
+  String get teacherDetails;
 
   /// No description provided for @settings.
   ///
@@ -212,8 +224,14 @@ abstract class AppLocalizations {
   /// No description provided for @checkingCredentials.
   ///
   /// In en, this message translates to:
-  /// **'Please wait while we check your credentials.'**
+  /// **'Please wait while we verify your credentials.'**
   String get checkingCredentials;
+
+  /// No description provided for @savingForm.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait while we save your changes.'**
+  String get savingForm;
 
   /// No description provided for @markAllAsRead.
   ///
@@ -292,18 +310,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All'**
   String get all;
-
-  /// No description provided for @privateSchool.
-  ///
-  /// In en, this message translates to:
-  /// **'Private'**
-  String get privateSchool;
-
-  /// No description provided for @publicSchool.
-  ///
-  /// In en, this message translates to:
-  /// **'Public'**
-  String get publicSchool;
 
   /// No description provided for @searchSchool.
   ///
@@ -460,6 +466,228 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Country'**
   String get country;
+
+  /// No description provided for @primary.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary'**
+  String get primary;
+
+  /// No description provided for @middle.
+  ///
+  /// In en, this message translates to:
+  /// **'Middle'**
+  String get middle;
+
+  /// No description provided for @secondary.
+  ///
+  /// In en, this message translates to:
+  /// **'Secondary'**
+  String get secondary;
+
+  /// No description provided for @syria.
+  ///
+  /// In en, this message translates to:
+  /// **'Syria'**
+  String get syria;
+
+  /// No description provided for @saudiArabia.
+  ///
+  /// In en, this message translates to:
+  /// **'Saudi Arabia'**
+  String get saudiArabia;
+
+  /// No description provided for @jordan.
+  ///
+  /// In en, this message translates to:
+  /// **'Jordan'**
+  String get jordan;
+
+  /// No description provided for @lebanon.
+  ///
+  /// In en, this message translates to:
+  /// **'Lebanon'**
+  String get lebanon;
+
+  /// No description provided for @iraq.
+  ///
+  /// In en, this message translates to:
+  /// **'Iraq'**
+  String get iraq;
+
+  /// No description provided for @qatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Qatar'**
+  String get qatar;
+
+  /// No description provided for @uae.
+  ///
+  /// In en, this message translates to:
+  /// **'United Arab Emirates'**
+  String get uae;
+
+  /// No description provided for @kuwait.
+  ///
+  /// In en, this message translates to:
+  /// **'Kuwait'**
+  String get kuwait;
+
+  /// No description provided for @oman.
+  ///
+  /// In en, this message translates to:
+  /// **'Oman'**
+  String get oman;
+
+  /// No description provided for @bahrain.
+  ///
+  /// In en, this message translates to:
+  /// **'Bahrain'**
+  String get bahrain;
+
+  /// No description provided for @damascus.
+  ///
+  /// In en, this message translates to:
+  /// **'Damascus'**
+  String get damascus;
+
+  /// No description provided for @ruralDamascus.
+  ///
+  /// In en, this message translates to:
+  /// **'Rural Damascus'**
+  String get ruralDamascus;
+
+  /// No description provided for @aleppo.
+  ///
+  /// In en, this message translates to:
+  /// **'Aleppo'**
+  String get aleppo;
+
+  /// No description provided for @homs.
+  ///
+  /// In en, this message translates to:
+  /// **'Homs'**
+  String get homs;
+
+  /// No description provided for @hama.
+  ///
+  /// In en, this message translates to:
+  /// **'Hama'**
+  String get hama;
+
+  /// No description provided for @lattakia.
+  ///
+  /// In en, this message translates to:
+  /// **'Latakia'**
+  String get lattakia;
+
+  /// No description provided for @tartous.
+  ///
+  /// In en, this message translates to:
+  /// **'Tartous'**
+  String get tartous;
+
+  /// No description provided for @idlib.
+  ///
+  /// In en, this message translates to:
+  /// **'Idlib'**
+  String get idlib;
+
+  /// No description provided for @daraa.
+  ///
+  /// In en, this message translates to:
+  /// **'Daraa'**
+  String get daraa;
+
+  /// No description provided for @suwayda.
+  ///
+  /// In en, this message translates to:
+  /// **'Suwayda'**
+  String get suwayda;
+
+  /// No description provided for @deirEzzor.
+  ///
+  /// In en, this message translates to:
+  /// **'Deir ez-Zor'**
+  String get deirEzzor;
+
+  /// No description provided for @raqqa.
+  ///
+  /// In en, this message translates to:
+  /// **'Raqqa'**
+  String get raqqa;
+
+  /// No description provided for @hasakah.
+  ///
+  /// In en, this message translates to:
+  /// **'Hasakah'**
+  String get hasakah;
+
+  /// No description provided for @quneitra.
+  ///
+  /// In en, this message translates to:
+  /// **'Quneitra'**
+  String get quneitra;
+
+  /// No description provided for @registrationNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Registration Number'**
+  String get registrationNumber;
+
+  /// No description provided for @joinedAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Joined At'**
+  String get joinedAt;
+
+  /// No description provided for @schoolDetailsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'School Details'**
+  String get schoolDetailsDescription;
+
+  /// No description provided for @manager.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager'**
+  String get manager;
+
+  /// No description provided for @info.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get info;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @confirmAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to continue?'**
+  String get confirmAction;
+
+  /// No description provided for @errorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get errorOccurred;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

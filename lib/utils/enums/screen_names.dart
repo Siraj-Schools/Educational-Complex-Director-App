@@ -1,8 +1,10 @@
 enum ScreenNames {
   home,
   schools,
-  applications,
   settings,
   addSchool,
   schoolDetails,
+  teachers,
+  addTeacher,
+  teacherDetails,
 }

@@ -1,14 +1,17 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
-import 'package:educational_complex_director_app/models/school.dart';
-import 'package:educational_complex_director_app/utils/enums/screen_names.dart';
+import 'package:educational_complex_director_app/models/constants/school_types.dart';
+import 'package:educational_complex_director_app/models/constants/states.dart';
+import 'package:educational_complex_director_app/models/helpers/lookup_items.dart';
+import 'package:educational_complex_director_app/models/school/school.dart';
+import 'package:educational_complex_director_app/routes/routes.dart';
 
 import 'package:educational_complex_director_app/utils/s_config.dart';
-import 'package:educational_complex_director_app/view/mainlayout/main_layout.dart';
 
 import 'package:educational_complex_director_app/view/pages/schoolspage/school_card.dart';
-import 'package:educational_complex_director_app/view_model/schools_page_navigation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/route_manager.dart';
 
 class SchoolListPage extends ConsumerStatefulWidget {
   const SchoolListPage({super.key});
@@ -19,44 +22,172 @@ class SchoolListPage extends ConsumerStatefulWidget {
 
 class _SchoolListPageState extends ConsumerState<SchoolListPage> {
   final TextEditingController searchController = TextEditingController();
-  String selectedType = "1";
-  String selectedtCity = "1";
-  String selectedState = "1";
+  String? selectedTypeId;
+  String? selectedtCityId;
+  String? selectedStateId;
+  Widget buildDropdown({
+    required String label,
+    required List<LookupItem> items,
+    required String? value,
+    required Function(String?) onChanged,
+    required AppLocalizations loc,
+  }) {
+    return DropdownButtonFormField<String?>(
+      initialValue: value,
+      menuMaxHeight: 300,
+      isExpanded: true,
+      decoration: InputDecoration(
+        labelText: label,
+      ),
+      items: [
+        DropdownMenuItem(
+          value: null,
+          child: Text(loc.all),
+        ),
+        ...items.map(
+          (e) => DropdownMenuItem(
+            value: e.id,
+            child: Text(e.value),
+          ),
+        ),
+      ],
+      onChanged: onChanged,
+    );
+  }
+
+  Widget filterField(Widget child) {
+    double width;
+
+    if (SConfig.isMobile()) {
+      width = SConfig.screenWidth! * 0.40;
+    } else if (SConfig.isTablet()) {
+      width = 200;
+    } else {
+      width = 220;
+    }
+
+    return SizedBox(
+      width: width,
+      child: child,
+    );
+  }
 
   final List<School> dummySchools = [
     School(
       id: '1',
-
+      schoolType: "",
+      schoolTypeDescription: "ssssssssssssssssss",
       name: "Future Academy",
       email: "info@future.com",
       phone: "123456789",
       address: "Oslo",
-      stateId: "1",
-      cityId: "1",
-      schoolTypeId: "1",
+      stateName: "Damascus",
+      cityName: "Damascus",
+      schoolTypeName: "1",
+      emisNumber: "EMIS00111111",
+    ),
+    School(
+      id: '2',
+      schoolType: "",
+      schoolTypeDescription: "",
+      name: "Future Academy",
+      email: "info@future.com",
+      phone: "123456789",
+      address: "Osloooooooooo",
+      stateName: "Damascus",
+      cityName: "Damascus",
+      schoolTypeName: "Primary",
       emisNumber: "EMIS001",
     ),
     School(
       id: '1',
+      schoolType: "",
+      schoolTypeDescription: "",
       name: "Future Academy",
       email: "info@future.com",
       phone: "123456789",
       address: "Oslo",
-      stateId: "1",
-      cityId: "1",
-      schoolTypeId: "1",
+      stateName: "1",
+      cityName: "1",
+      schoolTypeName: "1",
       emisNumber: "EMIS001",
     ),
     School(
       id: '1',
-
+      schoolType: "",
+      schoolTypeDescription: "ssssssssssssssssss",
       name: "Future Academy",
       email: "info@future.com",
       phone: "123456789",
       address: "Oslo",
-      stateId: "1",
-      cityId: "1",
-      schoolTypeId: "1",
+      stateName: "Damascus",
+      cityName: "Damascus",
+      schoolTypeName: "1",
+      emisNumber: "EMIS00111111",
+    ),
+    School(
+      id: '2',
+      schoolType: "",
+      schoolTypeDescription: "",
+      name: "Future Academy",
+      email: "info@future.com",
+      phone: "123456789",
+      address: "Osloooooooooo",
+      stateName: "Damascus",
+      cityName: "Damascus",
+      schoolTypeName: "Primary",
+      emisNumber: "EMIS001",
+    ),
+    School(
+      id: '1',
+      schoolType: "",
+      schoolTypeDescription: "",
+      name: "Future Academy",
+      email: "info@future.com",
+      phone: "123456789",
+      address: "Oslo",
+      stateName: "1",
+      cityName: "1",
+      schoolTypeName: "1",
+      emisNumber: "EMIS001",
+    ),
+    School(
+      id: '1',
+      schoolType: "",
+      schoolTypeDescription: "ssssssssssssssssss",
+      name: "Future Academy",
+      email: "info@future.com",
+      phone: "123456789",
+      address: "Oslo",
+      stateName: "Damascus",
+      cityName: "Damascus",
+      schoolTypeName: "1",
+      emisNumber: "EMIS00111111",
+    ),
+    School(
+      id: '2',
+      schoolType: "",
+      schoolTypeDescription: "",
+      name: "Future Academy",
+      email: "info@future.com",
+      phone: "123456789",
+      address: "Osloooooooooo",
+      stateName: "Damascus",
+      cityName: "Damascus",
+      schoolTypeName: "Primary",
+      emisNumber: "EMIS001",
+    ),
+    School(
+      id: '1',
+      schoolType: "",
+      schoolTypeDescription: "",
+      name: "Future Academy",
+      email: "info@future.com",
+      phone: "123456789",
+      address: "Oslo",
+      stateName: "1",
+      cityName: "1",
+      schoolTypeName: "1",
       emisNumber: "EMIS001",
     ),
   ];
@@ -66,8 +197,6 @@ class _SchoolListPageState extends ConsumerState<SchoolListPage> {
     final loc = AppLocalizations.of(context)!;
 
     SConfig.init(context);
-
-    final vm = ref.read(schoolsPageNavigationProvider.notifier);
 
     int crossAxisCount = 3;
 
@@ -85,11 +214,12 @@ class _SchoolListPageState extends ConsumerState<SchoolListPage> {
           Wrap(
             spacing: 16,
             runSpacing: 16,
+            alignment: WrapAlignment.start,
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              SizedBox(
-                width: 280,
-                child: TextField(
+              /// SEARCH
+              filterField(
+                TextField(
                   controller: searchController,
                   decoration: InputDecoration(
                     hintText: loc.searchSchool,
@@ -98,122 +228,71 @@ class _SchoolListPageState extends ConsumerState<SchoolListPage> {
                 ),
               ),
 
-              ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: SConfig.accentColor.withGreen(100),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 18,
-                    vertical: 14,
-                  ),
-                ),
-                onPressed: vm.goToAdd,
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-                iconAlignment: IconAlignment.end,
-                label: Text(
-                  loc.addSchool,
-                  style: Theme.of(context).textTheme.labelLarge,
-                ),
-              ),
-            ],
-          ),
-          SConfig.spaceMedium,
-
-          /// FILTER PANEL
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            crossAxisAlignment: WrapCrossAlignment.center,
-
-            children: [
-              /// SEARCH
-
-              /// TYPE FILTER
-              SizedBox(
-                width: 200,
-                child: DropdownButtonFormField<String>(
-                  initialValue: selectedType,
-
-                  decoration: InputDecoration(
-                    labelText: loc.schoolType,
-                  ),
-                  items: [
-                    DropdownMenuItem(
-                      value: "1",
-                      child: Text(loc.all),
-                    ),
-                    DropdownMenuItem(
-                      value: "2",
-                      child: Text(loc.privateSchool),
-                    ),
-                    DropdownMenuItem(
-                      value: "3",
-                      child: Text(loc.publicSchool),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() => selectedType = value!);
-                  },
-                ),
-              ),
-              SizedBox(
-                width: 200,
-                child: DropdownButtonFormField<String>(
-                  initialValue: selectedState,
-
-                  decoration: InputDecoration(
-                    labelText: loc.stateId,
-                  ),
-                  items: const [
-                    DropdownMenuItem(
-                      value: "1",
-                      child: Text("State3"),
-                    ),
-                    DropdownMenuItem(
-                      value: "2",
-                      child: Text("State2"),
-                    ),
-                    DropdownMenuItem(
-                      value: "3",
-                      child: Text("State1"),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() => selectedState = value!);
-                  },
-                ),
-              ),
-              SizedBox(
-                width: 200,
-                child: DropdownButtonFormField<String>(
-                  initialValue: selectedtCity,
-
-                  decoration: InputDecoration(
-                    labelText: loc.cityId,
-                  ),
-                  items: const [
-                    DropdownMenuItem(
-                      value: "1",
-                      child: Text("City1"),
-                    ),
-                    DropdownMenuItem(
-                      value: "2",
-                      child: Text("City1"),
-                    ),
-                    DropdownMenuItem(
-                      value: "3",
-                      child: Text("City3"),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() => selectedtCity = value!);
+              /// SCHOOL TYPE
+              filterField(
+                buildDropdown(
+                  label: loc.schoolType,
+                  value: selectedTypeId,
+                  items: getSchoolTypes(loc),
+                  loc: loc,
+                  onChanged: (v) {
+                    setState(() => selectedTypeId = v);
                   },
                 ),
               ),
 
-              /// ADD SCHOOL BUTTON
+              /// STATE
+              filterField(
+                buildDropdown(
+                  label: loc.stateId,
+                  value: selectedStateId,
+                  items: getSyrianStates(loc),
+                  loc: loc,
+                  onChanged: (v) {
+                    setState(() => selectedStateId = v);
+                  },
+                ),
+              ),
+
+              /// CITY
+              filterField(
+                buildDropdown(
+                  label: loc.cityId,
+                  value: selectedtCityId,
+                  items: getSyrianStates(loc),
+                  loc: loc,
+                  onChanged: (v) {
+                    setState(() => selectedtCityId = v);
+                  },
+                ),
+              ),
+
+              /// ADD BUTTON
+              SizedBox(
+                height: 50,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: SConfig.accentColor.withGreen(100),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 14,
+                    ),
+                  ),
+                  onPressed: () => Get.toNamed(
+                    Sroutes.addSchool,
+                    id: Sroutes.schoolsNavigationId,
+                  ),
+                  icon: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
+                  iconAlignment: IconAlignment.end,
+                  label: Text(
+                    loc.addSchool,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                ),
+              ),
             ],
           ),
 
@@ -237,14 +316,6 @@ class _SchoolListPageState extends ConsumerState<SchoolListPage> {
 
                 return SchoolCard(
                   school: school,
-                  onDetails: () {
-                    vm.goToDetails(school.id);
-
-                    // ref.read(breadCrumbProvider.notifier).state = [
-                    //   ScreenNames.schools,
-                    //   ScreenNames.schoolDetails,
-                    // ];
-                  },
                 );
               },
             ),

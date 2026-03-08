@@ -57,7 +57,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get schools => 'Schools';
 
   @override
-  String get applications => 'Applications';
+  String get teachers => 'Teachers';
+
+  @override
+  String get addTeacher => 'Add Teacher';
+
+  @override
+  String get teacherDetails => 'Teacher Details';
 
   @override
   String get settings => 'Settings';
@@ -66,7 +72,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loggingIn => 'Logging in ...';
 
   @override
-  String get checkingCredentials => 'Please wait while we check your credentials.';
+  String get checkingCredentials => 'Please wait while we verify your credentials.';
+
+  @override
+  String get savingForm => 'Please wait while we save your changes.';
 
   @override
   String get markAllAsRead => 'Mark All as Read';
@@ -106,12 +115,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get all => 'All';
-
-  @override
-  String get privateSchool => 'Private';
-
-  @override
-  String get publicSchool => 'Public';
 
   @override
   String get searchSchool => 'Search school...';
@@ -190,4 +193,115 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get country => 'Country';
+
+  @override
+  String get primary => 'Primary';
+
+  @override
+  String get middle => 'Middle';
+
+  @override
+  String get secondary => 'Secondary';
+
+  @override
+  String get syria => 'Syria';
+
+  @override
+  String get saudiArabia => 'Saudi Arabia';
+
+  @override
+  String get jordan => 'Jordan';
+
+  @override
+  String get lebanon => 'Lebanon';
+
+  @override
+  String get iraq => 'Iraq';
+
+  @override
+  String get qatar => 'Qatar';
+
+  @override
+  String get uae => 'United Arab Emirates';
+
+  @override
+  String get kuwait => 'Kuwait';
+
+  @override
+  String get oman => 'Oman';
+
+  @override
+  String get bahrain => 'Bahrain';
+
+  @override
+  String get damascus => 'Damascus';
+
+  @override
+  String get ruralDamascus => 'Rural Damascus';
+
+  @override
+  String get aleppo => 'Aleppo';
+
+  @override
+  String get homs => 'Homs';
+
+  @override
+  String get hama => 'Hama';
+
+  @override
+  String get lattakia => 'Latakia';
+
+  @override
+  String get tartous => 'Tartous';
+
+  @override
+  String get idlib => 'Idlib';
+
+  @override
+  String get daraa => 'Daraa';
+
+  @override
+  String get suwayda => 'Suwayda';
+
+  @override
+  String get deirEzzor => 'Deir ez-Zor';
+
+  @override
+  String get raqqa => 'Raqqa';
+
+  @override
+  String get hasakah => 'Hasakah';
+
+  @override
+  String get quneitra => 'Quneitra';
+
+  @override
+  String get registrationNumber => 'Registration Number';
+
+  @override
+  String get joinedAt => 'Joined At';
+
+  @override
+  String get schoolDetailsDescription => 'School Details';
+
+  @override
+  String get manager => 'Manager';
+
+  @override
+  String get info => 'Information';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get confirmAction => 'Are you sure you want to continue?';
+
+  @override
+  String get errorOccurred => 'Something went wrong. Please try again.';
 }

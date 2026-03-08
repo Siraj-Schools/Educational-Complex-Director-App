@@ -17,14 +17,19 @@ class SConfig {
         return loc.home;
       case ScreenNames.schools:
         return loc.schools;
-      case ScreenNames.applications:
-        return loc.applications;
       case ScreenNames.settings:
         return loc.settings;
       case ScreenNames.addSchool:
         return loc.addSchool;
       case ScreenNames.schoolDetails:
         return loc.schoolDetails;
+
+      case ScreenNames.teachers:
+        return loc.teachers;
+      case ScreenNames.teacherDetails:
+        return loc.teacherDetails;
+      case ScreenNames.addTeacher:
+        return loc.addTeacher;
     }
   }
 

@@ -1,0 +1,51 @@
+import 'package:educational_complex_director_app/utils/enums/screen_names.dart';
+import 'package:flutter_riverpod/legacy.dart';
+
+class BreadCrumbNotifier extends StateNotifier<List<ScreenNames>> {
+  BreadCrumbNotifier(ScreenNames root) : super([root]);
+
+  void push(ScreenNames screen) {
+    state = [...state, screen];
+  }
+
+  void pop() {
+    if (state.length > 1) {
+      state = state.sublist(0, state.length - 1);
+    }
+  }
+
+  void replace(ScreenNames screen) {
+    final list = [...state];
+    list[list.length - 1] = screen;
+    state = list;
+  }
+
+  void setPath(List<ScreenNames> screens) {
+    state = screens;
+  }
+
+  void reset(ScreenNames root) {
+    state = [root];
+  }
+}
+
+final homeBreadcrumbProvider =
+    StateNotifierProvider<BreadCrumbNotifier, List<ScreenNames>>(
+      (ref) => BreadCrumbNotifier(ScreenNames.home),
+    );
+
+final schoolsBreadcrumbProvider =
+    StateNotifierProvider<BreadCrumbNotifier, List<ScreenNames>>(
+      (ref) => BreadCrumbNotifier(ScreenNames.schools),
+    );
+
+final teachersBreadcrumbProvider =
+    StateNotifierProvider<BreadCrumbNotifier, List<ScreenNames>>(
+      (ref) => BreadCrumbNotifier(ScreenNames.teachers),
+    );
+
+final settingsBreadcrumbProvider =
+    StateNotifierProvider<BreadCrumbNotifier, List<ScreenNames>>(
+      (ref) => BreadCrumbNotifier(ScreenNames.settings),
+    );
+final activePageProvider = StateProvider<int>((ref) => 0);
