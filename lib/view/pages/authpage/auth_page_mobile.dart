@@ -12,8 +12,10 @@ class AuthPageMobile extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 0, 24, 12),
+          child: Container(
+            margin: const EdgeInsets.only(bottom: 12),
+            padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -21,7 +23,7 @@ class AuthPageMobile extends StatelessWidget {
                 // 🔷 LOGO
                 Image.asset(
                   "assets/logo.png",
-                  height: 300,
+                  width: 250,
                 ),
 
                 form,

@@ -34,6 +34,7 @@ class SchoolInfoForm extends ConsumerStatefulWidget {
 
 class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
   final _formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     name.dispose();
@@ -49,11 +50,10 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
     middleName.dispose();
     lastName.dispose();
     managerPhone.dispose();
-
     super.dispose();
   }
 
-  // Controllers
+  // ── Controllers ─────────────────────────────────────────────────────────────
   late TextEditingController name;
   late TextEditingController schoolEmail;
   late TextEditingController phone;
@@ -69,134 +69,139 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
   late TextEditingController lastName;
   late TextEditingController managerPhone;
 
-  String schoolStateId = "1";
-  String schoolCityId = "1";
-  String schoolTypeId = "1";
+  String schoolStateId = '1';
+  String schoolCityId = '1';
+  String schoolTypeId = '1';
 
-  String managerCountryId = "1";
-  String managerStateId = "1";
-  String managerCityId = "1";
+  String managerCountryId = '1';
+  String managerStateId = '1';
+  String managerCityId = '1';
 
   int selectedGender = 1;
   int selectedMarital = 1;
   DateTime? dateOfBirth;
-  String gender = "Male";
-  String maritalStatus = "Single";
 
-  final emailRegex = RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$");
-  final phoneRegex = RegExp(r"^[0-9]{7,15}$");
+  final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$');
+  final phoneRegex = RegExp(r'^[0-9]{7,15}$');
   late final bool isAdding;
-  bool isEditing = true;
+  bool isEditing = false;
+
   @override
   void initState() {
     super.initState();
     final d = widget.details;
     isAdding = d == null;
     isEditing = isAdding ? true : false;
-    name = TextEditingController(text: d?.school.name ?? "");
-    schoolEmail = TextEditingController(text: d?.school.email ?? "");
-    phone = TextEditingController(text: d?.school.phone ?? "");
-    address = TextEditingController(text: d?.school.address ?? "");
-    emis = TextEditingController(text: d?.school.emisNumber ?? "");
+    name = TextEditingController(text: d?.school.name ?? '');
+    schoolEmail = TextEditingController(text: d?.school.email ?? '');
+    phone = TextEditingController(text: d?.school.phone ?? '');
+    address = TextEditingController(text: d?.school.address ?? '');
+    emis = TextEditingController(text: d?.school.emisNumber ?? '');
 
-    managerEmail = TextEditingController(text: d?.manager.email ?? "");
-    username = TextEditingController(text: d?.manager.userName ?? "");
-    password = TextEditingController(text: "");
+    managerEmail = TextEditingController(text: d?.manager.email ?? '');
+    username = TextEditingController(text: d?.manager.userName ?? '');
+    password = TextEditingController(text: '');
 
-    nationalId = TextEditingController(text: d?.manager.nationalId ?? "");
+    nationalId = TextEditingController(text: d?.manager.nationalId ?? '');
 
-    firstName = TextEditingController(text: d?.manager.firstName ?? "");
-    middleName = TextEditingController(text: d?.manager.middleName ?? "");
-    lastName = TextEditingController(text: d?.manager.lastName ?? "");
+    firstName = TextEditingController(text: d?.manager.firstName ?? '');
+    middleName = TextEditingController(text: d?.manager.middleName ?? '');
+    lastName = TextEditingController(text: d?.manager.lastName ?? '');
 
     managerPhone = TextEditingController(
-      text: d?.manager.mobileNumber ?? "",
+      text: d?.manager.mobileNumber ?? '',
     );
     if (!isAdding) {
       selectedGender = GenderEnum.values
           .firstWhere(
             (element) => element.name == d?.manager.gender,
+            orElse: () => GenderEnum.values.first,
           )
           .index;
       selectedMarital = MaritalStatusEnum.values
           .firstWhere(
             (element) => element.name == d?.manager.maritalStatus,
+            orElse: () => MaritalStatusEnum.values.first,
           )
           .index;
 
-      schoolStateId = syrianStatesMap[d!.school.stateName]!;
-      schoolCityId = syrianStatesMap[d.school.cityName]!;
-      schoolTypeId = schoolTypesMap[d.school.schoolTypeName]!;
-
-      managerCountryId = countriesMap[d.manager.countryName]!;
-      managerStateId = syrianStatesMap[d.manager.stateName]!;
-      managerCityId = syrianStatesMap[d.manager.cityName]!;
+      if (syrianStatesMap.containsKey(d!.school.stateName)) {
+        schoolStateId = syrianStatesMap[d.school.stateName]!;
+      }
+      if (syrianStatesMap.containsKey(d.school.cityName)) {
+        schoolCityId = syrianStatesMap[d.school.cityName]!;
+      }
+      if (schoolTypesMap.containsKey(d.school.schoolTypeName)) {
+        schoolTypeId = schoolTypesMap[d.school.schoolTypeName]!;
+      }
+      if (countriesMap.containsKey(d.manager.countryName)) {
+        managerCountryId = countriesMap[d.manager.countryName]!;
+      }
+      if (syrianStatesMap.containsKey(d.manager.stateName)) {
+        managerStateId = syrianStatesMap[d.manager.stateName]!;
+      }
+      if (syrianStatesMap.containsKey(d.manager.cityName)) {
+        managerCityId = syrianStatesMap[d.manager.cityName]!;
+      }
     }
 
     dateOfBirth = d?.manager.dateOfBirth;
   }
 
-  Widget _topBar(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
+  // ── Helpers ──────────────────────────────────────────────────────────────────
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        /// Back
-        IconButton.filled(
-          icon: const Icon(Icons.arrow_back_rounded),
-          iconSize: 40,
-          padding: EdgeInsets.zero,
-          onPressed: () {
-            ref.read(schoolsBreadcrumbProvider.notifier).pop();
+  double _fieldWidth() {
+    if (SConfig.isMobile()) return double.infinity;
+    if (SConfig.isTablet()) return 300;
+    return 340;
+  }
 
-            Get.back(id: Sroutes.schoolsNavigationId);
-          },
+  Widget _textField(
+    BuildContext context,
+    TextEditingController controller,
+    String label, {
+    bool? forceEnabled,
+    TextInputType? keyboard,
+    String? hint,
+    String? Function(String?)? validator,
+  }) {
+    final bool enabled = forceEnabled ?? isEditing;
+    return SizedBox(
+      width: _fieldWidth(),
+      child: TextFormField(
+        controller: controller,
+        enabled: enabled,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: enabled ? null : SConfig.textDark.withAlpha(160),
         ),
-
-        /// Edit
-        if (!isEditing && widget.details != null)
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: SConfig.accentColor,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-            ),
-            onPressed: () {
-              setState(() {
-                isEditing = true;
-              });
-            },
-            iconAlignment: IconAlignment.end,
-            icon: const Icon(
-              Icons.edit,
-              color: Colors.white,
-            ),
-            label: Text(
-              loc.edit,
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-          ),
-      ],
+        keyboardType: keyboard,
+        validator:
+            validator ?? (v) => (v == null || v.isEmpty) ? 'Required' : null,
+        decoration: InputDecoration(
+          hintText: hint,
+          labelText: label,
+        ),
+      ),
     );
   }
 
   Widget _dateField(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final String dateText = dateOfBirth == null
+        ? ''
+        : '${dateOfBirth!.year}-${dateOfBirth!.month.toString().padLeft(2, '0')}-${dateOfBirth!.day.toString().padLeft(2, '0')}';
 
     return SizedBox(
       width: _fieldWidth(),
       child: TextFormField(
         enabled: isEditing,
         readOnly: true,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-        controller: TextEditingController(
-          text: dateOfBirth == null
-              ? ""
-              : "${dateOfBirth!.year}-${dateOfBirth!.month}-${dateOfBirth!.day}",
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: isEditing ? null : SConfig.textDark.withAlpha(160),
         ),
+        controller: TextEditingController(text: dateText),
         decoration: InputDecoration(
           labelText: loc.dateOfBirth,
           suffixIcon: const Icon(
@@ -212,24 +217,11 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                   lastDate: DateTime.now(),
                   initialDate: dateOfBirth ?? DateTime(2000),
                 );
-
-                if (picked != null) {
-                  setState(() {
-                    dateOfBirth = picked;
-                  });
-                }
+                if (picked != null) setState(() => dateOfBirth = picked);
               }
             : null,
       ),
     );
-  }
-
-  double _fieldWidth() {
-    if (SConfig.isMobile()) return double.infinity;
-
-    if (SConfig.isTablet()) return 300;
-
-    return 340;
   }
 
   Widget buildDropdown({
@@ -244,16 +236,10 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
         initialValue: value,
         menuMaxHeight: 300,
         isExpanded: true,
-
-        decoration: InputDecoration(
-          labelText: label,
-        ),
+        decoration: InputDecoration(labelText: label),
         items: [
           ...items.map(
-            (e) => DropdownMenuItem(
-              value: e.id,
-              child: Text(e.value),
-            ),
+            (e) => DropdownMenuItem(value: e.id, child: Text(e.value)),
           ),
         ],
         onChanged: isEditing ? onChanged : null,
@@ -273,79 +259,319 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
         initialValue: value,
         menuMaxHeight: 300,
         isExpanded: true,
-
-        decoration: InputDecoration(
-          labelText: label,
-        ),
+        decoration: InputDecoration(labelText: label),
         items: items,
         onChanged: isEditing ? onChanged : null,
       ),
     );
   }
 
+  // ── Section card (teal accent — distinct from Teacher's orange) ──────────────
+  Widget _sectionCard({
+    required BuildContext context,
+    required IconData icon,
+    required String title,
+    required Widget content,
+  }) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 24),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: SConfig.primaryColor.withAlpha(50),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(10),
+            blurRadius: 8,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        // crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Teal accent strip
+          Container(
+            width: 5,
+            decoration: const BoxDecoration(
+              color: SConfig.primaryColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(18),
+                bottomLeft: Radius.circular(18),
+              ),
+            ),
+          ),
+          // Content
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Section title row
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(7),
+                        decoration: BoxDecoration(
+                          color: SConfig.primaryColor.withAlpha(20),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Icon(
+                          icon,
+                          size: 18,
+                          color: SConfig.primaryColor,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        title,
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: SConfig.textDark,
+                            ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Divider(
+                    color: SConfig.primaryColor.withAlpha(60),
+                    thickness: 1,
+                  ),
+                  const SizedBox(height: 16),
+                  content,
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── Top action bar ──────────────────────────────────────────────────────────
+  Widget _topBar(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // Back button
+        IconButton.filled(
+          icon: const Icon(Icons.arrow_back_rounded),
+          iconSize: 36,
+          padding: EdgeInsets.zero,
+          style: IconButton.styleFrom(
+            backgroundColor: SConfig.primaryColor.withAlpha(20),
+            foregroundColor: SConfig.primaryColor,
+          ),
+          onPressed: () {
+            ref.read(schoolsBreadcrumbProvider.notifier).pop();
+            Get.back(id: Sroutes.schoolsNavigationId);
+          },
+        ),
+
+        Row(
+          children: [
+            // Cancel edit
+            if (isEditing && !isAdding)
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: SConfig.errorColor,
+                    side: BorderSide(color: SConfig.errorColor.withAlpha(150)),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: () => setState(() => isEditing = false),
+                  icon: const Icon(Icons.close, size: 18),
+                  iconAlignment: IconAlignment.end,
+                  label: Text(loc.cancelEdit),
+                ),
+              ),
+
+            // Edit button
+            if (!isEditing && !isAdding)
+              Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: SConfig.primaryColor,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: () => setState(() => isEditing = true),
+                  iconAlignment: IconAlignment.end,
+                  icon: const Icon(Icons.edit, color: Colors.white, size: 18),
+                  label: Text(
+                    loc.edit,
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  // ── View-mode info banner ───────────────────────────────────────────────────
+  Widget _viewModeBanner(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: SConfig.primaryColor.withAlpha(15),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: SConfig.primaryColor.withAlpha(60)),
+      ),
+      child: Row(
+        children: [
+          const Icon(
+            Icons.info_outline_rounded,
+            color: SConfig.primaryColor,
+            size: 18,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              loc.viewModeHint,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: SConfig.primaryColor,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // ── Save handler ─────────────────────────────────────────────────────────────
+  Future<void> _handleSave(BuildContext context) async {
+    if (!_formKey.currentState!.validate()) return;
+
+    final loc = AppLocalizations.of(context)!;
+
+    final bool? confirmed = await Get.dialog<bool>(
+      ConfirmationDialog(
+        message: loc.confirmAction,
+        onConfirm: () => Get.back<bool>(result: true),
+      ),
+      barrierDismissible: false,
+    );
+
+    if (confirmed != true) return;
+
+    // TODO: Replace Future.delayed with actual API calls:
+    // if (isAdding) {
+    //   await DioClient.post('/api/schools', data: body);
+    // } else {
+    //   await DioClient.put('/api/schools/${widget.details!.school.id}', data: body);
+    // }
+
+    final success = await Get.showOverlay<bool>(
+      asyncFunction: () async {
+        await Future.delayed(const Duration(seconds: 2));
+        return true;
+      },
+      loadingWidget: LoadingDialog(
+        extraMessage: loc.savingForm,
+        loading: LoadingAnimationWidget.discreteCircle(
+          color: SConfig.secondaryBackground,
+          secondRingColor: SConfig.accentColor,
+          thirdRingColor: SConfig.primaryColor,
+          size: 90,
+        ),
+      ),
+    );
+
+    if (success == true) {
+      ref.read(schoolsBreadcrumbProvider.notifier).pop();
+      Get.back(id: Sroutes.schoolsNavigationId);
+    } else {
+      await Get.dialog<void>(
+        ErrorDialog(message: loc.errorOccurred),
+        barrierDismissible: false,
+      );
+    }
+  }
+
+  // ────────────────────────────────────────────────────────────────────────────
   @override
   Widget build(BuildContext context) {
     SConfig.init(context);
-
     final loc = AppLocalizations.of(context)!;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(0, 0, 0, 32),
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 900),
-        child: Card(
-          margin: EdgeInsets.zero,
-          child: Padding(
-            padding: const EdgeInsets.all(28),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// 🔙 Top Bar
-                  _topBar(context),
+        constraints: const BoxConstraints(maxWidth: 960),
+        child: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ── Top action bar ───────────────────────────────────────────
+                _topBar(context),
+                const SizedBox(height: 20),
 
-                  SConfig.spaceBig,
+                // ── View-mode banner ─────────────────────────────────────────
+                if (!isEditing && !isAdding) _viewModeBanner(context),
 
-                  /// =========================
-                  /// 🏫 SCHOOL SECTION
-                  /// =========================
-                  _sectionTitle(context, loc.schoolInformation),
-
-                  /// School Name
-                  Wrap(
+                // ── 1. School Information ────────────────────────────────────
+                _sectionCard(
+                  context: context,
+                  icon: Icons.apartment_rounded,
+                  title: loc.schoolInformation,
+                  content: Wrap(
                     spacing: 20,
                     runSpacing: 20,
                     alignment: WrapAlignment.start,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      _textField(
-                        context,
-                        name,
-                        loc.schoolName,
-                        enabled: isEditing,
-                      ),
+                      _textField(context, name, loc.schoolName),
                       _textField(
                         context,
                         emis,
                         loc.emisNumber,
-                        enabled: isEditing,
-                        hint: "EMIS-2024-001",
+                        hint: 'EMIS-2024-001',
                       ),
                       buildDropdown(
                         label: loc.schoolType,
                         value: schoolTypeId,
-
                         onChanged: (v) => setState(() => schoolTypeId = v!),
                         items: getSchoolTypes(loc),
                       ),
                     ],
                   ),
+                ),
 
-                  SConfig.spaceBig,
-
-                  /// Contact
-                  Wrap(
+                // ── 2. Contact ───────────────────────────────────────────────
+                _sectionCard(
+                  context: context,
+                  icon: Icons.contact_mail_rounded,
+                  title: loc.phone,
+                  content: Wrap(
                     spacing: 20,
                     runSpacing: 20,
                     alignment: WrapAlignment.start,
@@ -355,69 +581,60 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                         context,
                         schoolEmail,
                         loc.schoolEmail,
-                        hint: "suhaib@example.com",
+                        hint: 'school@example.com',
                         keyboard: TextInputType.emailAddress,
-                        validator: (v) =>
-                            emailRegex.hasMatch(v!) ? null : loc.invalidEmail,
-                        enabled: isEditing,
+                        validator: (v) => emailRegex.hasMatch(v ?? '')
+                            ? null
+                            : loc.invalidEmail,
                       ),
                       _textField(
                         context,
                         phone,
                         loc.phone,
                         keyboard: TextInputType.phone,
-                        validator: (v) =>
-                            phoneRegex.hasMatch(v!) ? null : loc.invalidPhone,
-                        enabled: isEditing,
-                        hint: "09498561",
+                        hint: '09498561',
+                        validator: (v) => phoneRegex.hasMatch(v ?? '')
+                            ? null
+                            : loc.invalidPhone,
                       ),
                     ],
                   ),
+                ),
 
-                  SConfig.spaceBig,
-
-                  /// Address
-
-                  // Location
-                  Wrap(
+                // ── 3. Location ──────────────────────────────────────────────
+                _sectionCard(
+                  context: context,
+                  icon: Icons.location_city_rounded,
+                  title: loc.location,
+                  content: Wrap(
                     spacing: 20,
                     runSpacing: 20,
                     alignment: WrapAlignment.start,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      _textField(
-                        context,
-                        address,
-                        loc.address,
-                        enabled: isEditing,
-                      ),
+                      _textField(context, address, loc.address),
                       buildDropdown(
                         label: loc.stateId,
                         value: schoolStateId,
-
                         onChanged: (v) => setState(() => schoolStateId = v!),
                         items: getSyrianStates(loc),
                       ),
-
                       buildDropdown(
                         label: loc.cityId,
                         value: schoolCityId,
-
                         onChanged: (v) => setState(() => schoolCityId = v!),
                         items: getSyrianStates(loc),
                       ),
                     ],
                   ),
+                ),
 
-                  SConfig.spaceBig,
-
-                  /// =========================
-                  /// 👤 MANAGER SECTION
-                  /// =========================
-                  _sectionTitle(context, loc.managerInformation),
-
-                  /// Account Info
-                  Wrap(
+                // ── 4. Manager Account ───────────────────────────────────────
+                _sectionCard(
+                  context: context,
+                  icon: Icons.manage_accounts_rounded,
+                  title: loc.managerInformation,
+                  content: Wrap(
                     spacing: 20,
                     runSpacing: 20,
                     alignment: WrapAlignment.start,
@@ -427,78 +644,59 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                         context,
                         managerEmail,
                         loc.managerEmail,
-                        enabled: isEditing,
-                        hint: "suhaib@example.com",
+                        hint: 'manager@example.com',
+                        keyboard: TextInputType.emailAddress,
+                        validator: (v) => emailRegex.hasMatch(v ?? '')
+                            ? null
+                            : loc.invalidEmail,
                       ),
-                      _textField(
-                        context,
-                        username,
-                        loc.username,
-                        enabled: isEditing,
-                      ),
-
-                      if (isAdding)
-                        _textField(
-                          context,
-                          password,
-                          loc.password,
-                          enabled: isEditing,
-                        ),
+                      _textField(context, username, loc.username),
+                      if (isAdding) _textField(context, password, loc.password),
                       _textField(
                         context,
                         managerPhone,
                         loc.managerPhone,
                         keyboard: TextInputType.phone,
-                        enabled: isEditing,
-                        hint: "09498561",
+                        hint: '09498561',
+                        validator: (v) => phoneRegex.hasMatch(v ?? '')
+                            ? null
+                            : loc.invalidPhone,
                       ),
                     ],
                   ),
+                ),
 
-                  SConfig.spaceBig,
-
-                  /// Manager Name
-                  Wrap(
+                // ── 5. Manager Name & ID ─────────────────────────────────────
+                _sectionCard(
+                  context: context,
+                  icon: Icons.person_rounded,
+                  title: loc.manager,
+                  content: Wrap(
                     spacing: 20,
                     runSpacing: 20,
                     alignment: WrapAlignment.start,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
-                      _textField(
-                        context,
-                        firstName,
-                        loc.firstName,
-                        enabled: isEditing,
-                      ),
-                      _textField(
-                        context,
-                        middleName,
-                        loc.middleName,
-                        enabled: isEditing,
-                      ),
-                      _textField(
-                        context,
-                        lastName,
-                        loc.lastName,
-                        enabled: isEditing,
-                      ),
+                      _textField(context, firstName, loc.firstName),
+                      _textField(context, middleName, loc.middleName),
+                      _textField(context, lastName, loc.lastName),
                       _textField(
                         context,
                         nationalId,
                         loc.nationalId,
                         keyboard: TextInputType.number,
-                        enabled: isEditing,
-                        hint: "***03180036",
+                        hint: '***03180036',
                       ),
                     ],
                   ),
+                ),
 
-                  SConfig.spaceBig,
-
-                  /// Identity
-
-                  /// Personal Info
-                  Wrap(
+                // ── 6. Manager Personal ──────────────────────────────────────
+                _sectionCard(
+                  context: context,
+                  icon: Icons.badge_rounded,
+                  title: loc.personalInformation,
+                  content: Wrap(
                     spacing: 20,
                     runSpacing: 20,
                     alignment: WrapAlignment.start,
@@ -507,7 +705,6 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                       buildDropdownEnums(
                         label: loc.gender,
                         value: selectedGender,
-
                         onChanged: (v) => setState(() => selectedGender = v!),
                         items: GenderEnum.values
                             .map(
@@ -519,32 +716,31 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                             )
                             .toList(),
                       ),
-
                       buildDropdownEnums(
                         label: loc.maritalStatus,
                         value: selectedMarital,
-
                         onChanged: (v) => setState(() => selectedMarital = v!),
                         items: MaritalStatusEnum.values
                             .map(
                               (g) => DropdownMenuItem(
                                 value: g.index,
                                 enabled: isEditing,
-
                                 child: Text(g.loc(loc)),
                               ),
                             )
                             .toList(),
                       ),
-
                       _dateField(context),
                     ],
                   ),
+                ),
 
-                  SConfig.spaceBig,
-
-                  /// Manager Location
-                  Wrap(
+                // ── 7. Manager Location ──────────────────────────────────────
+                _sectionCard(
+                  context: context,
+                  icon: Icons.location_on_rounded,
+                  title: loc.location,
+                  content: Wrap(
                     spacing: 20,
                     runSpacing: 20,
                     alignment: WrapAlignment.start,
@@ -553,178 +749,52 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                       buildDropdown(
                         label: loc.country,
                         value: managerCountryId,
-
                         onChanged: (v) => setState(() => managerCountryId = v!),
                         items: getCountries(loc),
                       ),
-
                       buildDropdown(
                         label: loc.stateId,
                         value: managerStateId,
-
                         onChanged: (v) => setState(() => managerStateId = v!),
                         items: getSyrianStates(loc),
                       ),
-
                       buildDropdown(
                         label: loc.cityId,
                         value: managerCityId,
-
                         onChanged: (v) => setState(() => managerCityId = v!),
                         items: getSyrianStates(loc),
                       ),
                     ],
                   ),
+                ),
 
-                  SConfig.spaceBig,
-
-                  /// =========================
-                  /// SAVE BUTTON
-                  /// =========================
+                // ── Save button ──────────────────────────────────────────────
+                if (isEditing)
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Wrap(
-                      spacing: 16,
-                      alignment: WrapAlignment.start,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        if (isEditing)
-                          ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: SConfig.successColor,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 32,
-                                vertical: 16,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            iconAlignment: IconAlignment.end,
-                            icon: const Icon(
-                              Icons.save,
-                              // color: Colors.white,
-                            ),
-                            label: Text(
-                              loc.save,
-                              style: Theme.of(context).textTheme.labelLarge,
-                            ),
-                            onPressed: () async {
-                              ///TODO apply logic api either addinf or updating:
-                              ///adding: return {
-                              //   "email": email,
-                              //   "username": username,
-                              //   "password": password,
-                              //   "nationalId": NAT-nationalId,
-                              //   "firstName": firstName,
-                              //   "middleName": middleName,
-                              //   "lastName": lastName,
-                              //   "phone": phone,
-                              //   "gender": gender,
-                              //   "maritalStatus": maritalStatus,
-                              //   "dateOfBirth": dateOfBirth.toIso8601String(),
-                              //   "countryId": countryId,
-                              //   "stateId": stateId,
-                              //   "cityId": cityId,
-                              // };
-                              // if (_formKey.currentState!.validate()) {
-                              final bool? continuee = await Get.dialog<bool>(
-                                ConfirmationDialog(
-                                  message: loc.confirmAction,
-                                  onConfirm: () {
-                                    Get.back<bool>(result: true);
-                                  },
-                                ),
-                                barrierDismissible: false,
-                              );
-
-                              if (continuee != null && continuee) {
-                                await Get.showOverlay(
-                                  asyncFunction: () async =>
-                                      await Future.delayed(
-                                        const Duration(seconds: 4),
-                                      ),
-                                  loadingWidget: LoadingDialog(
-                                    extraMessage: loc.savingForm,
-                                    loading:
-                                        LoadingAnimationWidget.discreteCircle(
-                                          color: SConfig.secondaryBackground,
-                                          secondRingColor: SConfig.accentColor,
-                                          thirdRingColor: SConfig.primaryColor,
-                                          size: 90,
-                                        ),
-                                  ),
-                                );
-                                ref
-                                    .read(schoolsBreadcrumbProvider.notifier)
-                                    .pop();
-                                Get.back(id: Sroutes.schoolsNavigationId);
-                              } else {
-                                await Get.dialog<bool>(
-                                  ErrorDialog(
-                                    message: loc.errorOccurred,
-                                  ),
-                                  barrierDismissible: false,
-                                );
-                              }
-
-                              // }
-                            },
-                          ),
-                      ],
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: SConfig.successColor,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 36,
+                          vertical: 16,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      iconAlignment: IconAlignment.end,
+                      icon: const Icon(Icons.save_rounded),
+                      label: Text(
+                        loc.save,
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      onPressed: () => _handleSave(context),
                     ),
                   ),
-                ],
-              ),
+              ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _sectionTitle(BuildContext context, String title) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: Theme.of(context).textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        SConfig.spaceMedium,
-
-        Divider(
-          color: SConfig.primaryColor.withAlpha(120),
-          thickness: 1.2,
-        ),
-        SConfig.spaceMedium,
-      ],
-    );
-  }
-
-  Widget _textField(
-    BuildContext context,
-    TextEditingController controller,
-    String label, {
-    bool enabled = true,
-    TextInputType? keyboard,
-    String? hint,
-    String? Function(String?)? validator,
-  }) {
-    return SizedBox(
-      width: _fieldWidth(),
-      child: TextFormField(
-        controller: controller,
-        enabled: enabled,
-        // textDirection: TextDirection.rtl,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-        keyboardType: keyboard,
-        validator: validator ?? (v) => v!.isEmpty ? "Required" : null,
-        decoration: InputDecoration(
-          hintText: hint,
-          labelText: label,
         ),
       ),
     );

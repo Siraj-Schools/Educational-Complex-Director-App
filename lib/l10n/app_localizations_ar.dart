@@ -117,7 +117,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get all => 'الكل';
 
   @override
-  String get searchSchool => 'ابحث عن مدرسة';
+  String get searchSchool => 'ابحث عن مدرسة...';
+
+  @override
+  String get searchTeacher => 'ابحث عن مدرس...';
 
   @override
   String get schoolInformation => 'معلومات المدرسة';
@@ -304,4 +307,61 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get errorOccurred => 'حدث خطأ ما. يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get accountInformation => 'معلومات الحساب';
+
+  @override
+  String get teacherInformation => 'معلومات المعلم';
+
+  @override
+  String get personalInformation => 'المعلومات الشخصية';
+
+  @override
+  String get professionalInformation => 'المعلومات المهنية';
+
+  @override
+  String get location => 'الموقع';
+
+  @override
+  String get school => 'المدرسة';
+
+  @override
+  String get designation => 'المسمى الوظيفي';
+
+  @override
+  String get qualification => 'المؤهل العلمي';
+
+  @override
+  String get highSchool => 'ثانوية';
+
+  @override
+  String get undergraduateDegree => 'بكالوريوس';
+
+  @override
+  String get postgraduateDegree => 'دراسات عليا';
+
+  @override
+  String get mastersDegree => 'ماجستير';
+
+  @override
+  String get doctorate => 'دكتوراه';
+
+  @override
+  String get academicYear => 'العام الدراسي';
+
+  @override
+  String get joiningDate => 'تاريخ الانضمام';
+
+  @override
+  String get cancelEdit => 'إلغاء التعديل';
+
+  @override
+  String get viewModeHint => 'أنت في وضع العرض. اضغط تعديل لإجراء تغييرات.';
+
+  @override
+  String get schoolInfoSection => 'بيانات المدرسة';
+
+  @override
+  String get academicYearInfo => 'معلومات العام الدراسي';
 }

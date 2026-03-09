@@ -54,10 +54,10 @@ class SchoolCard extends StatelessWidget {
       margin: EdgeInsets.zero,
 
       elevation: 2,
-      shape: ContinuousRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
         side: BorderSide(
-          color: SConfig.secondaryBackground.withAlpha(35),
+          color: SConfig.secondaryBackground.withAlpha(200),
           width: 1.5,
         ),
       ),
@@ -73,7 +73,7 @@ class SchoolCard extends StatelessWidget {
             decoration: BoxDecoration(
               color: SConfig.secondaryBackground.withAlpha(30),
               borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(10),
+                top: Radius.circular(14),
               ),
             ),
             child: Row(

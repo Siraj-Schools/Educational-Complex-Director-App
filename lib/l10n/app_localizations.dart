@@ -317,6 +317,12 @@ abstract class AppLocalizations {
   /// **'Search school...'**
   String get searchSchool;
 
+  /// No description provided for @searchTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Search teacher...'**
+  String get searchTeacher;
+
   /// No description provided for @schoolInformation.
   ///
   /// In en, this message translates to:
@@ -688,6 +694,120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Please try again.'**
   String get errorOccurred;
+
+  /// No description provided for @accountInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Information'**
+  String get accountInformation;
+
+  /// No description provided for @teacherInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher Information'**
+  String get teacherInformation;
+
+  /// No description provided for @personalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Information'**
+  String get personalInformation;
+
+  /// No description provided for @professionalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Professional Information'**
+  String get professionalInformation;
+
+  /// No description provided for @location.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get location;
+
+  /// No description provided for @school.
+  ///
+  /// In en, this message translates to:
+  /// **'School'**
+  String get school;
+
+  /// No description provided for @designation.
+  ///
+  /// In en, this message translates to:
+  /// **'Designation'**
+  String get designation;
+
+  /// No description provided for @qualification.
+  ///
+  /// In en, this message translates to:
+  /// **'Qualification'**
+  String get qualification;
+
+  /// No description provided for @highSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'High School'**
+  String get highSchool;
+
+  /// No description provided for @undergraduateDegree.
+  ///
+  /// In en, this message translates to:
+  /// **'Undergraduate Degree'**
+  String get undergraduateDegree;
+
+  /// No description provided for @postgraduateDegree.
+  ///
+  /// In en, this message translates to:
+  /// **'Postgraduate Degree'**
+  String get postgraduateDegree;
+
+  /// No description provided for @mastersDegree.
+  ///
+  /// In en, this message translates to:
+  /// **'Masters Degree'**
+  String get mastersDegree;
+
+  /// No description provided for @doctorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctorate'**
+  String get doctorate;
+
+  /// No description provided for @academicYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Academic Year'**
+  String get academicYear;
+
+  /// No description provided for @joiningDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Joining Date'**
+  String get joiningDate;
+
+  /// No description provided for @cancelEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel Edit'**
+  String get cancelEdit;
+
+  /// No description provided for @viewModeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'You are in view mode. Press Edit to make changes.'**
+  String get viewModeHint;
+
+  /// No description provided for @schoolInfoSection.
+  ///
+  /// In en, this message translates to:
+  /// **'School Details'**
+  String get schoolInfoSection;
+
+  /// No description provided for @academicYearInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Academic Year Info'**
+  String get academicYearInfo;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

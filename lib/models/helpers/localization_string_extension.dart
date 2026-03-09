@@ -51,7 +51,7 @@ extension LocalizationExtension on String {
       case "Latakia":
         return loc.lattakia;
 
-      case "Tartous":
+      case "Tartous" || "Tartus":
         return loc.tartous;
 
       case "Idlib":

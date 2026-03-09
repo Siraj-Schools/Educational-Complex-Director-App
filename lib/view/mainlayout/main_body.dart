@@ -9,27 +9,30 @@ class MainBody extends StatelessWidget {
     super.key,
     required this.pageController,
   });
+  final List<Widget> pages = const [
+    Center(
+      child: Text(
+        "Dashboard Page",
+      ),
+    ),
+    SchoolsPage(),
 
+    TeachersPage(),
+
+    Center(
+      child: Text(
+        "Settings Page",
+      ),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return PageView(
       controller: pageController,
       scrollDirection: Axis.vertical,
       physics: const NeverScrollableScrollPhysics(),
 
-      children: [
-        Center(
-          child: Text("Dashboard Page", style: theme.textTheme.headlineSmall),
-        ),
-        const SchoolsPage(),
-
-        const TeachersPage(),
-
-        Center(
-          child: Text("Settings Page", style: theme.textTheme.headlineSmall),
-        ),
-      ],
+      children: pages,
     );
   }
 }

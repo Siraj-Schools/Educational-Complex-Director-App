@@ -10,7 +10,11 @@ class Sroutes {
   static const String schools = '/schools';
   static const String addSchool = '/schools/add';
   static const String schoolDetails = '/school/details';
+  static const String teachers = '/teachers';
+  static const String addTeacher = '/teacher/add';
+  static const String teacherDetails = '/teachers/details';
 
+  ///////
   static const int schoolsNavigationId = 2;
   static const int teachersNavigationId = 3;
 

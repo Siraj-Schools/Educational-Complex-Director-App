@@ -120,6 +120,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchSchool => 'Search school...';
 
   @override
+  String get searchTeacher => 'Search teacher...';
+
+  @override
   String get schoolInformation => 'School Information';
 
   @override
@@ -304,4 +307,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorOccurred => 'Something went wrong. Please try again.';
+
+  @override
+  String get accountInformation => 'Account Information';
+
+  @override
+  String get teacherInformation => 'Teacher Information';
+
+  @override
+  String get personalInformation => 'Personal Information';
+
+  @override
+  String get professionalInformation => 'Professional Information';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get school => 'School';
+
+  @override
+  String get designation => 'Designation';
+
+  @override
+  String get qualification => 'Qualification';
+
+  @override
+  String get highSchool => 'High School';
+
+  @override
+  String get undergraduateDegree => 'Undergraduate Degree';
+
+  @override
+  String get postgraduateDegree => 'Postgraduate Degree';
+
+  @override
+  String get mastersDegree => 'Masters Degree';
+
+  @override
+  String get doctorate => 'Doctorate';
+
+  @override
+  String get academicYear => 'Academic Year';
+
+  @override
+  String get joiningDate => 'Joining Date';
+
+  @override
+  String get cancelEdit => 'Cancel Edit';
+
+  @override
+  String get viewModeHint => 'You are in view mode. Press Edit to make changes.';
+
+  @override
+  String get schoolInfoSection => 'School Details';
+
+  @override
+  String get academicYearInfo => 'Academic Year Info';
 }

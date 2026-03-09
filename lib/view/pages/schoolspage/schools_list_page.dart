@@ -20,8 +20,10 @@ class SchoolListPage extends ConsumerStatefulWidget {
   ConsumerState<SchoolListPage> createState() => _SchoolListPageState();
 }
 
-class _SchoolListPageState extends ConsumerState<SchoolListPage> {
+class _SchoolListPageState extends ConsumerState<SchoolListPage>
+    with AutomaticKeepAliveClientMixin {
   final TextEditingController searchController = TextEditingController();
+
   String? selectedTypeId;
   String? selectedtCityId;
   String? selectedStateId;
@@ -55,11 +57,13 @@ class _SchoolListPageState extends ConsumerState<SchoolListPage> {
     );
   }
 
-  Widget filterField(Widget child) {
+  Widget filterField(Widget child, {bool? smaller}) {
     double width;
 
     if (SConfig.isMobile()) {
-      width = SConfig.screenWidth! * 0.40;
+      (smaller != null)
+          ? width = SConfig.screenWidth! * 0.30
+          : width = SConfig.screenWidth! * 0.40;
     } else if (SConfig.isTablet()) {
       width = 200;
     } else {
@@ -191,9 +195,15 @@ class _SchoolListPageState extends ConsumerState<SchoolListPage> {
       emisNumber: "EMIS001",
     ),
   ];
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final loc = AppLocalizations.of(context)!;
 
     SConfig.init(context);
@@ -211,89 +221,114 @@ class _SchoolListPageState extends ConsumerState<SchoolListPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Wrap(
-            spacing: 16,
-            runSpacing: 16,
-            alignment: WrapAlignment.start,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              /// SEARCH
-              filterField(
-                TextField(
-                  controller: searchController,
-                  decoration: InputDecoration(
-                    hintText: loc.searchSchool,
-                    prefixIcon: const Icon(Icons.search),
-                  ),
-                ),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 18,
+            ),
+            decoration: BoxDecoration(
+              color: SConfig.secondaryBackground.withAlpha(25),
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(
+                color: SConfig.secondaryBackground.withAlpha(60),
+                width: 1.2,
               ),
-
-              /// SCHOOL TYPE
-              filterField(
-                buildDropdown(
-                  label: loc.schoolType,
-                  value: selectedTypeId,
-                  items: getSchoolTypes(loc),
-                  loc: loc,
-                  onChanged: (v) {
-                    setState(() => selectedTypeId = v);
-                  },
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withAlpha(15),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
                 ),
-              ),
-
-              /// STATE
-              filterField(
-                buildDropdown(
-                  label: loc.stateId,
-                  value: selectedStateId,
-                  items: getSyrianStates(loc),
-                  loc: loc,
-                  onChanged: (v) {
-                    setState(() => selectedStateId = v);
-                  },
-                ),
-              ),
-
-              /// CITY
-              filterField(
-                buildDropdown(
-                  label: loc.cityId,
-                  value: selectedtCityId,
-                  items: getSyrianStates(loc),
-                  loc: loc,
-                  onChanged: (v) {
-                    setState(() => selectedtCityId = v);
-                  },
-                ),
-              ),
-
-              /// ADD BUTTON
-              SizedBox(
-                height: 50,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: SConfig.accentColor.withGreen(100),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 14,
+              ],
+            ),
+            child: Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              alignment: WrapAlignment.start,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                /// SEARCH
+                filterField(
+                  TextField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      hintText: loc.searchSchool,
+                      prefixIcon: const Icon(Icons.search),
                     ),
                   ),
-                  onPressed: () => Get.toNamed(
-                    Sroutes.addSchool,
-                    id: Sroutes.schoolsNavigationId,
+                ),
+
+                /// SCHOOL TYPE
+                filterField(
+                  buildDropdown(
+                    label: loc.schoolType,
+                    value: selectedTypeId,
+                    items: getSchoolTypes(loc),
+                    loc: loc,
+                    onChanged: (v) {
+                      setState(() => selectedTypeId = v);
+                    },
                   ),
-                  icon: const Icon(
-                    Icons.add,
-                    color: Colors.white,
+                  smaller: true,
+                ),
+
+                /// STATE
+                filterField(
+                  buildDropdown(
+                    label: loc.stateId,
+                    value: selectedStateId,
+                    items: getSyrianStates(loc),
+                    loc: loc,
+                    onChanged: (v) {
+                      setState(() => selectedStateId = v);
+                    },
                   ),
-                  iconAlignment: IconAlignment.end,
-                  label: Text(
-                    loc.addSchool,
-                    style: Theme.of(context).textTheme.labelLarge,
+                  smaller: true,
+                ),
+
+                /// CITY
+                filterField(
+                  buildDropdown(
+                    label: loc.cityId,
+                    value: selectedtCityId,
+                    items: getSyrianStates(loc),
+                    loc: loc,
+                    onChanged: (v) {
+                      setState(() => selectedtCityId = v);
+                    },
+                  ),
+                  smaller: true,
+                ),
+
+                /// ADD BUTTON
+                SizedBox(
+                  height: 40,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: SConfig.accentColor.withGreen(100),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: 14,
+                      ),
+                    ),
+                    onPressed: () => Get.toNamed(
+                      Sroutes.addSchool,
+                      id: Sroutes.schoolsNavigationId,
+                    ),
+                    icon: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                    iconAlignment: IconAlignment.end,
+                    label: Text(
+                      loc.addSchool,
+                      style: Theme.of(context).textTheme.labelLarge,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
 
           SConfig.spaceMedium,
@@ -324,4 +359,7 @@ class _SchoolListPageState extends ConsumerState<SchoolListPage> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
