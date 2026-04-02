@@ -8,12 +8,13 @@ class SchoolManagersNotifier extends AsyncNotifier<List<SchoolManager>> {
   bool hasNextPage = true;
   bool isLoadingMore = false;
   Exception? errorLoadingMore;
+  Exception? errorAddingManager;
   @override
   Future<List<SchoolManager>> build() async {
-    return await getSchools();
+    return await getManagers();
   }
 
-  Future<List<SchoolManager>> getSchools() async {
+  Future<List<SchoolManager>> getManagers() async {
     // await Future.delayed(const Duration(seconds: 2));
 
     final response = await ref
@@ -30,7 +31,7 @@ class SchoolManagersNotifier extends AsyncNotifier<List<SchoolManager>> {
     page = 1;
     hasNextPage = true;
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => getSchools());
+    state = await AsyncValue.guard(() => getManagers());
   }
 
   Future<void> loadMore() async {
@@ -46,9 +47,9 @@ class SchoolManagersNotifier extends AsyncNotifier<List<SchoolManager>> {
     ref.notifyListeners();
 
     try {
-      final newSchools = await getSchools();
+      final newManagers = await getManagers();
 
-      state = AsyncValue.data([...state.value!, ...newSchools]);
+      state = AsyncValue.data([...state.value!, ...newManagers]);
     } catch (e, _) {
       errorLoadingMore = e as Exception;
     }
@@ -67,14 +68,30 @@ class SchoolManagersNotifier extends AsyncNotifier<List<SchoolManager>> {
     hasNextPage = true;
     searchQuery = '';
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => getSchools());
+    state = await AsyncValue.guard(() => getManagers());
+  }
+
+  Future<void> createManager(Map<String, dynamic> body) async {
+    errorAddingManager = null;
+    ref.notifyListeners();
+    try {
+      await ref.read(schoolManagerRepositoryProvider).createManager(body: body);
+      await refresh();
+    } catch (e) {
+      if (e is Exception) {
+        errorAddingManager = e;
+      } else {
+        errorAddingManager = Exception(e.toString());
+      }
+    }
   }
 }
 
 final schoolManagersNotifierProvider =
-    AsyncNotifierProvider.autoDispose<
+    AsyncNotifierProvider.family<
       SchoolManagersNotifier,
-      List<SchoolManager>
+      List<SchoolManager>,
+      bool
     >(
-      () => SchoolManagersNotifier(),
+      (isManagersPage) => SchoolManagersNotifier(),
     );

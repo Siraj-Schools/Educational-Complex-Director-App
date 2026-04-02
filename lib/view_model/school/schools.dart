@@ -1,6 +1,5 @@
 import 'package:educational_complex_director_app/Repositories/school_repository.dart';
 import 'package:educational_complex_director_app/models/school/school.dart';
-import 'package:educational_complex_director_app/services/log_services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SchoolsNotifier extends AsyncNotifier<List<School>> {
@@ -50,7 +49,11 @@ class SchoolsNotifier extends AsyncNotifier<List<School>> {
 
       state = AsyncValue.data([...state.value!, ...newSchools]);
     } catch (e, _) {
-      errorLoadingMore = e as Exception;
+      if (e is Exception) {
+        errorLoadingMore = e;
+      } else {
+        errorLoadingMore = Exception(e.toString());
+      }
     }
     isLoadingMore = false;
     if (errorLoadingMore != null) {
@@ -76,9 +79,11 @@ class SchoolsNotifier extends AsyncNotifier<List<School>> {
       await ref.read(schoolRepositoryProvider).createSchool(body: body);
       await refresh();
     } catch (e) {
-      LogService.e(e.toString());
-      LogService.e(e.runtimeType.toString());
-      errorAddingSchool = e as Exception;
+      if (e is Exception) {
+        errorAddingSchool = e;
+      } else {
+        errorAddingSchool = Exception(e.toString());
+      }
     }
   }
 }

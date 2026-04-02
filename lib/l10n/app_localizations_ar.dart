@@ -546,11 +546,32 @@ class AppLocalizationsAr extends AppLocalizations {
   String get cancel => 'إلغاء';
 
   @override
-  String get changePasswordOfTeacher => 'تغيير كلمة المرور للمعلم';
+  String get changePasswordOfTeacher => 'تغيير كلمة المرور المعلم';
 
   @override
   String get newCredentials => 'بيانات الاعتماد الجديدة';
 
   @override
   String get credentialsCopied => 'تم نسخ بيانات الاعتماد إلى الحافظة';
+
+  @override
+  String get students => 'الطلاب';
+
+  @override
+  String get managers => 'المدراء';
+
+  @override
+  String get addManager => 'إضافة مدير';
+
+  @override
+  String get managerDetails => 'تفاصيل المدير';
+
+  @override
+  String get schoolManager => 'مدير مدرسة';
+
+  @override
+  String get addStudent => 'إضافة طالب';
+
+  @override
+  String get studentDetails => 'تفاصيل الطالب';
 }

@@ -68,7 +68,7 @@ class SchoolServices {
       ),
       data: body,
     );
-    if (response.statusCode != 200 && response.statusCode != 500) {
+    if (response.statusCode != 201 && response.statusCode != 500) {
       LogService.e(response.data['title']);
       throw Exception('Failed to create school');
     }

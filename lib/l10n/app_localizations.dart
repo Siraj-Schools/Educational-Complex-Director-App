@@ -1186,6 +1186,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Credentials copied to clipboard'**
   String get credentialsCopied;
+
+  /// No description provided for @students.
+  ///
+  /// In en, this message translates to:
+  /// **'Students'**
+  String get students;
+
+  /// No description provided for @managers.
+  ///
+  /// In en, this message translates to:
+  /// **'Managers'**
+  String get managers;
+
+  /// No description provided for @addManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Manager'**
+  String get addManager;
+
+  /// No description provided for @managerDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Manager Details'**
+  String get managerDetails;
+
+  /// No description provided for @schoolManager.
+  ///
+  /// In en, this message translates to:
+  /// **'School Manager'**
+  String get schoolManager;
+
+  /// No description provided for @addStudent.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Student'**
+  String get addStudent;
+
+  /// No description provided for @studentDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Student Details'**
+  String get studentDetails;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

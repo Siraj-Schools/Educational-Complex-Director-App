@@ -13,11 +13,17 @@ class Sroutes {
   static const String teachers = '/teachers';
   static const String addTeacher = '/teacher/add';
   static const String teacherDetails = '/teachers/details';
-
+  static const String managers = '/managers';
+  static const String addManager = '/manager/add';
+  static const String managerDetails = '/managers/details';
+  static const String students = '/students';
+  static const String addStudent = '/student/add';
+  static const String studentDetails = '/students/details';
   ///////
   static const int schoolsNavigationId = 2;
   static const int teachersNavigationId = 3;
-
+  static const int managersNavigationId = 4;
+  static const int studentsNavigationId = 5;
   const Sroutes._();
 }
 

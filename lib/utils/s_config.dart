@@ -30,6 +30,18 @@ class SConfig {
         return loc.teacherDetails;
       case ScreenNames.addTeacher:
         return loc.addTeacher;
+      case ScreenNames.managers:
+        return loc.managers;
+      case ScreenNames.managerDetails:
+        return loc.managerDetails;
+      case ScreenNames.addManager:
+        return loc.addManager;
+      case ScreenNames.students:
+        return loc.students;
+      case ScreenNames.studentDetails:
+        return loc.studentDetails;
+      case ScreenNames.addStudent:
+        return loc.addStudent;
     }
   }
 

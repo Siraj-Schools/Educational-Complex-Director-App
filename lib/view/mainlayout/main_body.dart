@@ -1,4 +1,6 @@
+import 'package:educational_complex_director_app/view/pages/managerspage/managers_page.dart';
 import 'package:educational_complex_director_app/view/pages/schoolspage/schools_page.dart';
+import 'package:educational_complex_director_app/view/pages/studentspage/students_page.dart';
 import 'package:educational_complex_director_app/view/pages/teacherspage/teachers_page.dart';
 import 'package:flutter/material.dart';
 
@@ -16,13 +18,9 @@ class MainBody extends StatelessWidget {
       ),
     ),
     SchoolsPage(),
-
+    ManagersPage(),
     TeachersPage(),
-    Center(
-      child: Text(
-        "Settings Page",
-      ),
-    ),
+    StudentsPage(),
   ];
   @override
   Widget build(BuildContext context) {

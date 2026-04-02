@@ -1,6 +1,5 @@
 import 'package:educational_complex_director_app/Repositories/school_repository.dart';
 import 'package:educational_complex_director_app/models/school/school_details.dart';
-import 'package:educational_complex_director_app/services/log_services.dart';
 import 'package:educational_complex_director_app/view_model/school/schools.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -38,7 +37,11 @@ class SchoolDetailsNotifier extends AsyncNotifier<SchoolDetails> {
       await refresh();
       await ref.read(schoolsNotifierProvider(true).notifier).refresh();
     } catch (e) {
-      error = e as Exception;
+      if (e is Exception) {
+        error = e;
+      } else {
+        error = Exception(e.toString());
+      }
     }
   }
 
@@ -49,8 +52,11 @@ class SchoolDetailsNotifier extends AsyncNotifier<SchoolDetails> {
       await ref.read(schoolRepositoryProvider).removeManager(id: id);
       await refresh();
     } catch (e) {
-      error = e as Exception;
-      LogService.e(e.toString());
+      if (e is Exception) {
+        error = e;
+      } else {
+        error = Exception(e.toString());
+      }
     }
   }
 
@@ -66,8 +72,11 @@ class SchoolDetailsNotifier extends AsyncNotifier<SchoolDetails> {
           );
       await refresh();
     } catch (e) {
-      error = e as Exception;
-      LogService.e(e.toString());
+      if (e is Exception) {
+        error = e;
+      } else {
+        error = Exception(e.toString());
+      }
     }
   }
 }

@@ -23,6 +23,47 @@ class SchoolManagerRepository {
       pageSize: pageSize,
     );
   }
+
+  Future<SchoolManager> getManager({
+    required String managerId,
+  }) async {
+    final token = LocalStorageService.getToken;
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+    return await schoolMangerServices.getManager(
+      token: token,
+      managerId: managerId,
+    );
+  }
+
+  Future<void> createManager({
+    required Map<String, dynamic> body,
+  }) async {
+    final token = LocalStorageService.getToken;
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+    await schoolMangerServices.createManager(
+      token: token,
+      body: body,
+    );
+  }
+
+  Future<void> updateManager({
+    required String managerId,
+    required Map<String, dynamic> body,
+  }) async {
+    final token = LocalStorageService.getToken;
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+    await schoolMangerServices.updateManager(
+      token: token,
+      managerId: managerId,
+      body: body,
+    );
+  }
 }
 
 final schoolManagerRepositoryProvider = Provider<SchoolManagerRepository>(

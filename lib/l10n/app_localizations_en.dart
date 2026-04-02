@@ -553,4 +553,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get credentialsCopied => 'Credentials copied to clipboard';
+
+  @override
+  String get students => 'Students';
+
+  @override
+  String get managers => 'Managers';
+
+  @override
+  String get addManager => 'Add Manager';
+
+  @override
+  String get managerDetails => 'Manager Details';
+
+  @override
+  String get schoolManager => 'School Manager';
+
+  @override
+  String get addStudent => 'Add Student';
+
+  @override
+  String get studentDetails => 'Student Details';
 }

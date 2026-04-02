@@ -44,6 +44,16 @@ final teachersBreadcrumbProvider =
       (ref) => BreadCrumbNotifier(ScreenNames.teachers),
     );
 
+final managersBreadcrumbProvider =
+    StateNotifierProvider<BreadCrumbNotifier, List<ScreenNames>>(
+      (ref) => BreadCrumbNotifier(ScreenNames.managers),
+    );
+
+final studentsBreadcrumbProvider =
+    StateNotifierProvider<BreadCrumbNotifier, List<ScreenNames>>(
+      (ref) => BreadCrumbNotifier(ScreenNames.students),
+    );
+
 final settingsBreadcrumbProvider =
     StateNotifierProvider<BreadCrumbNotifier, List<ScreenNames>>(
       (ref) => BreadCrumbNotifier(ScreenNames.settings),

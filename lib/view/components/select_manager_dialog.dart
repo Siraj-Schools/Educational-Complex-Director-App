@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:educational_complex_director_app/view/components/error_dialog.dart';
-import 'package:educational_complex_director_app/view_model/school_managers.dart';
+import 'package:educational_complex_director_app/view_model/schoolmanager/school_managers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -33,8 +33,8 @@ class _SelectManagerDialogState extends ConsumerState<SelectManagerDialog> {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final managersAsync = ref.watch(schoolManagersNotifierProvider);
-    final notifier = ref.read(schoolManagersNotifierProvider.notifier);
+    final managersAsync = ref.watch(schoolManagersNotifierProvider(false));
+    final notifier = ref.read(schoolManagersNotifierProvider(false).notifier);
     final searchQuery = notifier.searchQuery;
     if (_searchController.text != searchQuery) {
       _searchController.value = TextEditingValue(

@@ -72,15 +72,21 @@ class MainDrawer extends ConsumerWidget {
               ),
               _buildItem(
                 context,
-                Icons.app_registration_rounded,
-                AppLocalizations.of(context)!.teachers,
+                Icons.person_rounded,
+                AppLocalizations.of(context)!.managers,
                 2,
               ),
               _buildItem(
                 context,
-                Icons.settings_rounded,
-                AppLocalizations.of(context)!.settings,
+                Icons.app_registration_rounded,
+                AppLocalizations.of(context)!.teachers,
                 3,
+              ),
+              _buildItem(
+                context,
+                Icons.person_outline_rounded,
+                AppLocalizations.of(context)!.students,
+                4,
               ),
 
               const Spacer(),

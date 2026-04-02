@@ -40,7 +40,7 @@ class _MainLayoutState extends ConsumerState<MainLayout> {
     await _pageController.animateToPage(
       index,
       duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
+      curve: Curves.easeInCubic,
     );
 
     if (!SConfig.isDesktop()) {
@@ -90,7 +90,10 @@ class _MainLayoutState extends ConsumerState<MainLayout> {
                           final items = switch (activePage) {
                             0 => ref.watch(homeBreadcrumbProvider),
                             1 => ref.watch(schoolsBreadcrumbProvider),
-                            2 => ref.watch(teachersBreadcrumbProvider),
+                            2 => ref.watch(managersBreadcrumbProvider),
+
+                            3 => ref.watch(teachersBreadcrumbProvider),
+                            4 => ref.watch(studentsBreadcrumbProvider),
                             _ => ref.watch(settingsBreadcrumbProvider),
                           };
                           final theme = Theme.of(context);

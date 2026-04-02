@@ -2,7 +2,6 @@ import 'package:educational_complex_director_app/Repositories/teacher_repostory.
 import 'package:educational_complex_director_app/models/constants/teacher_designation.dart';
 import 'package:educational_complex_director_app/models/helpers/new_credentials.dart';
 import 'package:educational_complex_director_app/models/teacher/teacher_details.dart';
-import 'package:educational_complex_director_app/services/log_services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final teacherDetailsNotifierProvider = AsyncNotifierProvider.autoDispose
@@ -43,7 +42,11 @@ class TeacherDetailsNotifier extends AsyncNotifier<TeacherDetails> {
           .updateTeacher(id: id, body: body);
       refresh();
     } catch (e) {
-      error = e as Exception;
+      if (e is Exception) {
+        error = e;
+      } else {
+        error = Exception(e.toString());
+      }
     }
   }
 
@@ -59,8 +62,11 @@ class TeacherDetailsNotifier extends AsyncNotifier<TeacherDetails> {
           .removeTeacherFromSchool(schoolId: schoolId, teacherId: id);
       refresh();
     } catch (e) {
-      error = e as Exception;
-      LogService.e(e.toString());
+      if (e is Exception) {
+        error = e;
+      } else {
+        error = Exception(e.toString());
+      }
     }
   }
 
@@ -82,8 +88,11 @@ class TeacherDetailsNotifier extends AsyncNotifier<TeacherDetails> {
           );
       refresh();
     } catch (e) {
-      error = e as Exception;
-      LogService.e(e.toString());
+      if (e is Exception) {
+        error = e;
+      } else {
+        error = Exception(e.toString());
+      }
     }
   }
 
@@ -105,8 +114,11 @@ class TeacherDetailsNotifier extends AsyncNotifier<TeacherDetails> {
           );
       refresh();
     } catch (e) {
-      error = e as Exception;
-      LogService.e(e.toString());
+      if (e is Exception) {
+        error = e;
+      } else {
+        error = Exception(e.toString());
+      }
     }
   }
 
@@ -119,8 +131,11 @@ class TeacherDetailsNotifier extends AsyncNotifier<TeacherDetails> {
           .read(teacherRepositoryProvider)
           .resetTeacherPassword(id: id);
     } catch (e) {
-      error = e as Exception;
-      LogService.e(e.toString());
+      if (e is Exception) {
+        error = e;
+      } else {
+        error = Exception(e.toString());
+      }
     }
     return null;
   }

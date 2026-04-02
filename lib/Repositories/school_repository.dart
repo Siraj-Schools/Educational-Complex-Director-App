@@ -42,7 +42,7 @@ class SchoolRepository {
     if (token == null) {
       throw Exception('Token not found');
     }
-    return await schoolServices.createSchool(token: token, body: body);
+    await schoolServices.createSchool(token: token, body: body);
   }
 
   Future<void> updateSchool({
@@ -53,7 +53,7 @@ class SchoolRepository {
     if (token == null) {
       throw Exception('Token not found');
     }
-    return await schoolServices.updateSchool(token: token, id: id, body: body);
+    await schoolServices.updateSchool(token: token, id: id, body: body);
   }
 
   Future<void> removeManager({required String id}) async {
@@ -61,7 +61,7 @@ class SchoolRepository {
     if (token == null) {
       throw Exception('Token not found');
     }
-    return await schoolServices.removeManager(token: token, id: id);
+    await schoolServices.removeManager(token: token, id: id);
   }
 
   Future<void> changeManager({
@@ -72,7 +72,7 @@ class SchoolRepository {
     if (token == null) {
       throw Exception('Token not found');
     }
-    return await schoolServices.changeManager(
+    await schoolServices.changeManager(
       token: token,
       schoolId: schoolId,
       newManagerId: newManagerId,

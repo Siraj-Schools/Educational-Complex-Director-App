@@ -122,21 +122,13 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
       text: d?.manager?.mobileNumber ?? '',
     );
     if (!isAdding) {
-      selectedGender = GenderEnum.values
-          .firstWhere(
-            (element) => element.name == d?.manager?.gender,
-            orElse: () => GenderEnum.None,
-          )
-          .index;
-      selectedMarital = MaritalStatusEnum.values
-          .firstWhere(
-            (element) => element.name == d?.manager?.maritalStatus,
-            orElse: () => MaritalStatusEnum.Single,
-          )
-          .index;
+      if (d!.manager != null) {
+        selectedGender = d.manager!.gender.index;
+        selectedMarital = d.manager!.maritalStatus.index;
+      }
       selectedSchoolType = SchoolTypeEnum.values
           .firstWhere(
-            (element) => element.name == d?.school.schoolType,
+            (element) => element.name == d.school.schoolType,
             orElse: () => SchoolTypeEnum.Primary,
           )
           .index;
@@ -1169,9 +1161,9 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                                 letterSpacing: 1.2,
                               ),
                         ),
-                        onPressed: () => _handleSave(
-                          context,
-                        ),
+                        onPressed: () async {
+                          await _handleSave(context);
+                        },
                       ),
                     ),
                   ),

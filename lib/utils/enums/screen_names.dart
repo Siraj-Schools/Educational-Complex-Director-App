@@ -7,4 +7,10 @@ enum ScreenNames {
   teachers,
   addTeacher,
   teacherDetails,
+  managers,
+  addManager,
+  managerDetails,
+  students,
+  addStudent,
+  studentDetails,
 }

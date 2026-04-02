@@ -181,5 +181,12 @@
   "cancel": "Cancel",
   "changePasswordOfTeacher": "Change Password Of Teacher",
   "newCredentials": "New Credentials",
-  "credentialsCopied": "Credentials copied to clipboard"
+  "credentialsCopied": "Credentials copied to clipboard",
+  "students": "Students",
+  "managers": "Managers",
+  "addManager": "Add Manager",
+  "managerDetails": "Manager Details",
+  "schoolManager": "School Manager",
+  "addStudent": "Add Student",
+  "studentDetails": "Student Details"
 }

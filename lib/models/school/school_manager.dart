@@ -1,3 +1,6 @@
+import 'package:educational_complex_director_app/models/constants/gender.dart';
+import 'package:educational_complex_director_app/models/constants/marital_status.dart';
+
 class SchoolManager {
   final String userId;
   final String userName;
@@ -9,9 +12,9 @@ class SchoolManager {
   final String lastName;
   final String fullName;
   final String mobileNumber;
-  final String gender;
+  final GenderEnum gender;
   final DateTime dateOfBirth;
-  final String maritalStatus;
+  final MaritalStatusEnum maritalStatus;
   final String cityName;
   final String stateName;
   final String countryName;
@@ -49,9 +52,11 @@ class SchoolManager {
       lastName: json['lastName'],
       fullName: json['fullName'],
       mobileNumber: json['mobileNumber'],
-      gender: json['gender'],
+      gender: GenderEnum.values.firstWhere((e) => e.name == json['gender']),
       dateOfBirth: DateTime.parse(json['dateOfBirth']),
-      maritalStatus: json['maritalStatus'],
+      maritalStatus: MaritalStatusEnum.values.firstWhere(
+        (e) => e.name == json['maritalStatus'],
+      ),
       cityName: json['cityName'],
       stateName: json['stateName'],
       countryName: json['countryName'],

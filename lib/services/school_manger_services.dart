@@ -35,6 +35,64 @@ class SchoolMangerServices {
     }
     return PaginatedResponse.fromJson(response.data);
   }
+
+  Future<SchoolManager> getManager({
+    required String token,
+    required String managerId,
+  }) async {
+    final response = await dio.get(
+      '/managers/$managerId',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+    );
+    if (response.statusCode != 200) {
+      LogService.e(response.data['title']);
+      throw Exception('Failed to load manager');
+    }
+    return SchoolManager.fromJson(response.data);
+  }
+
+  Future<void> createManager({
+    required String token,
+    required Map<String, dynamic> body,
+  }) async {
+    final response = await dio.post(
+      '/managers',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+      data: body,
+    );
+    if (response.statusCode != 201) {
+      LogService.e(response.data['title']);
+      throw Exception('Failed to create manager');
+    }
+  }
+
+  Future<void> updateManager({
+    required String token,
+    required String managerId,
+    required Map<String, dynamic> body,
+  }) async {
+    final response = await dio.patch(
+      '/managers/$managerId',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+      data: body,
+    );
+    if (response.statusCode != 204) {
+      LogService.e(response.data['title']);
+      throw Exception('Failed to update manager');
+    }
+  }
 }
 
 final schoolMangerServiceProvider = Provider<SchoolMangerServices>(

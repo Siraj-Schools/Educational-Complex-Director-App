@@ -170,5 +170,12 @@
   "cancel": "إلغاء",
   "changePasswordOfTeacher": "تغيير كلمة المرور المعلم",
   "newCredentials": "بيانات الاعتماد الجديدة",
-  "credentialsCopied": "تم نسخ بيانات الاعتماد إلى الحافظة"
+  "credentialsCopied": "تم نسخ بيانات الاعتماد إلى الحافظة",
+  "students": "الطلاب",
+  "managers": "المدراء",
+  "addManager": "إضافة مدير",
+  "managerDetails": "تفاصيل المدير",
+  "schoolManager": "مدير مدرسة",
+  "addStudent": "إضافة طالب",
+  "studentDetails": "تفاصيل الطالب"
 }

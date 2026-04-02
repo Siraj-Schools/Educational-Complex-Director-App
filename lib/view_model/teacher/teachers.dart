@@ -1,6 +1,5 @@
 import 'package:educational_complex_director_app/Repositories/teacher_repostory.dart';
 import 'package:educational_complex_director_app/models/teacher/teacher.dart';
-import 'package:educational_complex_director_app/services/log_services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class TeachersNotifier extends AsyncNotifier<List<Teacher>> {
@@ -76,8 +75,11 @@ class TeachersNotifier extends AsyncNotifier<List<Teacher>> {
       await ref.read(teacherRepositoryProvider).createTeacher(body: body);
       await refresh();
     } catch (e) {
-      LogService.e(e.toString());
-      errorAddingTeacher = e as Exception;
+      if (e is Exception) {
+        errorAddingTeacher = e;
+      } else {
+        errorAddingTeacher = Exception(e.toString());
+      }
     }
   }
 }
