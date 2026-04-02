@@ -40,4 +40,19 @@ class School {
       emisNumber: json['emisNumber'],
     );
   }
+  factory School.fromTeacherDetailsApi(Map<String, dynamic> json) {
+    return School(
+      id: json['schoolId'],
+      name: json['schoolName'],
+      email: json['schoolEmail'],
+      phone: json['schoolPhone'],
+      address: json['schoolAddress'],
+      stateName: json['schoolStateName'],
+      cityName: json['schoolCityName'],
+      schoolTypeName: "",
+      schoolTypeDescription: "",
+      schoolType: json['schoolTypeName'],
+      emisNumber: json['schoolEMISNumber'],
+    );
+  }
 }

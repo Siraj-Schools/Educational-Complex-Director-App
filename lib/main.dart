@@ -20,17 +20,17 @@ void main() async {
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-    
   ]);
 
   runApp(
     ProviderScope(
       child: const MyApp(),
       retry: (retryCount, error) {
-        if (retryCount > 3) {
-          return null;
-        }
-        return const Duration(seconds: 2);
+        // if (retryCount > 3) {
+        //   return null;
+        // }
+        // return const Duration(seconds: 2);
+        return null;
       },
     ),
   );

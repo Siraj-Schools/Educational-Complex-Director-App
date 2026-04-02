@@ -1,34 +1,69 @@
-import 'package:educational_complex_director_app/l10n/app_localizations.dart';
-import 'package:educational_complex_director_app/models/helpers/lookup_items.dart';
+// ignore_for_file: constant_identifier_names
 
-const Map<String, String> qualificationsMap = {
-  "High School": "10000000-0000-0000-0000-000000000001",
-  "Undergraduate Degree": "20000000-0000-0000-0000-000000000002",
-  "Postgraduate Degree": "30000000-0000-0000-0000-000000000003",
-  "Masters Degree": "40000000-0000-0000-0000-000000000004",
-  "Doctorate": "50000000-0000-0000-0000-000000000005",
-};
-List<LookupItem> getQualifications(AppLocalizations loc) {
-  return [
-    LookupItem(
-      id: "10000000-0000-0000-0000-000000000001",
-      value: loc.highSchool,
-    ),
-    LookupItem(
-      id: "20000000-0000-0000-0000-000000000002",
-      value: loc.undergraduateDegree,
-    ),
-    LookupItem(
-      id: "30000000-0000-0000-0000-000000000003",
-      value: loc.postgraduateDegree,
-    ),
-    LookupItem(
-      id: "40000000-0000-0000-0000-000000000004",
-      value: loc.mastersDegree,
-    ),
-    LookupItem(
-      id: "50000000-0000-0000-0000-000000000005",
-      value: loc.doctorate,
-    ),
-  ];
+import 'package:educational_complex_director_app/l10n/app_localizations.dart';
+
+enum QualificationEnum {
+  None,
+  Primary,
+  UnderGraduate,
+  PostGraduate,
+  Teacher,
+  Others,
+}
+
+extension QualificationLocalizationEnglish on QualificationEnum {
+  String get englishName {
+    switch (this) {
+      case QualificationEnum.Primary:
+        return "Primary School Certificate";
+      case QualificationEnum.UnderGraduate:
+        return "Undergraduate Degree";
+      case QualificationEnum.PostGraduate:
+        return "Postgraduate Degree";
+      case QualificationEnum.Teacher:
+        return "Teacher Training Institute";
+      case QualificationEnum.Others:
+        return "Other Qualification";
+      case QualificationEnum.None:
+        return "";
+    }
+  }
+}
+
+extension QualificationLocalization on QualificationEnum {
+  String loc(AppLocalizations loc) {
+    switch (this) {
+      case QualificationEnum.Primary:
+        return loc.primarySchoolCertificate;
+      case QualificationEnum.UnderGraduate:
+        return loc.undergraduateDegree;
+      case QualificationEnum.PostGraduate:
+        return loc.postgraduateDegree;
+      case QualificationEnum.Teacher:
+        return loc.teacherTrainingInstitute;
+      case QualificationEnum.Others:
+        return loc.otherQualification;
+      case QualificationEnum.None:
+        return "";
+    }
+  }
+}
+
+extension QualificationId on QualificationEnum {
+  String get id {
+    switch (this) {
+      case QualificationEnum.Primary:
+        return "20000000-0000-0000-0000-000000000001";
+      case QualificationEnum.UnderGraduate:
+        return "20000000-0000-0000-0000-000000000002";
+      case QualificationEnum.PostGraduate:
+        return "20000000-0000-0000-0000-000000000003";
+      case QualificationEnum.Teacher:
+        return "20000000-0000-0000-0000-000000000004";
+      case QualificationEnum.Others:
+        return "20000000-0000-0000-0000-000000000005";
+      case QualificationEnum.None:
+        return "";
+    }
+  }
 }

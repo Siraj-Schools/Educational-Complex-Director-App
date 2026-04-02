@@ -1,11 +1,14 @@
-import 'package:educational_complex_director_app/l10n/app_localizations.dart';
+import 'package:educational_complex_director_app/models/constants/roles.dart';
+import 'package:educational_complex_director_app/models/user.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
 
 import 'package:educational_complex_director_app/view/mainlayout/notification_bell.dart';
 import 'package:flutter/material.dart';
 
 class MainHeader extends StatelessWidget implements PreferredSizeWidget {
-  const MainHeader({super.key});
+  const MainHeader({super.key, required this.user});
+
+  final User user;
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +60,11 @@ class MainHeader extends StatelessWidget implements PreferredSizeWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        AppLocalizations.of(context)!.director,
+                        user.role.getLocalizedName(context),
                         style: theme.textTheme.titleMedium,
                       ),
                       Text(
-                        "director@siraj.edu",
+                        user.email,
                         style: theme.textTheme.bodyMedium,
                       ),
                     ],

@@ -9,6 +9,9 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get retry => 'Retry';
+
+  @override
   String get appTitle => 'Siraj';
 
   @override
@@ -39,6 +42,42 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailRequired => 'Email is required';
 
   @override
+  String get nameRequired => 'Name is required';
+
+  @override
+  String get phoneRequired => 'Phone number is required';
+
+  @override
+  String get addressRequired => 'Address is required';
+
+  @override
+  String get emisRequired => 'EMIS number is required';
+
+  @override
+  String get usernameRequired => 'Username is required';
+
+  @override
+  String get passwordRequired => 'Password is required';
+
+  @override
+  String get nationalIdRequired => 'National ID is required';
+
+  @override
+  String get firstNameRequired => 'First name is required';
+
+  @override
+  String get lastNameRequired => 'Last name is required';
+
+  @override
+  String get emailRequiredAr => 'البريد الإلكتروني مطلوب';
+
+  @override
+  String get required => 'Required';
+
+  @override
+  String get requiredAr => 'مطلوب';
+
+  @override
   String get logout => 'Logout';
 
   @override
@@ -46,9 +85,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get invalidEmail => 'Invalid email format';
-
-  @override
-  String get passwordRequired => 'Password is required';
 
   @override
   String get home => 'Home';
@@ -207,6 +243,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get secondary => 'Secondary';
 
   @override
+  String get basic => 'Basic';
+
+  @override
+  String get vocationalIndustrial => 'Vocational Industrial';
+
+  @override
+  String get vocationalTechnical => 'Vocational Technical';
+
+  @override
+  String get sharia => 'Sharia';
+
+  @override
   String get syria => 'Syria';
 
   @override
@@ -294,12 +342,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get info => 'Information';
 
   @override
-  String get confirm => 'Confirm';
-
-  @override
-  String get cancel => 'Cancel';
-
-  @override
   String get ok => 'OK';
 
   @override
@@ -364,4 +406,151 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get academicYearInfo => 'Academic Year Info';
+
+  @override
+  String get teacherDesignationAssistantTeacher => 'Assistant Teacher';
+
+  @override
+  String get teacherDesignationCoOrdinator => 'Coordinator';
+
+  @override
+  String get teacherDesignationHeadOfTheDepartment => 'Head of the Department';
+
+  @override
+  String get teacherDesignationLibrarian => 'Librarian';
+
+  @override
+  String get teacherDesignationPrincipal => 'Principal';
+
+  @override
+  String get teacherDesignationTeacher => 'Teacher';
+
+  @override
+  String get teacherDesignationSeniorTeacher => 'Senior Teacher';
+
+  @override
+  String get teacherDesignationVicePrincipal => 'Vice Principal';
+
+  @override
+  String get teacherDesignationAccountant => 'Accountant';
+
+  @override
+  String get teacherDesignationReceptionist => 'Receptionist';
+
+  @override
+  String get teacherDesignationLabAssistant => 'Lab Assistant';
+
+  @override
+  String get teacherDesignationClerk => 'Clerk';
+
+  @override
+  String get teacherDesignationStockKeeper => 'Stock Keeper';
+
+  @override
+  String get teacherDesignationPeon => 'Peon';
+
+  @override
+  String get teacherDesignationDriver => 'Driver';
+
+  @override
+  String get teacherDesignationHelpers => 'Helpers';
+
+  @override
+  String get teacherDesignationSecurity => 'Security';
+
+  @override
+  String get teacherDesignationPhysicalEducationTeacher => 'Physical Education Teacher';
+
+  @override
+  String get teacherDesignationTransportCoordinator => 'Transport Coordinator';
+
+  @override
+  String get teacherDesignationOthers => 'Others';
+
+  @override
+  String get teacherDesignationClassTeacher => 'Class Teacher';
+
+  @override
+  String get invalidCredentials => 'Email or password is incorrect';
+
+  @override
+  String get roleEducationalComplexPrincipel => 'Educational Complex Principal';
+
+  @override
+  String get roleDirectorate => 'Directorate';
+
+  @override
+  String get sessionExpired => 'Something went wrong, please login again';
+
+  @override
+  String get loadingYourData => 'Loading your data...';
+
+  @override
+  String get removeManager => 'Remove Manager';
+
+  @override
+  String get changeManager => 'Change Manager';
+
+  @override
+  String get assignManager => 'Assign Manager';
+
+  @override
+  String get noManagerFoundMessage => 'This school doesnt have a manager';
+
+  @override
+  String get noDataFound => 'No data found';
+
+  @override
+  String get selectManager => 'Select Manager';
+
+  @override
+  String get searchManager => 'Search manager...';
+
+  @override
+  String get primarySchoolCertificate => 'Primary School Certificate';
+
+  @override
+  String get teacherTrainingInstitute => 'Teacher Training Institute';
+
+  @override
+  String get otherQualification => 'Other Qualification';
+
+  @override
+  String get startDate => 'Start Date';
+
+  @override
+  String get endDate => 'End Date';
+
+  @override
+  String get removeTeacherFromSchool => 'Remove from School';
+
+  @override
+  String get transferTeacherToAnotherSchool => 'Transfer to Another School';
+
+  @override
+  String get assignTeacherToSchool => 'Assign to School';
+
+  @override
+  String get selectSchool => 'Select School';
+
+  @override
+  String get selectDesignation => 'Select Designation';
+
+  @override
+  String get selectSchoolAndDesignation => 'Select School and Designation';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get changePasswordOfTeacher => 'Change Password Of Teacher';
+
+  @override
+  String get newCredentials => 'New Credentials';
+
+  @override
+  String get credentialsCopied => 'Credentials copied to clipboard';
 }

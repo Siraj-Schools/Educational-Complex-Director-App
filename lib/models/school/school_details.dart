@@ -3,7 +3,7 @@ import 'package:educational_complex_director_app/models/school/school_manager.da
 
 class SchoolDetails {
   final School school;
-  final SchoolManager manager;
+  final SchoolManager? manager;
   final List<String> details;
 
   SchoolDetails({
@@ -15,7 +15,9 @@ class SchoolDetails {
   factory SchoolDetails.fromJson(Map<String, dynamic> json) {
     return SchoolDetails(
       school: School.fromJson(json),
-      manager: SchoolManager.fromJson(json['manager']),
+      manager: json['manager'] != null
+          ? SchoolManager.fromJson(json['manager'])
+          : null,
       details: List<String>.from(json['details'] ?? []),
     );
   }

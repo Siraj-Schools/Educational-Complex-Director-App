@@ -1,5 +1,5 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
-import 'package:educational_complex_director_app/models/helpers/localization_string_extension.dart';
+import 'package:educational_complex_director_app/models/constants/school_types.dart';
 import 'package:educational_complex_director_app/models/school/school.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
@@ -165,14 +165,14 @@ class SchoolCard extends StatelessWidget {
                         child: _infoBlock(
                           context,
                           loc.stateId,
-                          school.stateName.localized(loc),
+                          school.stateName,
                         ),
                       ),
                       Expanded(
                         child: _infoBlock(
                           context,
                           loc.cityId,
-                          school.cityName.localized(loc),
+                          school.cityName,
                         ),
                       ),
                     ],
@@ -189,7 +189,11 @@ class SchoolCard extends StatelessWidget {
                         child: _infoBlock(
                           context,
                           loc.schoolType,
-                          school.schoolTypeName.localized(loc),
+                          SchoolTypeEnum.values
+                              .firstWhere(
+                                (element) => element.name == school.schoolType,
+                              )
+                              .loc(loc),
                         ),
                       ),
                       Expanded(

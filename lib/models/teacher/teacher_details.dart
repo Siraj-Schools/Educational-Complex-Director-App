@@ -1,119 +1,59 @@
+import 'package:educational_complex_director_app/models/academic_year.dart';
+import 'package:educational_complex_director_app/models/constants/gender.dart';
+import 'package:educational_complex_director_app/models/constants/marital_status.dart';
+import 'package:educational_complex_director_app/models/constants/teacher_designation.dart';
+import 'package:educational_complex_director_app/models/school/school.dart';
+import 'package:educational_complex_director_app/models/teacher/teacher.dart';
+
 class TeacherDetails {
-  final String id;
-  final String userId;
   final String userName;
-  final String email;
-  final String nationalId;
-  final String registrationNumber;
+  final Teacher teacher;
 
-  final String firstName;
-  final String middleName;
-  final String lastName;
-  final String fullName;
-
-  final String mobileNumber;
-  final String gender;
+  final GenderEnum gender;
   final DateTime dateOfBirth;
-  final String maritalStatus;
-  final String joiningDateUtc;
+  final MaritalStatusEnum maritalStatus;
 
-  final String cityName;
-  final String stateName;
-  final String countryName;
+  final School? school;
+  final AcademicYear academicYear;
 
-  final String schoolId;
-  final String schoolName;
-  final String schoolEmail;
-  final String schoolPhone;
-  final String schoolAddress;
-  final String schoolEMISNumber;
-
-  final String schoolCityName;
-  final String schoolStateName;
-  final String schoolTypeName;
-
-  final String schoolAcademicYearId;
-  final String academicYearName;
-  final DateTime academicYearStartDate;
-  final DateTime academicYearEndDate;
-
-  final String qualificationName;
-  final String qualificationType;
-  final String designation;
+  final TeacherDesignation designation;
 
   TeacherDetails({
-    required this.id,
-    required this.userId,
     required this.userName,
-    required this.email,
-    required this.nationalId,
-    required this.registrationNumber,
-    required this.firstName,
-    required this.middleName,
-    required this.lastName,
-    required this.fullName,
-    required this.mobileNumber,
+    required this.teacher,
+
     required this.gender,
     required this.dateOfBirth,
     required this.maritalStatus,
-    required this.joiningDateUtc,
-    required this.cityName,
-    required this.stateName,
-    required this.countryName,
-    required this.schoolId,
-    required this.schoolName,
-    required this.schoolEmail,
-    required this.schoolPhone,
-    required this.schoolAddress,
-    required this.schoolEMISNumber,
-    required this.schoolCityName,
-    required this.schoolStateName,
-    required this.schoolTypeName,
-    required this.schoolAcademicYearId,
-    required this.academicYearName,
-    required this.academicYearStartDate,
-    required this.academicYearEndDate,
-    required this.qualificationName,
-    required this.qualificationType,
+
     required this.designation,
+
+    required this.school,
+    required this.academicYear,
   });
 
   factory TeacherDetails.fromJson(Map<String, dynamic> json) {
     return TeacherDetails(
-      id: json['id'],
-      userId: json['userId'],
+      teacher: Teacher.fromJson(json),
       userName: json['userName'],
-      email: json['email'],
-      nationalId: json['nationalId'],
-      registrationNumber: json['registrationNumber'],
-      firstName: json['firstName'],
-      middleName: json['middleName'],
-      lastName: json['lastName'],
-      fullName: json['fullName'],
-      mobileNumber: json['mobileNumber'],
-      gender: json['gender'],
+
+      gender: GenderEnum.values.firstWhere(
+        (element) => element.name == json['gender'],
+        orElse: () => GenderEnum.None,
+      ),
       dateOfBirth: DateTime.parse(json['dateOfBirth']),
-      maritalStatus: json['maritalStatus'],
-      joiningDateUtc: json['joiningDateUtc'],
-      cityName: json['cityName'],
-      stateName: json['stateName'],
-      countryName: json['countryName'],
-      schoolId: json['schoolId'],
-      schoolName: json['schoolName'],
-      schoolEmail: json['schoolEmail'],
-      schoolPhone: json['schoolPhone'],
-      schoolAddress: json['schoolAddress'],
-      schoolEMISNumber: json['schoolEMISNumber'],
-      schoolCityName: json['schoolCityName'],
-      schoolStateName: json['schoolStateName'],
-      schoolTypeName: json['schoolTypeName'],
-      schoolAcademicYearId: json['schoolAcademicYearId'],
-      academicYearName: json['academicYearName'],
-      academicYearStartDate: DateTime.parse(json['academicYearStartDate']),
-      academicYearEndDate: DateTime.parse(json['academicYearEndDate']),
-      qualificationName: json['qualificationName'],
-      qualificationType: json['qualificationType'],
-      designation: json['designation'],
+      maritalStatus: MaritalStatusEnum.values.firstWhere(
+        (element) => element.name == json['maritalStatus'],
+        orElse: () => MaritalStatusEnum.None,
+      ),
+
+      school: School.fromTeacherDetailsApi(json),
+      academicYear: AcademicYear.fromTeacherDetailsApi(json),
+
+      designation: TeacherDesignation.values.firstWhere(
+        (element) => element.name == json['designation'],
+        orElse: () => TeacherDesignation.Others,
+      ),
     );
   }
 }

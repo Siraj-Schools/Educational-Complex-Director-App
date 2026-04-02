@@ -1,13 +1,14 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
 
-import 'package:educational_complex_director_app/services/local_storage_services.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
 
 import 'package:educational_complex_director_app/utils/s_responsive_layout.dart';
+import 'package:educational_complex_director_app/view/components/error_dialog.dart';
 import 'package:educational_complex_director_app/view/components/loading_dialog.dart';
 import 'package:educational_complex_director_app/view/pages/authpage/auth_page_desktop_and_tablet.dart';
 import 'package:educational_complex_director_app/view/pages/authpage/auth_page_mobile.dart';
+import 'package:educational_complex_director_app/view_model/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -23,19 +24,12 @@ class AuthPage extends ConsumerStatefulWidget {
 class _AuthPageState extends ConsumerState<AuthPage> {
   Future<void> handleLogin() async {
     if (formKey.currentState!.validate()) {
-      //TODO: Implement login logic here
-      await Get.showOverlay(
-        asyncFunction: () async {
-          await Future.delayed(const Duration(seconds: 4));
-          await LocalStorageService.setToken("aass");
-        },
-        loadingWidget: LoadingDialog(
-          extraMessage: AppLocalizations.of(context)!.checkingCredentials,
-        ),
-        opacityColor: Colors.black.withAlpha(50),
-      );
-
-      await Get.offAllNamed(Sroutes.main);
+      await ref
+          .read(authViewModelProvider.notifier)
+          .login(
+            emailController.text,
+            passwordController.text,
+          );
     }
   }
 
@@ -68,6 +62,40 @@ class _AuthPageState extends ConsumerState<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(authViewModelProvider, (previous, next) async {
+      final checkingCredentials = AppLocalizations.of(
+        context,
+      )!.checkingCredentials;
+      final error = AppLocalizations.of(context)!.invalidCredentials;
+      if (!next.isLoading && !next.hasError && previous?.isLoading == true) {
+        if (Get.isDialogOpen!) {
+          Get.back();
+        }
+        await Get.offAllNamed(Sroutes.main);
+      }
+      if (next.isLoading) {
+        if (Get.isDialogOpen!) {
+          Get.back();
+        }
+        await Get.dialog(
+          LoadingDialog(
+            extraMessage: checkingCredentials,
+          ),
+          barrierDismissible: false,
+        );
+      } else if (next.hasError) {
+        if (Get.isDialogOpen!) {
+          Get.back();
+        }
+
+        await Get.dialog(
+          ErrorDialog(
+            message: error,
+          ),
+          barrierDismissible: false,
+        );
+      }
+    });
     final local = AppLocalizations.of(context)!;
     SConfig.init(context);
     final Widget form = Form(

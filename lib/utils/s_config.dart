@@ -8,7 +8,7 @@ class SConfig {
   static double? screenWidth;
   static double? screenHeight;
   const SConfig._();
-  static const String baseUrl = 'http://192.168.54.238:5001';
+  static const String baseUrl = 'http://localhost:5001';
   static String getTitle(BuildContext context, ScreenNames page) {
     final loc = AppLocalizations.of(context)!;
 

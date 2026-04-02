@@ -1,13 +1,19 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
-import 'package:educational_complex_director_app/models/helpers/localization_string_extension.dart';
-import 'package:educational_complex_director_app/models/school/school.dart';
+import 'package:educational_complex_director_app/models/constants/school_types.dart';
+// ignore: unused_import
+
 import 'package:educational_complex_director_app/models/school/school_details.dart';
-import 'package:educational_complex_director_app/models/school/school_manager.dart';
+import 'package:educational_complex_director_app/routes/routes.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
+import 'package:educational_complex_director_app/view/components/error_dialog.dart';
 import 'package:educational_complex_director_app/view/pages/schoolspage/school_info_form.dart';
+import 'package:educational_complex_director_app/view_model/bread_crumb_notifier.dart';
+import 'package:educational_complex_director_app/view_model/school/school_details.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class SchoolDetailsPage extends ConsumerWidget {
   const SchoolDetailsPage({super.key, required this.schoolId});
@@ -15,63 +21,67 @@ class SchoolDetailsPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     SConfig.init(context);
-
-    final dummyDetails = SchoolDetails(
-      school: School(
-        id: '1',
-        schoolType: "",
-        schoolTypeDescription: "",
-        name: "Future Academy",
-        email: "info@future.com",
-        phone: "123456789",
-        address: "Oslo",
-        stateName: "Damascus",
-        cityName: "Damascus",
-        schoolTypeName: "Primary",
-        emisNumber: "EMIS001",
-      ),
-      manager: SchoolManager(
-        email: "manager@future.com",
-        fullName: "John Doe",
-        joiningDateUtc: "2022-01-01",
-        registrationNumber: "REG-239921",
-        userId: "",
-        userName: "admin",
-        nationalId: "99887766",
-        firstName: "John",
-        middleName: "A",
-        lastName: "Doe",
-        mobileNumber: "123456789",
-        gender: "male",
-        dateOfBirth: DateTime(1990, 1, 1),
-        maritalStatus: "single",
-        cityName: "Damascus",
-        stateName: "Damascus",
-        countryName: "Syria",
-      ),
-      details: [
-        "Top ranked private school",
-        "Modern STEM curriculum",
-        "International partnerships",
-      ],
-    );
-
-    final details = dummyDetails;
-
+    final schoolDetails = ref.watch(schoolDetailsNotifierProvider(schoolId));
     return SingleChildScrollView(
       padding: const EdgeInsets.all(12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _schoolHeader(context, details),
-
-          const SizedBox(height: 28),
-
-          SizedBox(
-            width: double.infinity,
-            child: SchoolInfoForm(
-              details: details,
+          const SizedBox(height: 10),
+          // ── Back button ───────────────────────────────────────────
+          IconButton.filled(
+            icon: const Icon(Icons.arrow_back_rounded),
+            iconSize: 28,
+            style: IconButton.styleFrom(
+              backgroundColor: SConfig.primaryColor.withAlpha(20),
+              foregroundColor: SConfig.primaryColor,
             ),
+            onPressed: () {
+              ref.read(schoolsBreadcrumbProvider.notifier).pop();
+              Get.back(id: Sroutes.schoolsNavigationId);
+            },
+          ),
+          const SizedBox(height: 10),
+
+          ...schoolDetails.when(
+            data: (data) => [
+              SizedBox(
+                width: double.infinity,
+                child: _schoolHeader(context, data),
+              ),
+
+              const SizedBox(height: 28),
+
+              SizedBox(
+                width: double.infinity,
+                child: SchoolInfoForm(
+                  details: data,
+                ),
+              ),
+            ],
+
+            error: (error, stackTrace) => [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: Center(
+                  child: ErrorDialog(
+                    message: error.toString(),
+                    blur: 0,
+                  ),
+                ),
+              ),
+            ],
+            loading: () => [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.6,
+                child: Center(
+                  child: LoadingAnimationWidget.beat(
+                    color: SConfig.primaryColor,
+                    size: 90,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -124,29 +134,28 @@ class SchoolDetailsPage extends ConsumerWidget {
                             const SizedBox(height: 6),
 
                             Text(
-                              "${details.school.schoolTypeName.localized(loc!)} • ${details.school.cityName.localized(loc)}",
+                              "${SchoolTypeEnum.values.firstWhere(
+                                (element) => element.name == details.school.schoolType,
+                              ).loc(loc!)} • ${details.school.cityName}",
                               style: const TextStyle(color: Colors.white70),
                             ),
 
                             const SizedBox(height: 14),
+                            if (details.manager != null)
+                              Wrap(
+                                spacing: 12,
+                                children: [
+                                  _headerChip(
+                                    Icons.badge,
+                                    details.manager!.registrationNumber,
+                                  ),
 
-                            Wrap(
-                              spacing: 12,
-                              children: [
-                                _headerChip(
-                                  Icons.badge,
-                                  details.manager.registrationNumber,
-                                ),
-                                _headerChip(
-                                  Icons.calendar_month,
-                                  details.manager.joiningDateUtc,
-                                ),
-                                _headerChip(
-                                  Icons.person,
-                                  details.manager.fullName,
-                                ),
-                              ],
-                            ),
+                                  _headerChip(
+                                    Icons.person,
+                                    details.manager!.fullName,
+                                  ),
+                                ],
+                              ),
                           ],
                         ),
                       ],
@@ -208,32 +217,31 @@ class SchoolDetailsPage extends ConsumerWidget {
                       const SizedBox(height: 6),
 
                       Text(
-                        "${details.school.schoolTypeName} • ${details.school.cityName}",
+                        "${SchoolTypeEnum.values.firstWhere(
+                          (element) => element.name == details.school.schoolType,
+                        ).loc(loc!)} • ${details.school.cityName}",
                         style: const TextStyle(color: Colors.white70),
                       ),
                     ],
                   ),
 
                   const SizedBox(height: 16),
+                  if (details.manager != null)
+                    Wrap(
+                      spacing: 12,
+                      runSpacing: 12,
+                      children: [
+                        _headerChip(
+                          Icons.badge,
+                          details.manager!.registrationNumber,
+                        ),
 
-                  Wrap(
-                    spacing: 12,
-                    runSpacing: 12,
-                    children: [
-                      _headerChip(
-                        Icons.badge,
-                        details.manager.registrationNumber,
-                      ),
-                      _headerChip(
-                        Icons.calendar_month,
-                        details.manager.joiningDateUtc,
-                      ),
-                      _headerChip(
-                        Icons.person,
-                        details.manager.fullName,
-                      ),
-                    ],
-                  ),
+                        _headerChip(
+                          Icons.person,
+                          details.manager!.fullName,
+                        ),
+                      ],
+                    ),
 
                   if (description.isNotEmpty) ...[
                     const SizedBox(height: 16),

@@ -18,7 +18,6 @@ class MainBody extends StatelessWidget {
     SchoolsPage(),
 
     TeachersPage(),
-
     Center(
       child: Text(
         "Settings Page",

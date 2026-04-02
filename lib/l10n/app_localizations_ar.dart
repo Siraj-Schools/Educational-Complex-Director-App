@@ -9,6 +9,9 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get retry => 'اعادة المحاولة';
+
+  @override
   String get appTitle => 'سراج';
 
   @override
@@ -39,6 +42,42 @@ class AppLocalizationsAr extends AppLocalizations {
   String get emailRequired => 'البريد الإلكتروني مطلوب';
 
   @override
+  String get nameRequired => 'Name is required';
+
+  @override
+  String get phoneRequired => 'Phone number is required';
+
+  @override
+  String get addressRequired => 'Address is required';
+
+  @override
+  String get emisRequired => 'EMIS number is required';
+
+  @override
+  String get usernameRequired => 'Username is required';
+
+  @override
+  String get passwordRequired => 'كلمة المرور مطلوبة';
+
+  @override
+  String get nationalIdRequired => 'National ID is required';
+
+  @override
+  String get firstNameRequired => 'First name is required';
+
+  @override
+  String get lastNameRequired => 'Last name is required';
+
+  @override
+  String get emailRequiredAr => 'البريد الإلكتروني مطلوب';
+
+  @override
+  String get required => 'Required';
+
+  @override
+  String get requiredAr => 'مطلوب';
+
+  @override
   String get logout => 'تسجيل الخروج';
 
   @override
@@ -46,9 +85,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get invalidEmail => 'صيغة البريد الإلكتروني غير صحيحة';
-
-  @override
-  String get passwordRequired => 'كلمة المرور مطلوبة';
 
   @override
   String get home => 'الرئيسية';
@@ -207,6 +243,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get secondary => 'ثانوي';
 
   @override
+  String get basic => 'أساسي';
+
+  @override
+  String get vocationalIndustrial => 'مهني صناعي';
+
+  @override
+  String get vocationalTechnical => 'مهني فني';
+
+  @override
+  String get sharia => 'شرعي';
+
+  @override
   String get syria => 'سوريا';
 
   @override
@@ -294,12 +342,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get info => 'معلومات';
 
   @override
-  String get confirm => 'تأكيد';
-
-  @override
-  String get cancel => 'إلغاء';
-
-  @override
   String get ok => 'حسناً';
 
   @override
@@ -364,4 +406,151 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get academicYearInfo => 'معلومات العام الدراسي';
+
+  @override
+  String get teacherDesignationAssistantTeacher => 'مدرس مساعد';
+
+  @override
+  String get teacherDesignationCoOrdinator => 'منسق';
+
+  @override
+  String get teacherDesignationHeadOfTheDepartment => 'رئيس القسم';
+
+  @override
+  String get teacherDesignationLibrarian => 'أمين مكتبة';
+
+  @override
+  String get teacherDesignationPrincipal => 'مدير مدرسة';
+
+  @override
+  String get teacherDesignationTeacher => 'مدرس';
+
+  @override
+  String get teacherDesignationSeniorTeacher => 'مدرس أول';
+
+  @override
+  String get teacherDesignationVicePrincipal => 'نائب المدير';
+
+  @override
+  String get teacherDesignationAccountant => 'محاسب';
+
+  @override
+  String get teacherDesignationReceptionist => 'موظف استقبال';
+
+  @override
+  String get teacherDesignationLabAssistant => 'مساعد مختبر';
+
+  @override
+  String get teacherDesignationClerk => 'كاتب';
+
+  @override
+  String get teacherDesignationStockKeeper => 'أمين مستودع';
+
+  @override
+  String get teacherDesignationPeon => 'مستخدم';
+
+  @override
+  String get teacherDesignationDriver => 'سائق';
+
+  @override
+  String get teacherDesignationHelpers => 'مساعدين';
+
+  @override
+  String get teacherDesignationSecurity => 'حارس أمن';
+
+  @override
+  String get teacherDesignationPhysicalEducationTeacher => 'مدرس تربية بدنية';
+
+  @override
+  String get teacherDesignationTransportCoordinator => 'منسق نقل';
+
+  @override
+  String get teacherDesignationOthers => 'أخرى';
+
+  @override
+  String get teacherDesignationClassTeacher => 'معلم صف';
+
+  @override
+  String get invalidCredentials => 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+
+  @override
+  String get roleEducationalComplexPrincipel => 'مدير المجمع التربوي';
+
+  @override
+  String get roleDirectorate => 'المديرية';
+
+  @override
+  String get sessionExpired => 'حدث خطأ ما، يرجى تسجيل الدخول مرة أخرى';
+
+  @override
+  String get loadingYourData => 'جاري تحميل بياناتك...';
+
+  @override
+  String get removeManager => 'إزالة المدير';
+
+  @override
+  String get changeManager => 'تغيير المدير';
+
+  @override
+  String get assignManager => 'تعيين مدير';
+
+  @override
+  String get noManagerFoundMessage => 'لا يوجد مدير لهذه المدرسة';
+
+  @override
+  String get noDataFound => 'لا يوجد بيانات';
+
+  @override
+  String get selectManager => 'اختر المدير';
+
+  @override
+  String get searchManager => 'ابحث عن مدير...';
+
+  @override
+  String get primarySchoolCertificate => 'شهادة ابتدائية';
+
+  @override
+  String get teacherTrainingInstitute => 'معهد إعداد معلمين';
+
+  @override
+  String get otherQualification => 'مؤهل آخر';
+
+  @override
+  String get startDate => 'تاريخ البداية';
+
+  @override
+  String get endDate => 'تاريخ النهاية';
+
+  @override
+  String get removeTeacherFromSchool => 'إزالة من المدرسة';
+
+  @override
+  String get transferTeacherToAnotherSchool => 'نقل إلى مدرسة أخرى';
+
+  @override
+  String get assignTeacherToSchool => 'تعيين في مدرسة';
+
+  @override
+  String get selectSchool => 'اختر المدرسة';
+
+  @override
+  String get selectDesignation => 'اختر المسمى الوظيفي';
+
+  @override
+  String get selectSchoolAndDesignation => 'اختر المدرسة والمسمى الوظيفي';
+
+  @override
+  String get confirm => 'تأكيد';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get changePasswordOfTeacher => 'تغيير كلمة المرور للمعلم';
+
+  @override
+  String get newCredentials => 'بيانات الاعتماد الجديدة';
+
+  @override
+  String get credentialsCopied => 'تم نسخ بيانات الاعتماد إلى الحافظة';
 }

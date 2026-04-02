@@ -8,30 +8,33 @@ import 'package:get/route_manager.dart';
 
 class ErrorDialog extends StatelessWidget {
   final String message;
-
+  final void Function()? onOK;
+  final double? blur;
+  final String? okText;
   const ErrorDialog({
     super.key,
     required this.message,
+    this.onOK,
+    this.blur,
+    this.okText,
   });
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     SConfig.init(context);
 
     return Dialog(
       elevation: 0,
       backgroundColor: Colors.transparent,
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        filter: ImageFilter.blur(sigmaX: blur ?? 5, sigmaY: blur ?? 5),
         child: Container(
           constraints: const BoxConstraints(maxWidth: 340),
           padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 30),
           decoration: BoxDecoration(
-            color: isDark
-                ? SConfig.secondaryBackground.withAlpha(64)
-                : Colors.white.withAlpha(150),
+            color: Colors.white.withAlpha(150),
             borderRadius: BorderRadius.circular(22),
             border: Border.all(
               color: SConfig.errorColor.withAlpha(120),
@@ -92,8 +95,14 @@ class ErrorDialog extends StatelessWidget {
                       borderRadius: BorderRadius.circular(14),
                     ),
                   ),
-                  onPressed: () => Get.back(),
-                  child: Text(loc.ok),
+                  onPressed: () {
+                    if (onOK != null) {
+                      onOK!();
+                    } else {
+                      Get.back();
+                    }
+                  },
+                  child: Text(okText ?? loc.ok),
                 ),
               ),
             ],

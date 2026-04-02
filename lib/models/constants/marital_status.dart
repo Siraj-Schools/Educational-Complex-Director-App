@@ -1,23 +1,28 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
 
 enum MaritalStatusEnum {
-  single,
-  married,
-  divorced,
-  widowed,
+  None,
+  Single,
+  Married,
+  Divorced,
+  Widowed,
 }
 
 extension MaritalStatusLocalization on MaritalStatusEnum {
   String loc(AppLocalizations loc) {
     switch (this) {
-      case MaritalStatusEnum.single:
+      case MaritalStatusEnum.Single:
         return loc.single;
-      case MaritalStatusEnum.married:
+      case MaritalStatusEnum.Married:
         return loc.married;
-      case MaritalStatusEnum.divorced:
+      case MaritalStatusEnum.Divorced:
         return loc.divorced;
-      case MaritalStatusEnum.widowed:
+      case MaritalStatusEnum.Widowed:
         return loc.widowed;
+      case MaritalStatusEnum.None:
+        return "";
     }
   }
 }

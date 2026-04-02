@@ -1,5 +1,5 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
-import 'package:educational_complex_director_app/models/helpers/localization_string_extension.dart';
+import 'package:educational_complex_director_app/models/constants/qualifications.dart';
 import 'package:educational_complex_director_app/models/teacher/teacher.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
@@ -120,24 +120,11 @@ class TeacherCard extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 6),
-
-                /// NATIONAL ID
-                Text(
-                  teacher.nationalId,
-                  textDirection: TextDirection.ltr,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-
                 const SizedBox(height: 10),
 
                 /// QUALIFICATION BADGE
                 _badge(
-                  teacher.qualificationName.localized(loc),
+                  teacher.qualificationName.loc(loc),
                   SConfig.highlightColor,
                 ),
               ],
@@ -152,51 +139,81 @@ class TeacherCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  /// EMAIL + PHONE
-                  _infoBlock(
-                    context,
-                    loc.email,
-                    teacher.email,
-                    textDirection: TextDirection.ltr,
-                  ),
-                  _infoBlock(
-                    context,
-                    loc.phone,
-                    teacher.mobileNumber,
-                    textDirection: TextDirection.ltr,
-                  ),
-
-                  SConfig.spaceSmall,
-
-                  /// CITY + STATE
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         child: _infoBlock(
                           context,
-                          loc.cityId,
-                          teacher.cityName.localized(loc),
+                          loc.phone,
+                          teacher.mobileNumber,
+                          textDirection: TextDirection.ltr,
                         ),
                       ),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: 12),
                       Expanded(
                         child: _infoBlock(
                           context,
-                          loc.stateId,
-                          teacher.stateName.localized(loc),
+                          loc.email,
+                          teacher.email,
+                          textDirection: TextDirection.ltr,
                         ),
                       ),
                     ],
                   ),
-
-                  // SConfig.spaceSmall,
-
-                  /// COUNTRY
+                  SConfig.spaceSmall,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: _infoBlock(
+                          context,
+                          loc.registrationNumber,
+                          teacher.registrationNumber,
+                          textDirection: TextDirection.ltr,
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _infoBlock(
+                          context,
+                          loc.nationalId,
+                          teacher.nationalId,
+                          textDirection: TextDirection.ltr,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SConfig.spaceSmall,
                   _infoBlock(
                     context,
                     loc.country,
-                    teacher.countryName.localized(loc),
+                    teacher.countryName,
+                    textDirection: TextDirection.ltr,
+                  ),
+                  SConfig.spaceSmall,
+
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 8,
+                    children: [
+                      Expanded(
+                        child: _infoBlock(
+                          context,
+                          loc.stateId,
+                          teacher.stateName,
+                          textDirection: TextDirection.ltr,
+                        ),
+                      ),
+                      Expanded(
+                        child: _infoBlock(
+                          context,
+                          loc.cityId,
+                          teacher.cityName,
+                          textDirection: TextDirection.ltr,
+                        ),
+                      ),
+                    ],
                   ),
 
                   const Spacer(),
@@ -206,7 +223,10 @@ class TeacherCard extends StatelessWidget {
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: SConfig.accentColor,
+                        backgroundColor: SConfig.primaryColor
+                            .withGreen(150)
+                            .withAlpha(160),
+
                         shape: const StadiumBorder(),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 18,
@@ -217,7 +237,7 @@ class TeacherCard extends StatelessWidget {
                         await Get.toNamed(
                           Sroutes.teacherDetails,
                           id: Sroutes.teachersNavigationId,
-                          arguments: teacher.userId,
+                          arguments: teacher.id,
                         );
                       },
                       child: Text(

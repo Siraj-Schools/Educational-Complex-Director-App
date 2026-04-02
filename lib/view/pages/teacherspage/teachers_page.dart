@@ -38,9 +38,7 @@ class TeachersPage extends ConsumerWidget {
             ScreenNames.teacherDetails,
           ]);
           return GetPageRoute(
-            page: () => TeacherDetailsPage(
-              teacherId: teacherUserId,
-            ),
+            page: () => TeacherDetailsPage(teacherId: teacherUserId),
             settings: settings,
           );
         }

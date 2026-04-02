@@ -1,11 +1,13 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
+import 'package:educational_complex_director_app/view_model/auth.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
-import 'package:educational_complex_director_app/services/local_storage_services.dart';
+
 import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/route_manager.dart';
 
-class MainDrawer extends StatelessWidget {
+class MainDrawer extends ConsumerWidget {
   final int selectedIndex;
   final Function(int) onItemSelected;
 
@@ -16,7 +18,7 @@ class MainDrawer extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     SConfig.init(context);
 
     return Drawer(
@@ -93,7 +95,7 @@ class MainDrawer extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              _buildLogout(context),
+              _buildLogout(context, ref),
 
               const SizedBox(height: 20),
             ],
@@ -170,12 +172,12 @@ class MainDrawer extends StatelessWidget {
   // 🚪 LOGOUT
   // ============================================================
 
-  Widget _buildLogout(BuildContext context) {
+  Widget _buildLogout(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
 
     return _HoverTile(
       onTap: () async {
-        await LocalStorageService.clearToken();
+        await ref.read(authViewModelProvider.notifier).logout();
         await Get.offAllNamed(Sroutes.auth);
       },
       child: ListTile(

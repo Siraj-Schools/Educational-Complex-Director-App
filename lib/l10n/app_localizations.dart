@@ -95,6 +95,12 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
@@ -155,6 +161,78 @@ abstract class AppLocalizations {
   /// **'Email is required'**
   String get emailRequired;
 
+  /// No description provided for @nameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Name is required'**
+  String get nameRequired;
+
+  /// No description provided for @phoneRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number is required'**
+  String get phoneRequired;
+
+  /// No description provided for @addressRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Address is required'**
+  String get addressRequired;
+
+  /// No description provided for @emisRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'EMIS number is required'**
+  String get emisRequired;
+
+  /// No description provided for @usernameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Username is required'**
+  String get usernameRequired;
+
+  /// No description provided for @passwordRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Password is required'**
+  String get passwordRequired;
+
+  /// No description provided for @nationalIdRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'National ID is required'**
+  String get nationalIdRequired;
+
+  /// No description provided for @firstNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'First name is required'**
+  String get firstNameRequired;
+
+  /// No description provided for @lastNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Last name is required'**
+  String get lastNameRequired;
+
+  /// No description provided for @emailRequiredAr.
+  ///
+  /// In en, this message translates to:
+  /// **'البريد الإلكتروني مطلوب'**
+  String get emailRequiredAr;
+
+  /// No description provided for @required.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get required;
+
+  /// No description provided for @requiredAr.
+  ///
+  /// In en, this message translates to:
+  /// **'مطلوب'**
+  String get requiredAr;
+
   /// No description provided for @logout.
   ///
   /// In en, this message translates to:
@@ -172,12 +250,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Invalid email format'**
   String get invalidEmail;
-
-  /// No description provided for @passwordRequired.
-  ///
-  /// In en, this message translates to:
-  /// **'Password is required'**
-  String get passwordRequired;
 
   /// No description provided for @home.
   ///
@@ -491,6 +563,30 @@ abstract class AppLocalizations {
   /// **'Secondary'**
   String get secondary;
 
+  /// No description provided for @basic.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic'**
+  String get basic;
+
+  /// No description provided for @vocationalIndustrial.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocational Industrial'**
+  String get vocationalIndustrial;
+
+  /// No description provided for @vocationalTechnical.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocational Technical'**
+  String get vocationalTechnical;
+
+  /// No description provided for @sharia.
+  ///
+  /// In en, this message translates to:
+  /// **'Sharia'**
+  String get sharia;
+
   /// No description provided for @syria.
   ///
   /// In en, this message translates to:
@@ -665,18 +761,6 @@ abstract class AppLocalizations {
   /// **'Information'**
   String get info;
 
-  /// No description provided for @confirm.
-  ///
-  /// In en, this message translates to:
-  /// **'Confirm'**
-  String get confirm;
-
-  /// No description provided for @cancel.
-  ///
-  /// In en, this message translates to:
-  /// **'Cancel'**
-  String get cancel;
-
   /// No description provided for @ok.
   ///
   /// In en, this message translates to:
@@ -808,6 +892,300 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Academic Year Info'**
   String get academicYearInfo;
+
+  /// No description provided for @teacherDesignationAssistantTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Assistant Teacher'**
+  String get teacherDesignationAssistantTeacher;
+
+  /// No description provided for @teacherDesignationCoOrdinator.
+  ///
+  /// In en, this message translates to:
+  /// **'Coordinator'**
+  String get teacherDesignationCoOrdinator;
+
+  /// No description provided for @teacherDesignationHeadOfTheDepartment.
+  ///
+  /// In en, this message translates to:
+  /// **'Head of the Department'**
+  String get teacherDesignationHeadOfTheDepartment;
+
+  /// No description provided for @teacherDesignationLibrarian.
+  ///
+  /// In en, this message translates to:
+  /// **'Librarian'**
+  String get teacherDesignationLibrarian;
+
+  /// No description provided for @teacherDesignationPrincipal.
+  ///
+  /// In en, this message translates to:
+  /// **'Principal'**
+  String get teacherDesignationPrincipal;
+
+  /// No description provided for @teacherDesignationTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher'**
+  String get teacherDesignationTeacher;
+
+  /// No description provided for @teacherDesignationSeniorTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Senior Teacher'**
+  String get teacherDesignationSeniorTeacher;
+
+  /// No description provided for @teacherDesignationVicePrincipal.
+  ///
+  /// In en, this message translates to:
+  /// **'Vice Principal'**
+  String get teacherDesignationVicePrincipal;
+
+  /// No description provided for @teacherDesignationAccountant.
+  ///
+  /// In en, this message translates to:
+  /// **'Accountant'**
+  String get teacherDesignationAccountant;
+
+  /// No description provided for @teacherDesignationReceptionist.
+  ///
+  /// In en, this message translates to:
+  /// **'Receptionist'**
+  String get teacherDesignationReceptionist;
+
+  /// No description provided for @teacherDesignationLabAssistant.
+  ///
+  /// In en, this message translates to:
+  /// **'Lab Assistant'**
+  String get teacherDesignationLabAssistant;
+
+  /// No description provided for @teacherDesignationClerk.
+  ///
+  /// In en, this message translates to:
+  /// **'Clerk'**
+  String get teacherDesignationClerk;
+
+  /// No description provided for @teacherDesignationStockKeeper.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Keeper'**
+  String get teacherDesignationStockKeeper;
+
+  /// No description provided for @teacherDesignationPeon.
+  ///
+  /// In en, this message translates to:
+  /// **'Peon'**
+  String get teacherDesignationPeon;
+
+  /// No description provided for @teacherDesignationDriver.
+  ///
+  /// In en, this message translates to:
+  /// **'Driver'**
+  String get teacherDesignationDriver;
+
+  /// No description provided for @teacherDesignationHelpers.
+  ///
+  /// In en, this message translates to:
+  /// **'Helpers'**
+  String get teacherDesignationHelpers;
+
+  /// No description provided for @teacherDesignationSecurity.
+  ///
+  /// In en, this message translates to:
+  /// **'Security'**
+  String get teacherDesignationSecurity;
+
+  /// No description provided for @teacherDesignationPhysicalEducationTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Physical Education Teacher'**
+  String get teacherDesignationPhysicalEducationTeacher;
+
+  /// No description provided for @teacherDesignationTransportCoordinator.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport Coordinator'**
+  String get teacherDesignationTransportCoordinator;
+
+  /// No description provided for @teacherDesignationOthers.
+  ///
+  /// In en, this message translates to:
+  /// **'Others'**
+  String get teacherDesignationOthers;
+
+  /// No description provided for @teacherDesignationClassTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Class Teacher'**
+  String get teacherDesignationClassTeacher;
+
+  /// No description provided for @invalidCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'Email or password is incorrect'**
+  String get invalidCredentials;
+
+  /// No description provided for @roleEducationalComplexPrincipel.
+  ///
+  /// In en, this message translates to:
+  /// **'Educational Complex Principal'**
+  String get roleEducationalComplexPrincipel;
+
+  /// No description provided for @roleDirectorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Directorate'**
+  String get roleDirectorate;
+
+  /// No description provided for @sessionExpired.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong, please login again'**
+  String get sessionExpired;
+
+  /// No description provided for @loadingYourData.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading your data...'**
+  String get loadingYourData;
+
+  /// No description provided for @removeManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Manager'**
+  String get removeManager;
+
+  /// No description provided for @changeManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Manager'**
+  String get changeManager;
+
+  /// No description provided for @assignManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign Manager'**
+  String get assignManager;
+
+  /// No description provided for @noManagerFoundMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This school doesnt have a manager'**
+  String get noManagerFoundMessage;
+
+  /// No description provided for @noDataFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No data found'**
+  String get noDataFound;
+
+  /// No description provided for @selectManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Manager'**
+  String get selectManager;
+
+  /// No description provided for @searchManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Search manager...'**
+  String get searchManager;
+
+  /// No description provided for @primarySchoolCertificate.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary School Certificate'**
+  String get primarySchoolCertificate;
+
+  /// No description provided for @teacherTrainingInstitute.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher Training Institute'**
+  String get teacherTrainingInstitute;
+
+  /// No description provided for @otherQualification.
+  ///
+  /// In en, this message translates to:
+  /// **'Other Qualification'**
+  String get otherQualification;
+
+  /// No description provided for @startDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get startDate;
+
+  /// No description provided for @endDate.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get endDate;
+
+  /// No description provided for @removeTeacherFromSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from School'**
+  String get removeTeacherFromSchool;
+
+  /// No description provided for @transferTeacherToAnotherSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer to Another School'**
+  String get transferTeacherToAnotherSchool;
+
+  /// No description provided for @assignTeacherToSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign to School'**
+  String get assignTeacherToSchool;
+
+  /// No description provided for @selectSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Select School'**
+  String get selectSchool;
+
+  /// No description provided for @selectDesignation.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Designation'**
+  String get selectDesignation;
+
+  /// No description provided for @selectSchoolAndDesignation.
+  ///
+  /// In en, this message translates to:
+  /// **'Select School and Designation'**
+  String get selectSchoolAndDesignation;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @changePasswordOfTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password Of Teacher'**
+  String get changePasswordOfTeacher;
+
+  /// No description provided for @newCredentials.
+  ///
+  /// In en, this message translates to:
+  /// **'New Credentials'**
+  String get newCredentials;
+
+  /// No description provided for @credentialsCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Credentials copied to clipboard'**
+  String get credentialsCopied;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
