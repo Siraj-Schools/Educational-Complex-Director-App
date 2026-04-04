@@ -76,21 +76,6 @@ class TeacherRepository {
     );
   }
 
-  Future<void> removeTeacherFromSchool({
-    required String schoolId,
-    required String teacherId,
-  }) async {
-    final token = LocalStorageService.getToken;
-    if (token == null) {
-      throw Exception('Token not found');
-    }
-    await teacherServices.removeTeacherFromSchool(
-      token: token,
-      schoolId: schoolId,
-      teacherId: teacherId,
-    );
-  }
-
   Future<void> changeSchoolOfTeacher({
     required String schoolId,
     required String teacherId,

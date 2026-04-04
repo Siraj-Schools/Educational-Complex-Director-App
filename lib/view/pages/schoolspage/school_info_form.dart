@@ -141,8 +141,8 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
 
   double _fieldWidth() {
     if (SConfig.isMobile()) return double.infinity;
-    if (SConfig.isTablet()) return 300;
-    return 340;
+    if (SConfig.isTablet()) return 280;
+    return 300;
   }
 
   Widget _textField(
@@ -281,7 +281,7 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
   }) {
     final loc = AppLocalizations.of(context)!;
     return Container(
-      margin: const EdgeInsets.only(bottom: 24),
+      margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
@@ -322,67 +322,16 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                   ),
                 ),
                 const Spacer(),
-                if (!isAdding && onEdit == null)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton.icon(
-                        onPressed: () async {
-                          await _handleRemoveManager();
-                        },
-                        icon: const Icon(
-                          Icons.person_remove_rounded,
-                          size: 20,
-                        ),
-                        label: Text(
-                          loc.removeManager,
-                          style: Theme.of(context).textTheme.labelLarge
-                              ?.copyWith(
-                                color: SConfig.errorColor,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                        style: TextButton.styleFrom(
-                          foregroundColor: SConfig.errorColor,
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      ElevatedButton.icon(
-                        onPressed: () async {
-                          await handleChangingManager();
-                        },
-                        icon: const Icon(
-                          Icons.manage_accounts_rounded,
-                          size: 20,
-                        ),
-                        label: Text(
-                          loc.changeManager,
-                          style: Theme.of(context).textTheme.labelLarge
-                              ?.copyWith(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: SConfig.primaryColor,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 12,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          elevation: 2,
-                        ),
-                      ),
-                    ],
-                  ),
 
                 if (!isAdding && onEdit != null)
                   if (isSectionEditing == true)
                     Row(
                       children: [
+                        if (!isSomethingEdited)
+                          TextButton(
+                            onPressed: onCancel,
+                            child: Text(AppLocalizations.of(context)!.cancel),
+                          ),
                         ElevatedButton.icon(
                           onPressed: isSomethingEdited ? onSave : null,
                           icon: const Icon(Icons.save, size: 18),
@@ -419,12 +368,12 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Divider(
               thickness: 1,
-              color: SConfig.secondaryBackground,
+              color: Colors.grey,
             ),
           ),
           // Content
           Padding(
-            padding: const EdgeInsets.fromLTRB(12, 24, 12, 24),
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
             child: content,
           ),
         ],
@@ -668,7 +617,7 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 960),
+          constraints: const BoxConstraints(maxWidth: 1000),
           child: Form(
             key: _formKey,
             child: Column(
@@ -705,11 +654,12 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                   onEdit: () => setState(() => isSchoolEditing = true),
                   onCancel: () => setState(() {
                     isSchoolEditing = false;
+                    isSomethingEdited = false;
                   }),
                   onSave: () => _handleSave(context),
                   content: Wrap(
                     spacing: 24,
-                    runSpacing: 24,
+                    runSpacing: 20,
                     alignment: WrapAlignment.start,
                     children: [
                       _textField(
@@ -846,6 +796,63 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                     ],
                   ),
                 ),
+                if (!isAdding && widget.details?.manager != null)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton.icon(
+                        onPressed: () async {
+                          await _handleRemoveManager();
+                        },
+                        icon: const Icon(
+                          Icons.person_remove_rounded,
+                          size: 20,
+                        ),
+                        label: Text(
+                          loc.removeManager,
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                color: SConfig.errorColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                        style: TextButton.styleFrom(
+                          foregroundColor: SConfig.errorColor,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      ElevatedButton.icon(
+                        onPressed: () async {
+                          await handleChangingManager();
+                        },
+                        icon: const Icon(
+                          Icons.manage_accounts_rounded,
+                          size: 20,
+                        ),
+                        label: Text(
+                          loc.changeManager,
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: SConfig.primaryColor,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          elevation: 2,
+                        ),
+                      ),
+                    ],
+                  ),
+                const SizedBox(height: 20),
 
                 // ── 👤 MANAGER STUFF ─────────────────────────────────────────
                 if (widget.details?.manager != null || isAdding)
@@ -1134,37 +1141,33 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                   ),
                 // ── GLOBAL SAVE (FOR ADDING) ──────────────────────────────────
                 if (isAdding)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 24),
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: SConfig.successColor,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 48,
-                            vertical: 18,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: SConfig.successColor,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 48,
+                          vertical: 18,
                         ),
-                        icon: const Icon(
-                          Icons.check_circle,
-                          color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
                         ),
-                        label: Text(
-                          loc.save,
-                          style: Theme.of(context).textTheme.labelLarge
-                              ?.copyWith(
-                                fontSize: 18,
-                                letterSpacing: 1.2,
-                              ),
-                        ),
-                        onPressed: () async {
-                          await _handleSave(context);
-                        },
                       ),
+                      icon: const Icon(
+                        Icons.save,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        loc.save,
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                          fontSize: 18,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                      onPressed: () async {
+                        await _handleSave(context);
+                      },
                     ),
                   ),
               ],

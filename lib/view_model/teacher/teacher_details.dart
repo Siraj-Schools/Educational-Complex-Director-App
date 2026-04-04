@@ -51,26 +51,6 @@ class TeacherDetailsNotifier extends AsyncNotifier<TeacherDetails> {
   }
 
   //Done
-  Future<void> removeTeacherFromSchool(
-    String schoolId,
-  ) async {
-    error = null;
-    ref.notifyListeners();
-    try {
-      await ref
-          .read(teacherRepositoryProvider)
-          .removeTeacherFromSchool(schoolId: schoolId, teacherId: id);
-      refresh();
-    } catch (e) {
-      if (e is Exception) {
-        error = e;
-      } else {
-        error = Exception(e.toString());
-      }
-    }
-  }
-
-  //Done
   Future<void> changeTeacherSchool(
     String schoolId,
 

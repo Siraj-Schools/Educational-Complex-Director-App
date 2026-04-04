@@ -1,26 +1,26 @@
-import 'package:educational_complex_director_app/Repositories/school_manager_repository.dart';
-import 'package:educational_complex_director_app/models/school/school_manager.dart';
+import 'package:educational_complex_director_app/Repositories/student_repository.dart';
 
+import 'package:educational_complex_director_app/models/student/student.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SchoolManagersNotifier extends AsyncNotifier<List<SchoolManager>> {
+class StudentsNotifier extends AsyncNotifier<List<Student>> {
   String searchQuery = '';
   int page = 1;
   bool hasNextPage = true;
   bool isLoadingMore = false;
   Exception? errorLoadingMore;
-  Exception? errorAddingManager;
+  Exception? errorAddingStudent;
   @override
-  Future<List<SchoolManager>> build() async {
-    return await getManagers();
+  Future<List<Student>> build() async {
+    return await getStudents();
   }
 
-  Future<List<SchoolManager>> getManagers() async {
+  Future<List<Student>> getStudents() async {
     // await Future.delayed(const Duration(seconds: 2));
 
     final response = await ref
-        .read(schoolManagerRepositoryProvider)
-        .getManagers(searchQuery: searchQuery, page: page);
+        .read(studentRepositoryProvider)
+        .getStudents(searchQuery: searchQuery, page: page);
     hasNextPage = response.hasNextPage;
     page = response.currentPage;
 
@@ -32,7 +32,7 @@ class SchoolManagersNotifier extends AsyncNotifier<List<SchoolManager>> {
     page = 1;
     hasNextPage = true;
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => getManagers());
+    state = await AsyncValue.guard(() => getStudents());
   }
 
   Future<void> loadMore() async {
@@ -48,9 +48,9 @@ class SchoolManagersNotifier extends AsyncNotifier<List<SchoolManager>> {
     ref.notifyListeners();
 
     try {
-      final newManagers = await getManagers();
+      final newStudents = await getStudents();
 
-      state = AsyncValue.data([...state.value!, ...newManagers]);
+      state = AsyncValue.data([...state.value!, ...newStudents]);
     } catch (e, _) {
       errorLoadingMore = e as Exception;
     }
@@ -69,31 +69,26 @@ class SchoolManagersNotifier extends AsyncNotifier<List<SchoolManager>> {
     hasNextPage = true;
     searchQuery = '';
     state = const AsyncLoading();
-    state = await AsyncValue.guard(() => getManagers());
+    state = await AsyncValue.guard(() => getStudents());
   }
 
-  Future<void> createManager(Map<String, dynamic> body) async {
-    errorAddingManager = null;
+  Future<void> createStudent(Map<String, dynamic> body) async {
+    errorAddingStudent = null;
     ref.notifyListeners();
     try {
-      await ref.read(schoolManagerRepositoryProvider).createManager(body: body);
+      await ref.read(studentRepositoryProvider).createStudent(body: body);
       await refresh();
-      await ref.read(schoolManagersNotifierProvider(false).notifier).refresh();
     } catch (e) {
       if (e is Exception) {
-        errorAddingManager = e;
+        errorAddingStudent = e;
       } else {
-        errorAddingManager = Exception(e.toString());
+        errorAddingStudent = Exception(e.toString());
       }
     }
   }
 }
 
-final schoolManagersNotifierProvider =
-    AsyncNotifierProvider.family<
-      SchoolManagersNotifier,
-      List<SchoolManager>,
-      bool
-    >(
-      (isManagersPage) => SchoolManagersNotifier(),
+final studentsNotifierProvider =
+    AsyncNotifierProvider<StudentsNotifier, List<Student>>(
+      () => StudentsNotifier(),
     );

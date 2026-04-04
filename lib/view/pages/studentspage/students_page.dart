@@ -1,5 +1,8 @@
 import 'package:educational_complex_director_app/routes/routes.dart';
 import 'package:educational_complex_director_app/utils/enums/screen_names.dart';
+import 'package:educational_complex_director_app/view/pages/studentspage/student_details_page.dart';
+import 'package:educational_complex_director_app/view/pages/studentspage/student_info_form.dart';
+import 'package:educational_complex_director_app/view/pages/studentspage/student_list_page.dart';
 import 'package:educational_complex_director_app/view_model/bread_crumb_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,25 +25,25 @@ class StudentsPage extends ConsumerWidget {
             ScreenNames.addStudent,
           ]);
           return GetPageRoute(
-            page: () => const Placeholder(),
+            page: () => const StudentInfoForm(),
             settings: settings,
           );
         }
 
         if (settings.name!.startsWith(Sroutes.studentDetails)) {
-          // final studentId = settings.arguments as String;
+          final studentId = settings.arguments as String;
           breadCrumbNotifier.setPath([
             ScreenNames.students,
             ScreenNames.studentDetails,
           ]);
           return GetPageRoute(
-            page: () => const Placeholder(),
+            page: () => StudentDetailsPage(studentId: studentId),
             settings: settings,
           );
         }
 
         return GetPageRoute(
-          page: () => const Placeholder(),
+          page: () => const StudentListPage(),
           settings: settings,
         );
       },

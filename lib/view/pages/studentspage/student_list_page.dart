@@ -8,9 +8,9 @@ import 'package:educational_complex_director_app/routes/routes.dart';
 
 import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:educational_complex_director_app/view/components/error_dialog.dart';
-import 'package:educational_complex_director_app/view/pages/managerspage/manager_card.dart';
+import 'package:educational_complex_director_app/view/pages/studentspage/student_card.dart';
 
-import 'package:educational_complex_director_app/view_model/schoolmanager/school_managers.dart';
+import 'package:educational_complex_director_app/view_model/student/students.dart';
 import 'package:educational_complex_director_app/view_model/user.dart';
 
 import 'package:flutter/material.dart';
@@ -18,14 +18,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/route_manager.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class ManagersListPage extends ConsumerStatefulWidget {
-  const ManagersListPage({super.key});
+class StudentListPage extends ConsumerStatefulWidget {
+  const StudentListPage({super.key});
 
   @override
-  ConsumerState<ManagersListPage> createState() => _ManagersListPageState();
+  ConsumerState<StudentListPage> createState() => _StudentListPageState();
 }
 
-class _ManagersListPageState extends ConsumerState<ManagersListPage>
+class _StudentListPageState extends ConsumerState<StudentListPage>
     with AutomaticKeepAliveClientMixin {
   final TextEditingController searchController = TextEditingController();
   Timer? _debounce;
@@ -61,6 +61,7 @@ class _ManagersListPageState extends ConsumerState<ManagersListPage>
   //     onChanged: onChanged,
   //   );
   // }
+
   Widget filterField(Widget child, {bool? smaller}) {
     double? width;
 
@@ -87,7 +88,7 @@ class _ManagersListPageState extends ConsumerState<ManagersListPage>
 
   @override
   Widget build(BuildContext context) {
-    final notifier = ref.read(schoolManagersNotifierProvider(true).notifier);
+    final notifier = ref.read(studentsNotifierProvider.notifier);
     super.build(context);
     final loc = AppLocalizations.of(context)!;
     final searchQuery = notifier.searchQuery;
@@ -107,7 +108,7 @@ class _ManagersListPageState extends ConsumerState<ManagersListPage>
     } else if (SConfig.isTablet()) {
       crossAxisCount = 2;
     }
-    const accent = Color(0xFF3F51B5); // Royal Blue
+    const accent = Color.fromARGB(255, 164, 0, 0);
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -146,7 +147,7 @@ class _ManagersListPageState extends ConsumerState<ManagersListPage>
                   TextField(
                     controller: searchController,
                     decoration: InputDecoration(
-                      hintText: loc.searchManager,
+                      hintText: loc.searchStudent,
                       prefixIcon: const Icon(Icons.search),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -234,10 +235,12 @@ class _ManagersListPageState extends ConsumerState<ManagersListPage>
                           vertical: 12,
                         ),
                       ),
-                      onPressed: () => Get.toNamed(
-                        Sroutes.addManager,
-                        id: Sroutes.managersNavigationId,
-                      ),
+                      onPressed: () async {
+                        await Get.toNamed(
+                          Sroutes.addStudent,
+                          id: Sroutes.studentsNavigationId,
+                        );
+                      },
                       icon: const Icon(
                         Icons.person_add_rounded,
                         color: Colors.white,
@@ -245,7 +248,7 @@ class _ManagersListPageState extends ConsumerState<ManagersListPage>
                       ),
                       iconAlignment: IconAlignment.start,
                       label: Text(
-                        loc.addManager,
+                        loc.addStudent,
                         style: Theme.of(context).textTheme.labelLarge?.copyWith(
                           letterSpacing: 0.5,
                         ),
@@ -270,7 +273,7 @@ class _ManagersListPageState extends ConsumerState<ManagersListPage>
             },
             child: Expanded(
               child: ref
-                  .watch(schoolManagersNotifierProvider(true))
+                  .watch(studentsNotifierProvider)
                   .when(
                     data: (data) {
                       if (data.isEmpty) {
@@ -296,12 +299,12 @@ class _ManagersListPageState extends ConsumerState<ManagersListPage>
                                     mainAxisSpacing: 20,
                                     crossAxisSpacing: 20,
 
-                                    mainAxisExtent: 422,
+                                    mainAxisExtent: 400,
                                   ),
 
                               itemCount: data.length,
                               itemBuilder: (_, index) {
-                                return ManagerCard(manager: data[index]);
+                                return StudentCard(student: data[index]);
 
                                 // }
                               },
@@ -340,7 +343,7 @@ class _ManagersListPageState extends ConsumerState<ManagersListPage>
                     error: (error, stack) {
                       return Center(
                         child: ErrorDialog(
-                          message: loc.errorOccurred,
+                          message: error.toString(),
                           blur: 0,
                           okText: loc.retry,
                           onOK: () async {

@@ -27,8 +27,8 @@ class TeacherServices {
       ),
       queryParameters: {
         if (searchQuery.isNotEmpty) 'SearchTerm': searchQuery,
-        'page': page,
-        'pageSize': pageSize,
+        'Page': page,
+        'PageSize': pageSize,
       },
     );
     if (response.statusCode != 200) {
@@ -70,10 +70,10 @@ class TeacherServices {
       ),
       data: body,
     );
-    if (response.statusCode != 200 && response.statusCode != 500) {
+    if (response.statusCode != 201) {
       LogService.e(response.data['title']);
       LogService.e(response.data['errors'].toString());
-      throw Exception('Failed to create school');
+      throw Exception('Failed to create teacher');
     }
   }
 
@@ -94,25 +94,6 @@ class TeacherServices {
     if (response.statusCode != 204) {
       LogService.e(response.data['title']);
       throw Exception('Failed to update school');
-    }
-  }
-
-  Future<void> removeTeacherFromSchool({
-    required String token,
-    required String schoolId,
-    required String teacherId,
-  }) async {
-    final response = await dio.delete(
-      '/schools/$schoolId/teachers/$teacherId',
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      ),
-    );
-    if (response.statusCode != 204) {
-      LogService.e(response.data['title']);
-      throw Exception('Failed to remove manager');
     }
   }
 

@@ -1,13 +1,13 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
-import 'package:educational_complex_director_app/models/school/school_manager.dart';
+import 'package:educational_complex_director_app/models/student/student.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ManagerCard extends StatelessWidget {
-  final SchoolManager manager;
-  const ManagerCard({super.key, required this.manager});
+class StudentCard extends StatelessWidget {
+  final Student student;
+  const StudentCard({super.key, required this.student});
 
   Widget _infoLabel(BuildContext context, String label, String value) {
     final theme = Theme.of(context);
@@ -38,13 +38,12 @@ class ManagerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const accent = Color(0xFF3F51B5); // Royal Blue
+    const accent = Color.fromARGB(255, 164, 0, 0);
 
     final loc = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
-    final initials = manager.firstName.isNotEmpty && manager.lastName.isNotEmpty
-        ? "${manager.firstName[0]}${manager.lastName[0]}".toUpperCase()
-        : manager.userName.substring(0, 2).toUpperCase();
+    final initials = "${student.firstName[0]}${student.lastName[0]}"
+        .toUpperCase();
 
     return Card(
       margin: EdgeInsets.zero,
@@ -67,11 +66,11 @@ class ManagerCard extends StatelessWidget {
             bottom: 0,
             width: 8,
             child: Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [accent, SConfig.secondaryBackground],
+                  colors: [accent, SConfig.secondaryBackground.withRed(100)],
                 ),
               ),
             ),
@@ -99,7 +98,7 @@ class ManagerCard extends StatelessWidget {
                     const SizedBox(width: 16),
                     Expanded(
                       child: Text(
-                        manager.fullName,
+                        student.fullName,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: theme.textTheme.titleMedium?.copyWith(
@@ -117,19 +116,7 @@ class ManagerCard extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: _infoLabel(context, loc.email, manager.email),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _infoLabel(
-                        context,
-                        loc.phone,
-                        manager.mobileNumber,
-                      ),
+                      child: _infoLabel(context, loc.email, student.email),
                     ),
                   ],
                 ),
@@ -148,8 +135,8 @@ class ManagerCard extends StatelessWidget {
                       Expanded(
                         child: _infoLabel(
                           context,
-                          loc.registrationNumber,
-                          manager.registrationNumber,
+                          loc.standardName,
+                          student.standardName,
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -157,7 +144,7 @@ class ManagerCard extends StatelessWidget {
                         child: _infoLabel(
                           context,
                           loc.nationalId,
-                          manager.nationalId,
+                          student.nationalId,
                         ),
                       ),
                     ],
@@ -182,9 +169,9 @@ class ManagerCard extends StatelessWidget {
                     ),
                     onPressed: () {
                       Get.toNamed(
-                        Sroutes.managerDetails,
-                        id: Sroutes.managersNavigationId,
-                        arguments: manager.userId,
+                        Sroutes.studentDetails,
+                        id: Sroutes.studentsNavigationId,
+                        arguments: student.id,
                       );
                     },
                     icon: const Icon(Icons.arrow_forward_ios, size: 14),

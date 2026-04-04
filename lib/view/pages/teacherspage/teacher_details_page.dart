@@ -84,7 +84,7 @@ class TeacherDetailsPage extends ConsumerWidget {
 
                 child: Center(
                   child: LoadingAnimationWidget.beat(
-                    color: SConfig.secondaryBackground.withAlpha(100),
+                    color: SConfig.primaryColor.withGreen(150),
                     size: 90,
                   ),
                 ),
@@ -109,7 +109,7 @@ class TeacherDetailsPage extends ConsumerWidget {
           borderRadius: BorderRadius.circular(18),
           gradient: LinearGradient(
             colors: [
-              SConfig.accentColor.withAlpha(175),
+              SConfig.accentColor.withRed(50),
               SConfig.secondaryBackground,
             ],
           ),
@@ -310,33 +310,6 @@ class TeacherDetailsPage extends ConsumerWidget {
                 : WrapAlignment.end,
             children: details.school != null
                 ? [
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: SConfig.errorColor.withAlpha(20),
-                        foregroundColor: SConfig.errorColor,
-                        elevation: 0,
-                        shadowColor: Colors.transparent,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      icon: const Icon(Icons.person_remove, size: 20),
-                      label: Text(
-                        loc.removeTeacherFromSchool,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () async {
-                        await _handleRemoveTeacherFromSchool(
-                          ref,
-                          context,
-                          details,
-                        );
-                      },
-                    ),
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: SConfig.primaryColor.withAlpha(20),
@@ -604,52 +577,6 @@ class TeacherDetailsPage extends ConsumerWidget {
           ),
       ],
     );
-  }
-
-  Future<void> _handleRemoveTeacherFromSchool(
-    WidgetRef ref,
-    BuildContext context,
-    TeacherDetails details,
-  ) async {
-    final loc = AppLocalizations.of(context)!;
-
-    final notifier = ref.read(
-      teacherDetailsNotifierProvider(teacherId).notifier,
-    );
-    final bool? confirmed = await Get.dialog<bool>(
-      ConfirmationDialog(
-        message: loc.confirmAction,
-        onConfirm: () => Get.back<bool>(result: true),
-      ),
-      barrierDismissible: false,
-    );
-
-    if (confirmed != true) return;
-
-    final success = await Get.showOverlay<bool>(
-      asyncFunction: () async {
-        // await Future.delayed(const Duration(seconds: 1));
-
-        await notifier.removeTeacherFromSchool(details.school!.id);
-
-        return notifier.error == null;
-      },
-      loadingWidget: LoadingDialog(
-        extraMessage: loc.savingForm,
-        loading: LoadingAnimationWidget.discreteCircle(
-          color: SConfig.secondaryBackground,
-          secondRingColor: SConfig.accentColor,
-          thirdRingColor: SConfig.primaryColor,
-          size: 90,
-        ),
-      ),
-    );
-    if (!success) {
-      await Get.dialog<void>(
-        ErrorDialog(message: loc.errorOccurred),
-        barrierDismissible: false,
-      );
-    }
   }
 
   Future<void> handleChangingAndAssigningTeacherSchool(

@@ -1,5 +1,6 @@
 import 'package:educational_complex_director_app/Repositories/school_repository.dart';
 import 'package:educational_complex_director_app/models/school/school.dart';
+import 'package:educational_complex_director_app/view_model/schoolmanager/school_managers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SchoolsNotifier extends AsyncNotifier<List<School>> {
@@ -78,6 +79,8 @@ class SchoolsNotifier extends AsyncNotifier<List<School>> {
     try {
       await ref.read(schoolRepositoryProvider).createSchool(body: body);
       await refresh();
+      await ref.read(schoolManagersNotifierProvider(true).notifier).refresh();
+      await ref.read(schoolsNotifierProvider(false).notifier).refresh();
     } catch (e) {
       if (e is Exception) {
         errorAddingSchool = e;

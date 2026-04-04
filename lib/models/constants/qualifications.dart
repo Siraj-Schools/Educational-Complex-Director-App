@@ -44,7 +44,7 @@ extension QualificationLocalization on QualificationEnum {
       case QualificationEnum.Others:
         return loc.otherQualification;
       case QualificationEnum.None:
-        return "";
+        return loc.none;
     }
   }
 }

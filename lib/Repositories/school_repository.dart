@@ -1,6 +1,7 @@
 import 'package:educational_complex_director_app/models/helpers/paginated_response.dart';
 import 'package:educational_complex_director_app/models/school/school.dart';
 import 'package:educational_complex_director_app/models/school/school_details.dart';
+import 'package:educational_complex_director_app/models/school/standard.dart';
 import 'package:educational_complex_director_app/services/local_storage_services.dart';
 
 import 'package:educational_complex_director_app/services/school_services.dart';
@@ -76,6 +77,17 @@ class SchoolRepository {
       token: token,
       schoolId: schoolId,
       newManagerId: newManagerId,
+    );
+  }
+
+  Future<List<Standard>> getSchoolStandards({required String schoolId}) async {
+    final token = LocalStorageService.getToken;
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+    return await schoolServices.getSchoolStandards(
+      token: token,
+      schoolId: schoolId,
     );
   }
 }

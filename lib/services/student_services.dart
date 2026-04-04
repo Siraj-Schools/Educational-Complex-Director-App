@@ -1,24 +1,23 @@
 import 'package:dio/dio.dart';
+import 'package:educational_complex_director_app/models/helpers/new_credentials.dart';
 import 'package:educational_complex_director_app/models/helpers/paginated_response.dart';
-import 'package:educational_complex_director_app/models/school/school.dart';
-import 'package:educational_complex_director_app/models/school/school_details.dart';
-import 'package:educational_complex_director_app/models/school/standard.dart';
+import 'package:educational_complex_director_app/models/student/student.dart';
+import 'package:educational_complex_director_app/models/student/student_details.dart';
 import 'package:educational_complex_director_app/services/dio.dart';
 import 'package:educational_complex_director_app/services/log_services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SchoolServices {
-  const SchoolServices({required this.dio});
+class StudentService {
+  const StudentService({required this.dio});
   final Dio dio;
-
-  Future<PaginatedResponse<School>> getSchools({
+  Future<PaginatedResponse<Student>> getStudents({
     required String token,
     String searchQuery = '',
     int page = 1,
     int pageSize = 6,
   }) async {
     final response = await dio.get(
-      '/schools',
+      '/students',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
@@ -32,17 +31,17 @@ class SchoolServices {
     );
     if (response.statusCode != 200) {
       LogService.e(response.data['title']);
-      throw Exception('Failed to load schools');
+      throw Exception('Failed to get students');
     }
-    return PaginatedResponse.fromJson(response.data);
+    return PaginatedResponse<Student>.fromJson(response.data);
   }
 
-  Future<SchoolDetails> getSchool({
+  Future<StudentDetails> getStudentDetails({
     required String token,
-    required String id,
+    required String studentId,
   }) async {
     final response = await dio.get(
-      '/schools/$id',
+      '/students/$studentId',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
@@ -51,17 +50,17 @@ class SchoolServices {
     );
     if (response.statusCode != 200) {
       LogService.e(response.data['title']);
-      throw Exception('Failed to load school');
+      throw Exception('Failed to get student details');
     }
-    return SchoolDetails.fromJson(response.data);
+    return StudentDetails.fromJson(response.data);
   }
 
-  Future<void> createSchool({
+  Future<void> createStudent({
     required String token,
     required Map<String, dynamic> body,
   }) async {
     final response = await dio.post(
-      '/schools',
+      '/admissions',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
@@ -70,18 +69,18 @@ class SchoolServices {
       data: body,
     );
     if (response.statusCode != 201) {
-      LogService.e(response.data['title']);
-      throw Exception('Failed to create school');
+      LogService.e(response.data.toString());
+      throw Exception('Failed to create student');
     }
   }
 
-  Future<void> updateSchool({
+  Future<void> updateStudent({
     required String token,
-    required String id,
+    required String studentId,
     required Map<String, dynamic> body,
   }) async {
-    final response = await dio.put(
-      '/schools/$id',
+    final response = await dio.patch(
+      '/students/$studentId',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
@@ -89,59 +88,18 @@ class SchoolServices {
       ),
       data: body,
     );
-
     if (response.statusCode != 204) {
       LogService.e(response.data['title']);
-      throw Exception('Failed to update school');
+      throw Exception('Failed to update student');
     }
   }
 
-  Future<void> removeManager({
+  Future<NewCredentials> resetStudentParentPassword({
     required String token,
-    required String id,
+    required String studentId,
   }) async {
-    final response = await dio.delete(
-      '/schools/$id/manager',
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      ),
-    );
-    if (response.statusCode != 204) {
-      LogService.e(response.data['title']);
-      throw Exception('Failed to remove manager');
-    }
-  }
-
-  Future<void> changeManager({
-    required String token,
-    required String schoolId,
-    required String newManagerId,
-  }) async {
-    final response = await dio.put(
-      '/schools/$schoolId/manager',
-      options: Options(
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
-      ),
-      data: {
-        'newManagerUserId': newManagerId,
-      },
-    );
-    if (response.statusCode != 204) {
-      LogService.e(response.data['title']);
-      throw Exception('Failed to change manager');
-    }
-  }
-
-  Future<List<Standard>> getSchoolStandards({
-    required String token,
-    required String schoolId,
-  }) async {
-    final response = await dio.get(
-      '/schools/$schoolId/standards',
+    final response = await dio.post(
+      '/students/$studentId/parent/reset-password',
       options: Options(
         headers: {
           'Authorization': 'Bearer $token',
@@ -150,16 +108,32 @@ class SchoolServices {
     );
     if (response.statusCode != 200) {
       LogService.e(response.data['title']);
-      throw Exception('Failed to get standars');
+      throw Exception('Failed to reset student password');
     }
-    return (response.data as List<dynamic>)
-        .map(
-          (e) => Standard.fromJson(e),
-        )
-        .toList();
+    return NewCredentials.fromJson(response.data, "parentEmail");
+  }
+
+  Future<void> transferToANewSchool({
+    required String token,
+    required String studentId,
+    required String newSchoolId,
+  }) async {
+    final response = await dio.post(
+      '/students/$studentId/transfer',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+      data: {"newSchoolId": newSchoolId, "studentId": studentId},
+    );
+    if (response.statusCode != 204) {
+      LogService.e(response.data['title']);
+      throw Exception('Failed to transfer student to new school');
+    }
   }
 }
 
-final schoolServiceProvider = Provider<SchoolServices>(
-  (ref) => SchoolServices(dio: ref.read(dioProvider)),
+final studentServiceProvider = Provider<StudentService>(
+  (ref) => StudentService(dio: ref.read(dioProvider)),
 );

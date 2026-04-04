@@ -574,4 +574,79 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get studentDetails => 'تفاصيل الطالب';
+
+  @override
+  String get father => 'أب';
+
+  @override
+  String get mother => 'أم';
+
+  @override
+  String get guardian => 'ولي أمر';
+
+  @override
+  String get other => 'أخرى';
+
+  @override
+  String get standardName => 'الصف';
+
+  @override
+  String get searchStudent => 'ابحث عن طالب...';
+
+  @override
+  String get parent => 'ولي الأمر';
+
+  @override
+  String get changePasswordOfParent => 'تغيير كلمة المرور ولي الأمر';
+
+  @override
+  String get transferStudentToAnotherSchool => 'نقل الطالب إلى مدرسة أخرى';
+
+  @override
+  String get assignStudentToSchool => 'Assign Student To School';
+
+  @override
+  String get selectSchoolAndStandard => 'اختر المدرسة و الصف ';
+
+  @override
+  String get next => 'التالي';
+
+  @override
+  String get selectStandard => 'اختر الصف';
+
+  @override
+  String get searchStandard => 'ابحث عن صف...';
+
+  @override
+  String get nationality => 'الجنسية';
+
+  @override
+  String get motherName => 'اسم الأم';
+
+  @override
+  String get parentInformation => 'معلومات ولي الأمر';
+
+  @override
+  String get studentInformation => 'معلومات الطالب';
+
+  @override
+  String get selectRelation => 'اختر صلة القرابة';
+
+  @override
+  String get selectQualification => 'اختر المؤهل العلمي';
+
+  @override
+  String get studentLocation => 'موقع الطالب';
+
+  @override
+  String get parentLocation => 'موقع ولي الأمر';
+
+  @override
+  String get optional => 'اختياري';
+
+  @override
+  String get relation => 'صلة القرابة';
+
+  @override
+  String get none => 'لا يوجد';
 }

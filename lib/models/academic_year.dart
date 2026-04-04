@@ -21,7 +21,7 @@ class AcademicYear {
   }
   factory AcademicYear.fromTeacherDetailsApi(Map<String, dynamic> json) {
     return AcademicYear(
-      id: json['schoolAcademicYearId'],
+      id: json['schoolAcademicYearId'] ?? '',
       name: json['academicYearName'],
       startDate: DateTime.parse(json['academicYearStartDate']),
       endDate: DateTime.parse(json['academicYearEndDate']),

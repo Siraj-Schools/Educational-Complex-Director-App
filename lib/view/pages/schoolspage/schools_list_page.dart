@@ -63,12 +63,10 @@ class _SchoolListPageState extends ConsumerState<SchoolListPage>
   // }
 
   Widget filterField(Widget child, {bool? smaller}) {
-    double width;
+    double? width;
 
     if (SConfig.isMobile()) {
-      (smaller != null)
-          ? width = SConfig.screenWidth! * 0.30
-          : width = SConfig.screenWidth! * 0.40;
+      width = null;
     } else if (SConfig.isTablet()) {
       width = 200;
     } else {

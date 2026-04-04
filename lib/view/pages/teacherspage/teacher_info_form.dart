@@ -121,8 +121,8 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
 
   double _fieldWidth() {
     if (SConfig.isMobile()) return double.infinity;
-    if (SConfig.isTablet()) return 300;
-    return 340;
+    if (SConfig.isTablet()) return 280;
+    return 300;
   }
 
   Widget _textField(
@@ -266,7 +266,7 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
     required Widget content,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(18),
@@ -295,7 +295,11 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
                     color: SConfig.primaryColor.withAlpha(20),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Icon(icon, size: 18, color: SConfig.primaryColor),
+                  child: Icon(
+                    icon,
+                    size: 18,
+                    color: SConfig.accentColor.withRed(50),
+                  ),
                 ),
                 const SizedBox(width: 10),
                 Text(
@@ -312,11 +316,11 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
             padding: EdgeInsets.symmetric(horizontal: 24),
             child: Divider(
               thickness: 1,
-              color: SConfig.secondaryBackground,
+              color: Colors.grey,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(12, 24, 12, 24),
+            padding: const EdgeInsets.fromLTRB(16, 26, 12, 24),
             child: content,
           ),
         ],
@@ -396,7 +400,7 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
             iconSize: 28,
             style: IconButton.styleFrom(
               backgroundColor: SConfig.primaryColor.withAlpha(20),
-              foregroundColor: SConfig.primaryColor,
+              foregroundColor: SConfig.accentColor.withRed(50),
             ),
             onPressed: () {
               ref.read(teachersBreadcrumbProvider.notifier).pop();
@@ -607,7 +611,7 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 960),
+          constraints: const BoxConstraints(maxWidth: 1000),
           child: Form(
             key: _formKey,
             child: Column(
@@ -623,7 +627,7 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
                   title: loc.accountInformation,
                   content: Wrap(
                     spacing: 24,
-                    runSpacing: 24,
+                    runSpacing: 20,
                     children: [
                       _textField(
                         context,
@@ -660,7 +664,7 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
                   title: loc.personalInformation,
                   content: Wrap(
                     spacing: 24,
-                    runSpacing: 24,
+                    runSpacing: 20,
                     children: [
                       _textField(
                         context,
@@ -868,7 +872,6 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
                                 setState(() {
                                   schoolId = result['schoolId'];
                                   schoolName = result['schoolName'];
-                                  isSomethingEdited = true;
                                 });
                               }
                             },
@@ -896,6 +899,7 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
                             ),
                           ),
                         ),
+
                       _dropdownEnum(
                         label: loc.designation,
                         value: selectedDesignation,
@@ -924,8 +928,8 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: SConfig.successColor,
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 40,
-                            vertical: 16,
+                            horizontal: 48,
+                            vertical: 18,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
@@ -938,10 +942,11 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
                         ),
                         label: Text(
                           loc.save,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                fontSize: 18,
+                                letterSpacing: 1.2,
+                              ),
                         ),
                       ),
                     ),

@@ -1228,6 +1228,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Student Details'**
   String get studentDetails;
+
+  /// No description provided for @father.
+  ///
+  /// In en, this message translates to:
+  /// **'Father'**
+  String get father;
+
+  /// No description provided for @mother.
+  ///
+  /// In en, this message translates to:
+  /// **'Mother'**
+  String get mother;
+
+  /// No description provided for @guardian.
+  ///
+  /// In en, this message translates to:
+  /// **'Guardian'**
+  String get guardian;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @standardName.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get standardName;
+
+  /// No description provided for @searchStudent.
+  ///
+  /// In en, this message translates to:
+  /// **'Search student...'**
+  String get searchStudent;
+
+  /// No description provided for @parent.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent'**
+  String get parent;
+
+  /// No description provided for @changePasswordOfParent.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Password Of Parent'**
+  String get changePasswordOfParent;
+
+  /// No description provided for @transferStudentToAnotherSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer Student To Another School'**
+  String get transferStudentToAnotherSchool;
+
+  /// No description provided for @assignStudentToSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Assign Student To School'**
+  String get assignStudentToSchool;
+
+  /// No description provided for @selectSchoolAndStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Select School and Standard'**
+  String get selectSchoolAndStandard;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @selectStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Standard'**
+  String get selectStandard;
+
+  /// No description provided for @searchStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Search standard...'**
+  String get searchStandard;
+
+  /// No description provided for @nationality.
+  ///
+  /// In en, this message translates to:
+  /// **'Nationality'**
+  String get nationality;
+
+  /// No description provided for @motherName.
+  ///
+  /// In en, this message translates to:
+  /// **'Mother\'s Name'**
+  String get motherName;
+
+  /// No description provided for @parentInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent Information'**
+  String get parentInformation;
+
+  /// No description provided for @studentInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Student Information'**
+  String get studentInformation;
+
+  /// No description provided for @selectRelation.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Relation'**
+  String get selectRelation;
+
+  /// No description provided for @selectQualification.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Qualification'**
+  String get selectQualification;
+
+  /// No description provided for @studentLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Student Location'**
+  String get studentLocation;
+
+  /// No description provided for @parentLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent Location'**
+  String get parentLocation;
+
+  /// No description provided for @optional.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get optional;
+
+  /// No description provided for @relation.
+  ///
+  /// In en, this message translates to:
+  /// **'Relation'**
+  String get relation;
+
+  /// No description provided for @none.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get none;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

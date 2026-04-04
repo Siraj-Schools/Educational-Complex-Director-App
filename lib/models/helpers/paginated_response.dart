@@ -1,6 +1,8 @@
 import 'package:educational_complex_director_app/models/school/school.dart';
 import 'package:educational_complex_director_app/models/school/school_manager.dart';
-import 'package:educational_complex_director_app/models/student.dart';
+import 'package:educational_complex_director_app/models/school/standard.dart';
+
+import 'package:educational_complex_director_app/models/student/student.dart';
 import 'package:educational_complex_director_app/models/teacher/teacher.dart';
 
 class PaginatedResponse<T> {
@@ -37,9 +39,15 @@ class PaginatedResponse<T> {
                           (e) => SchoolManager.fromJson(e),
                         )
                         .toList()
-                  : (json["items"] as List<dynamic>)
+                  : T == Student
+                  ? (json["items"] as List<dynamic>)
                         .map(
                           (e) => Student.fromJson(e),
+                        )
+                        .toList()
+                  : (json["items"] as List<dynamic>)
+                        .map(
+                          (e) => Standard.fromJson(e),
                         )
                         .toList())
               as List<T>,

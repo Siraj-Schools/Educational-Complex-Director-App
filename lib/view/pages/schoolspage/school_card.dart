@@ -183,6 +183,7 @@ class SchoolCard extends StatelessWidget {
                   /// TYPE
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     spacing: 8,
                     children: [
                       Expanded(
@@ -197,7 +198,7 @@ class SchoolCard extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        flex: 3,
+                        flex: 2,
                         child: _infoBlock(
                           context,
                           "",

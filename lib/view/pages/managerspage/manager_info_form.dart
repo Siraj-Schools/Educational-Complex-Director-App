@@ -96,8 +96,8 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
 
   double _fieldWidth() {
     if (SConfig.isMobile()) return double.infinity;
-    if (SConfig.isTablet()) return 300;
-    return 340;
+    if (SConfig.isTablet()) return 280;
+    return 300;
   }
 
   Widget _textField(
@@ -162,7 +162,8 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
           labelText: loc.dateOfBirth,
           suffixIcon: const Icon(
             Icons.calendar_today_rounded,
-            color: Color(0xFF3F51B5), // Deep Blue/Royal Blue
+            size: 20,
+            color: SConfig.primaryColor, // Deep Blue/Royal Blue
           ),
         ),
         onTap: enabled
@@ -299,19 +300,22 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
                           ),
 
                         const SizedBox(width: 8),
-                        ElevatedButton.icon(
-                          onPressed: isSomethingEdited ? onSave : null,
-                          icon: const Icon(Icons.save, size: 18),
-                          label: Text(AppLocalizations.of(context)!.save),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: SConfig.successColor,
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                        if (isSomethingEdited)
+                          ElevatedButton.icon(
+                            onPressed: isSomethingEdited ? onSave : null,
+                            icon: const Icon(Icons.save, size: 18),
+                            label: Text(AppLocalizations.of(context)!.save),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: SConfig.successColor,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                           ),
-                        ),
                       ],
                     )
                   else
@@ -336,7 +340,7 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
             child: Divider(thickness: 1, color: Color(0xFFE0E0E0)),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 24),
             child: content,
           ),
         ],
@@ -448,17 +452,16 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
       child: Center(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 960),
+          constraints: const BoxConstraints(maxWidth: 1000),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (isAdding) ...[
-                  const SizedBox(height: 10),
                   IconButton.filled(
                     icon: const Icon(Icons.arrow_back_rounded),
-                    iconSize: 28,
+
                     style: IconButton.styleFrom(
                       backgroundColor: const Color(0xFF3F51B5).withAlpha(20),
                       foregroundColor: const Color(0xFF3F51B5),
@@ -524,7 +527,7 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
                   }),
                   content: Wrap(
                     spacing: 24,
-                    runSpacing: 24,
+                    runSpacing: 20,
                     children: [
                       _textField(
                         context,
@@ -561,7 +564,7 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
                   title: loc.personalInformation,
                   content: Wrap(
                     spacing: 24,
-                    runSpacing: 24,
+                    runSpacing: 20,
                     children: [
                       _textField(
                         context,
@@ -720,29 +723,33 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
                 ),
 
                 if (isAdding)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 24),
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: SConfig.successColor,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 48,
-                          vertical: 18,
+                  Align(
+                    alignment: Alignment.centerRight,
+
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 24),
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: SConfig.successColor,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 48,
+                            vertical: 18,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onPressed: () async {
-                        await _handleSave(context);
-                      },
-                      icon: const Icon(Icons.save, color: Colors.white),
-                      label: Text(
-                        loc.save,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                        onPressed: () async {
+                          await _handleSave(context);
+                        },
+                        icon: const Icon(Icons.save, color: Colors.white),
+                        label: Text(
+                          loc.save,
+                          style: Theme.of(context).textTheme.labelLarge
+                              ?.copyWith(
+                                fontSize: 18,
+                                letterSpacing: 1.2,
+                              ),
                         ),
                       ),
                     ),

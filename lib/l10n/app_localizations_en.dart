@@ -574,4 +574,79 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get studentDetails => 'Student Details';
+
+  @override
+  String get father => 'Father';
+
+  @override
+  String get mother => 'Mother';
+
+  @override
+  String get guardian => 'Guardian';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get standardName => 'Standard';
+
+  @override
+  String get searchStudent => 'Search student...';
+
+  @override
+  String get parent => 'Parent';
+
+  @override
+  String get changePasswordOfParent => 'Change Password Of Parent';
+
+  @override
+  String get transferStudentToAnotherSchool => 'Transfer Student To Another School';
+
+  @override
+  String get assignStudentToSchool => 'Assign Student To School';
+
+  @override
+  String get selectSchoolAndStandard => 'Select School and Standard';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get selectStandard => 'Select Standard';
+
+  @override
+  String get searchStandard => 'Search standard...';
+
+  @override
+  String get nationality => 'Nationality';
+
+  @override
+  String get motherName => 'Mother\'s Name';
+
+  @override
+  String get parentInformation => 'Parent Information';
+
+  @override
+  String get studentInformation => 'Student Information';
+
+  @override
+  String get selectRelation => 'Select Relation';
+
+  @override
+  String get selectQualification => 'Select Qualification';
+
+  @override
+  String get studentLocation => 'Student Location';
+
+  @override
+  String get parentLocation => 'Parent Location';
+
+  @override
+  String get optional => 'Optional';
+
+  @override
+  String get relation => 'Relation';
+
+  @override
+  String get none => 'None';
 }
