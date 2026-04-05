@@ -40,6 +40,7 @@ class GeographyServices {
       ),
       queryParameters: {'PageSize': 1000, 'CountryId': countryId},
     );
+
     if (response.statusCode != 200) {
       LogService.e(response.data['title']);
       throw Exception('Failed to load states');

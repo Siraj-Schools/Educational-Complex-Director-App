@@ -1,4 +1,5 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
+import 'package:educational_complex_director_app/routes/enums/screen_names.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
 
 import 'package:educational_complex_director_app/utils/s_config.dart';
@@ -107,7 +108,7 @@ class _MainLayoutState extends ConsumerState<MainLayout> {
                                 return Row(
                                   children: [
                                     Text(
-                                      SConfig.getTitle(context, items[index]),
+                                      items[index].getTitle(context),
                                       style: theme.textTheme.headlineSmall
                                           ?.copyWith(
                                             fontWeight: isLast

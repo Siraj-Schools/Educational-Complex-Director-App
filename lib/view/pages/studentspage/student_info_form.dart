@@ -13,6 +13,8 @@ import 'package:educational_complex_director_app/services/log_services.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:educational_complex_director_app/view/components/confirmation_dialog.dart';
 import 'package:educational_complex_director_app/view/components/error_dialog.dart';
+import 'package:educational_complex_director_app/view/components/geo_error.dart';
+import 'package:educational_complex_director_app/view/components/geo_loading.dart';
 import 'package:educational_complex_director_app/view/components/loading_dialog.dart';
 import 'package:educational_complex_director_app/view/components/select_school_and_designation_dialog.dart';
 import 'package:educational_complex_director_app/view/components/select_school_and_standard.dart';
@@ -792,17 +794,36 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
                                             );
                                           },
                                           loading: () =>
-                                              const SizedBox.shrink(),
-                                          error: (e, s) =>
-                                              const SizedBox.shrink(),
+                                              const GeoLoading(color: accent),
+
+                                          error: (e, s) => GeoError(
+                                            onRetry: () {
+                                              ref.invalidate(
+                                                schoolCitiesProvider(
+                                                  studentStateId,
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         );
                                   },
-                                  loading: () => const SizedBox.shrink(),
-                                  error: (e, s) => const SizedBox.shrink(),
+                                  loading: () =>
+                                      const GeoLoading(color: accent),
+                                  error: (e, s) => GeoError(
+                                    onRetry: () {
+                                      ref.invalidate(
+                                        schoolStatesProvider(studentCountryId),
+                                      );
+                                    },
+                                  ),
                                 );
                           },
-                          loading: () => const SizedBox.shrink(),
-                          error: (e, s) => const SizedBox.shrink(),
+                          loading: () => const GeoLoading(color: accent),
+                          error: (e, s) => GeoError(
+                            onRetry: () {
+                              ref.invalidate(countriesProvider);
+                            },
+                          ),
                         ),
                   ),
                 //changePassword
@@ -1035,17 +1056,35 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
                                             );
                                           },
                                           loading: () =>
-                                              const SizedBox.shrink(),
-                                          error: (e, s) =>
-                                              const SizedBox.shrink(),
+                                              const GeoLoading(color: accent),
+                                          error: (e, s) => GeoError(
+                                            onRetry: () => ref.invalidate(
+                                              schoolCitiesProvider(
+                                                studentStateId,
+                                              ),
+                                            ),
+                                          ),
                                         );
                                   },
-                                  loading: () => const SizedBox.shrink(),
-                                  error: (e, s) => const SizedBox.shrink(),
+                                  loading: () =>
+                                      const GeoLoading(color: accent),
+                                  error: (e, s) => GeoError(
+                                    onRetry: () {
+                                      ref.invalidate(
+                                        schoolStatesProvider(
+                                          studentCountryId,
+                                        ),
+                                      );
+                                    },
+                                  ),
                                 );
                           },
-                          loading: () => const SizedBox.shrink(),
-                          error: (e, s) => const SizedBox.shrink(),
+                          loading: () => const GeoLoading(color: accent),
+                          error: (e, s) => GeoError(
+                            onRetry: () {
+                              ref.invalidate(countriesProvider);
+                            },
+                          ),
                         ),
                   ),
 

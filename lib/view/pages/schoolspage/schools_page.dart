@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:educational_complex_director_app/routes/routes.dart';
-import 'package:educational_complex_director_app/utils/enums/screen_names.dart';
+import 'package:educational_complex_director_app/routes/enums/screen_names.dart';
 import 'package:educational_complex_director_app/view/pages/schoolspage/school_details_page.dart';
 import 'package:educational_complex_director_app/view/pages/schoolspage/school_info_form.dart';
 import 'package:educational_complex_director_app/view/pages/schoolspage/schools_list_page.dart';

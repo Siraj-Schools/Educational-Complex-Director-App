@@ -1,5 +1,5 @@
 import 'package:educational_complex_director_app/routes/routes.dart';
-import 'package:educational_complex_director_app/utils/enums/screen_names.dart';
+import 'package:educational_complex_director_app/routes/enums/screen_names.dart';
 import 'package:educational_complex_director_app/view/pages/studentspage/student_details_page.dart';
 import 'package:educational_complex_director_app/view/pages/studentspage/student_info_form.dart';
 import 'package:educational_complex_director_app/view/pages/studentspage/student_list_page.dart';

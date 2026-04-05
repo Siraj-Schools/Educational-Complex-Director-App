@@ -9,6 +9,8 @@ import 'package:educational_complex_director_app/routes/routes.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:educational_complex_director_app/view/components/confirmation_dialog.dart';
 import 'package:educational_complex_director_app/view/components/error_dialog.dart';
+import 'package:educational_complex_director_app/view/components/geo_error.dart';
+import 'package:educational_complex_director_app/view/components/geo_loading.dart';
 import 'package:educational_complex_director_app/view/components/loading_dialog.dart';
 import 'package:educational_complex_director_app/view_model/Geography/cities.dart';
 import 'package:educational_complex_director_app/view_model/Geography/countries.dart';
@@ -447,7 +449,7 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
     final loc = AppLocalizations.of(context)!;
     final isDirector =
         ref.watch(userViewModelProvider).value?.isDirector ?? false;
-
+    const accent = Color(0xFF3F51B5);
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
       child: Center(
@@ -463,8 +465,8 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
                     icon: const Icon(Icons.arrow_back_rounded),
 
                     style: IconButton.styleFrom(
-                      backgroundColor: const Color(0xFF3F51B5).withAlpha(20),
-                      foregroundColor: const Color(0xFF3F51B5),
+                      backgroundColor: accent.withAlpha(20),
+                      foregroundColor: accent,
                     ),
                     onPressed: () {
                       ref.read(managersBreadcrumbProvider.notifier).pop();
@@ -483,10 +485,10 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
                       vertical: 12,
                     ),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF3F51B5).withAlpha(15),
+                      color: accent.withAlpha(15),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: const Color(0xFF3F51B5).withAlpha(60),
+                        color: accent.withAlpha(60),
                       ),
                     ),
                     child: Row(
@@ -502,7 +504,7 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
                             loc.viewModeHint,
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(
-                                  color: const Color(0xFF3F51B5),
+                                  color: accent,
                                   fontWeight: FontWeight.w500,
                                 ),
                           ),
@@ -706,19 +708,36 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
                                               );
                                             },
                                             loading: () =>
-                                                const SizedBox.shrink(),
-                                            error: (e, s) =>
-                                                const SizedBox.shrink(),
+                                                const GeoLoading(color: accent),
+                                            error: (e, s) => GeoError(
+                                              onRetry: () {
+                                                ref.invalidate(
+                                                  schoolCitiesProvider(
+                                                    managerStateId,
+                                                  ),
+                                                );
+                                              },
+                                            ),
                                           ),
                                     ],
                                   );
                                 },
-                                loading: () => const SizedBox.shrink(),
-                                error: (e, s) => const SizedBox.shrink(),
+                                loading: () => const GeoLoading(color: accent),
+                                error: (e, s) => GeoError(
+                                  onRetry: () {
+                                    ref.invalidate(
+                                      schoolCitiesProvider(managerStateId),
+                                    );
+                                  },
+                                ),
                               );
                         },
-                        loading: () => const SizedBox.shrink(),
-                        error: (e, s) => const SizedBox.shrink(),
+                        loading: () => const GeoLoading(color: accent),
+                        error: (e, s) => GeoError(
+                          onRetry: () {
+                            ref.invalidate(countriesProvider);
+                          },
+                        ),
                       ),
                 ),
 

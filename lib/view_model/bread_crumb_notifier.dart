@@ -1,4 +1,4 @@
-import 'package:educational_complex_director_app/utils/enums/screen_names.dart';
+import 'package:educational_complex_director_app/routes/enums/screen_names.dart';
 import 'package:flutter_riverpod/legacy.dart';
 
 class BreadCrumbNotifier extends StateNotifier<List<ScreenNames>> {

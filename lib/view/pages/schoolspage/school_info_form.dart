@@ -11,6 +11,8 @@ import 'package:educational_complex_director_app/routes/routes.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:educational_complex_director_app/view/components/confirmation_dialog.dart';
 import 'package:educational_complex_director_app/view/components/error_dialog.dart';
+import 'package:educational_complex_director_app/view/components/geo_error.dart';
+import 'package:educational_complex_director_app/view/components/geo_loading.dart';
 import 'package:educational_complex_director_app/view/components/loading_dialog.dart';
 import 'package:educational_complex_director_app/view/components/select_manager_dialog.dart';
 import 'package:educational_complex_director_app/view_model/Geography/cities.dart';
@@ -758,13 +760,16 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                                 items: data,
                               );
                             },
-                            error: (_, _) => const SizedBox.shrink(),
-                            loading: () => buildDropdown(
-                              label: loc.stateId,
-                              value: '',
-                              enabled: false,
-                              items: [],
-                              onChanged: (_) {},
+                            error: (_, _) => GeoError(
+                              onRetry: () => ref.invalidate(
+                                schoolStatesProvider(
+                                  '11111111-1111-1111-1111-111111111111',
+                                ),
+                              ),
+                            ),
+                            loading: () => LoadingAnimationWidget.waveDots(
+                              color: SConfig.secondaryBackground,
+                              size: 60,
                             ),
                           ),
                       // -- School City --
@@ -793,13 +798,14 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                                 items: data,
                               );
                             },
-                            error: (_, _) => const SizedBox.shrink(),
-                            loading: () => buildDropdown(
-                              label: loc.cityId,
-                              value: '',
-                              enabled: false,
-                              items: [],
-                              onChanged: (_) {},
+                            error: (_, _) => GeoError(
+                              onRetry: () => ref.invalidate(
+                                schoolCitiesProvider(schoolStateId),
+                              ),
+                            ),
+                            loading: () => LoadingAnimationWidget.waveDots(
+                              color: SConfig.secondaryBackground,
+                              size: 60,
                             ),
                           ),
                     ],

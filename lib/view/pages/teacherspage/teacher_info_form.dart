@@ -13,6 +13,8 @@ import 'package:educational_complex_director_app/services/log_services.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:educational_complex_director_app/view/components/confirmation_dialog.dart';
 import 'package:educational_complex_director_app/view/components/error_dialog.dart';
+import 'package:educational_complex_director_app/view/components/geo_error.dart';
+import 'package:educational_complex_director_app/view/components/geo_loading.dart';
 import 'package:educational_complex_director_app/view/components/loading_dialog.dart';
 import 'package:educational_complex_director_app/view/components/select_school_and_designation_dialog.dart';
 import 'package:educational_complex_director_app/view/components/show_new_credentials_dialog.dart';
@@ -378,6 +380,8 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
 
   Widget _topBar(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final accent = SConfig.accentColor.withRed(50);
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -400,7 +404,7 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
             iconSize: 28,
             style: IconButton.styleFrom(
               backgroundColor: SConfig.primaryColor.withAlpha(20),
-              foregroundColor: SConfig.accentColor.withRed(50),
+              foregroundColor: accent,
             ),
             onPressed: () {
               ref.read(teachersBreadcrumbProvider.notifier).pop();
@@ -411,7 +415,7 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
           const SizedBox.shrink(),
 
         if (!isAdding &&
-            (ref.read(userViewModelProvider).value?.isDirector ?? false))
+            (ref.watch(userViewModelProvider).value?.isDirector ?? false))
           Row(
             children: [
               if (isEditing && !isSomethingEdited)
@@ -437,7 +441,7 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
               if (!isEditing)
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: SConfig.primaryColor,
+                    backgroundColor: accent,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
@@ -477,6 +481,7 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
 
   Widget _viewModeBanner(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 20),
@@ -608,7 +613,7 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
     final loc = AppLocalizations.of(context)!;
     final isDirector =
         ref.watch(userViewModelProvider).value?.isDirector ?? false;
-
+    final accent = SConfig.accentColor.withRed(50);
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
       child: Center(
@@ -814,20 +819,37 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
                                                 ),
                                               );
                                             },
-                                            error: (err, stack) =>
-                                                const SizedBox.shrink(),
+                                            error: (err, stack) => GeoError(
+                                              onRetry: () {
+                                                ref.invalidate(
+                                                  schoolCitiesProvider(
+                                                    teacherStateId,
+                                                  ),
+                                                );
+                                              },
+                                            ),
                                             loading: () =>
-                                                const SizedBox.shrink(),
+                                                GeoLoading(color: accent),
                                           ),
                                     ],
                                   );
                                 },
-                                error: (err, stack) => const SizedBox.shrink(),
-                                loading: () => const SizedBox.shrink(),
+                                error: (err, stack) => GeoError(
+                                  onRetry: () {
+                                    ref.invalidate(
+                                      schoolStatesProvider(teacherCountryId),
+                                    );
+                                  },
+                                ),
+                                loading: () => GeoLoading(color: accent),
                               );
                         },
-                        error: (err, stack) => const SizedBox.shrink(),
-                        loading: () => const SizedBox.shrink(),
+                        error: (err, stack) => GeoError(
+                          onRetry: () {
+                            ref.invalidate(countriesProvider);
+                          },
+                        ),
+                        loading: () => GeoLoading(color: accent),
                       ),
                 ),
 

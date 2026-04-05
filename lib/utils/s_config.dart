@@ -1,5 +1,3 @@
-import 'package:educational_complex_director_app/l10n/app_localizations.dart';
-import 'package:educational_complex_director_app/utils/enums/screen_names.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,41 +7,6 @@ class SConfig {
   static double? screenHeight;
   const SConfig._();
   static const String baseUrl = 'http://localhost:5001';
-  static String getTitle(BuildContext context, ScreenNames page) {
-    final loc = AppLocalizations.of(context)!;
-
-    switch (page) {
-      case ScreenNames.home:
-        return loc.home;
-      case ScreenNames.schools:
-        return loc.schools;
-      case ScreenNames.settings:
-        return loc.settings;
-      case ScreenNames.addSchool:
-        return loc.addSchool;
-      case ScreenNames.schoolDetails:
-        return loc.schoolDetails;
-
-      case ScreenNames.teachers:
-        return loc.teachers;
-      case ScreenNames.teacherDetails:
-        return loc.teacherDetails;
-      case ScreenNames.addTeacher:
-        return loc.addTeacher;
-      case ScreenNames.managers:
-        return loc.managers;
-      case ScreenNames.managerDetails:
-        return loc.managerDetails;
-      case ScreenNames.addManager:
-        return loc.addManager;
-      case ScreenNames.students:
-        return loc.students;
-      case ScreenNames.studentDetails:
-        return loc.studentDetails;
-      case ScreenNames.addStudent:
-        return loc.addStudent;
-    }
-  }
 
   // ----------- INIT ------------
   static void init(BuildContext context) {
