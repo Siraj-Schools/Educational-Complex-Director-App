@@ -22,11 +22,16 @@ class UserRepository {
   }
 
   Future<void> logout() async {
-    if (await LocalStorageService.clearToken()) {
-      return;
+    try {
+      if (await LocalStorageService.clearToken()) {
+        return;
+      }
+      LogService.e('Failed to logout');
+      throw Exception('Failed to logout');
+    } catch (e) {
+      LogService.e(e.toString());
+      rethrow;
     }
-    LogService.e('Failed to logout');
-    throw Exception('Failed to logout');
   }
 
   Future<User> getUser() async {
@@ -40,10 +45,37 @@ class UserRepository {
       if (!user.isDirector && !user.isEducationalComplexPrincipel) {
         throw Exception('User is not authorized to access this system');
       }
-      LogService.d("User info: $token ______");
+      LogService.d("User info: ${user.role} ______");
+      LogService.d("Token info: $token ______");
       return user;
     } catch (e) {
       await logout();
+      LogService.e(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> setAppLanguage(String language) async {
+    try {
+      if (await LocalStorageService.setLang(language)) {
+        return;
+      }
+      LogService.e('Failed to set language');
+      throw Exception('Failed to set language');
+    } catch (e) {
+      LogService.e(e.toString());
+      rethrow;
+    }
+  }
+
+  String getAppLanguage() {
+    try {
+      final String? language = LocalStorageService.getLang;
+      if (language == null) {
+        return 'ar';
+      }
+      return language;
+    } catch (e) {
       LogService.e(e.toString());
       rethrow;
     }

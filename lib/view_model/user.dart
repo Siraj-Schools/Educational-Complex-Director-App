@@ -1,10 +1,12 @@
 import 'package:educational_complex_director_app/Repositories/user_repository.dart';
 import 'package:educational_complex_director_app/models/user.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserViewModel extends AsyncNotifier<User> {
   @override
   Future<User> build() async {
+    // ref.watch(authViewModelProvider);
     return await loadUser();
   }
 
@@ -13,7 +15,8 @@ class UserViewModel extends AsyncNotifier<User> {
   }
 }
 
-final userViewModelProvider = AsyncNotifierProvider<UserViewModel, User>(
-  () => UserViewModel(),
-  retry: (retryCount, error) => null,
-);
+final userViewModelProvider =
+    AsyncNotifierProvider.autoDispose<UserViewModel, User>(
+      () => UserViewModel(),
+      retry: (retryCount, error) => null,
+    );

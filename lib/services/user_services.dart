@@ -35,6 +35,7 @@ class UserServices {
     }
     return User.fromJson(response.data);
   }
+  
 }
 
 final userServiceProvider = Provider<UserServices>((ref) {

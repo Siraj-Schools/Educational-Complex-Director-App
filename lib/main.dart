@@ -4,6 +4,9 @@ import 'package:educational_complex_director_app/l10n/app_localizations.dart';
 import 'package:educational_complex_director_app/services/local_storage_services.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
+import 'package:educational_complex_director_app/view/components/error_dialog.dart';
+import 'package:educational_complex_director_app/view/components/loading_dialog.dart';
+import 'package:educational_complex_director_app/view_model/language.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,6 +45,7 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final language = ref.watch(languageViewModelProvider);
     return GetMaterialApp(
       title: 'Siraj',
       debugShowCheckedModeBanner: false,
@@ -50,7 +54,7 @@ class MyApp extends ConsumerWidget {
       initialRoute: Sroutes.auth,
       getPages: SAppRoute.pages,
       darkTheme: SConfig.darkTheme,
-      locale: const Locale('ar'),
+      locale: language.whenData((value) => Locale(value)).value,
 
       fallbackLocale: const Locale('ar'),
       supportedLocales: AppLocalizations.supportedLocales,
@@ -61,17 +65,19 @@ class MyApp extends ConsumerWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       themeMode: ThemeMode.light,
-      // builder: (context, child) {
-      //   return settingsAsync.when(
-      //     data: (_) {
-      //       return child!;
-      //     },
-      //     loading: () => const SplashScreen(),
-      //     error: (err, _) => Scaffold(
-      //       body: Center(child: Text('Error loading settings: $err')),
-      //     ),
-      //   )
-      //}
+      builder: (context, child) {
+        return language.when(
+          data: (_) {
+            return child!;
+          },
+          loading: () => const Scaffold(
+            body: Center(child: LoadingDialog()),
+          ),
+          error: (err, _) => Scaffold(
+            body: Center(child: ErrorDialog(message: err.toString())),
+          ),
+        );
+      },
     );
   }
 }

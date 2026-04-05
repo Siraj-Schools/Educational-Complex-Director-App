@@ -16,6 +16,9 @@ class User {
       ),
     );
   }
+  factory User.empty() {
+    return const User(id: '', email: '', role: Roles.Directorate);
+  }
   Map<String, dynamic> toJson() {
     return {
       'userId': id,

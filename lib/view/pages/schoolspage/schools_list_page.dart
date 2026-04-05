@@ -204,7 +204,7 @@ class _SchoolListPageState extends ConsumerState<SchoolListPage>
                 // ),
 
                 /// ADD BUTTON
-                if (ref.read(userViewModelProvider).value!.isDirector)
+                if (ref.watch(userViewModelProvider).value?.isDirector ?? false)
                   SizedBox(
                     height: 40,
                     child: ElevatedButton.icon(

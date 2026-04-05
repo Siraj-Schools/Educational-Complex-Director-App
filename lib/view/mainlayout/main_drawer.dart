@@ -1,4 +1,5 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
+import 'package:educational_complex_director_app/view/components/language_dropdown.dart';
 import 'package:educational_complex_director_app/view_model/auth.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
 
@@ -90,7 +91,17 @@ class MainDrawer extends ConsumerWidget {
               ),
 
               const Spacer(),
-
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: LanguageDropdown(
+                      isWhiteBackGround: true,
+                    ),
+                  ),
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Divider(

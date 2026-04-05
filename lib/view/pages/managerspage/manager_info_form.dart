@@ -474,7 +474,7 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
                 ],
                 const SizedBox(height: 20),
 
-                if (!isAdding && !isManagerEditing)
+                if (!isAdding && !isManagerEditing && isDirector)
                   Container(
                     width: double.infinity,
                     margin: const EdgeInsets.only(bottom: 20),

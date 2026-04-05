@@ -23,6 +23,7 @@ import 'package:educational_complex_director_app/view_model/Geography/states.dar
 import 'package:educational_complex_director_app/view_model/bread_crumb_notifier.dart';
 import 'package:educational_complex_director_app/view_model/student/student_details.dart';
 import 'package:educational_complex_director_app/view_model/student/students.dart';
+import 'package:educational_complex_director_app/view_model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -212,6 +213,9 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
     required Widget content,
     bool isStudent = false,
   }) {
+    final isDirector =
+        ref.watch(userViewModelProvider).value?.isDirector ?? false;
+
     const accent = Color.fromARGB(255, 164, 0, 0);
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -255,7 +259,7 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
                     ),
                   ],
                 ),
-                if (isStudent && !isAdding)
+                if (isStudent && !isAdding && isDirector)
                   _topBar(AppLocalizations.of(context)!),
               ],
             ),
@@ -487,6 +491,8 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
     SConfig.init(context);
     final loc = AppLocalizations.of(context)!;
     const accent = Color.fromARGB(255, 164, 0, 0);
+    final isDirector =
+        ref.watch(userViewModelProvider).value?.isDirector ?? false;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
@@ -514,7 +520,7 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
                       ),
                     ],
                   ), //transfer
-                if (!isAdding)
+                if (!isAdding && isDirector)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -553,7 +559,7 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
                     ],
                   ),
                 const SizedBox(height: 16),
-                if (!isAdding && !isEditing) _viewModeBanner(loc),
+                if (!isAdding && !isEditing && isDirector) _viewModeBanner(loc),
 
                 const SizedBox(height: 10),
                 // Student Personal Section
@@ -800,7 +806,7 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
                         ),
                   ),
                 //changePassword
-                if (!isAdding)
+                if (!isAdding && isDirector)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
 
@@ -1028,22 +1034,18 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
                                               ],
                                             );
                                           },
-                                          loading: () => const Center(
-                                            child: CircularProgressIndicator(),
-                                          ),
+                                          loading: () =>
+                                              const SizedBox.shrink(),
                                           error: (e, s) =>
-                                              Text(loc.errorOccurred),
+                                              const SizedBox.shrink(),
                                         );
                                   },
-                                  loading: () => const Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                  error: (e, s) => Text(loc.errorOccurred),
+                                  loading: () => const SizedBox.shrink(),
+                                  error: (e, s) => const SizedBox.shrink(),
                                 );
                           },
-                          loading: () =>
-                              const Center(child: CircularProgressIndicator()),
-                          error: (e, s) => Text(loc.errorOccurred),
+                          loading: () => const SizedBox.shrink(),
+                          error: (e, s) => const SizedBox.shrink(),
                         ),
                   ),
 

@@ -157,7 +157,7 @@ class _MainLayoutState extends ConsumerState<MainLayout> {
                 message: AppLocalizations.of(context)!.sessionExpired,
                 onOK: () async {
                   await ref.read(authViewModelProvider.notifier).logout();
-                  Get.offAllNamed(Sroutes.auth);
+                  await Get.offAllNamed(Sroutes.auth);
                 },
               ),
             ),

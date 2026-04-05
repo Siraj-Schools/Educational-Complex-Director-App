@@ -1,5 +1,5 @@
 import 'package:educational_complex_director_app/Repositories/user_repository.dart';
-import 'package:educational_complex_director_app/view_model/user.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthViewModel extends AsyncNotifier<void> {
@@ -12,7 +12,7 @@ class AuthViewModel extends AsyncNotifier<void> {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       await ref.read(userRepositoryProvider).login(email, password);
-      await ref.read(userViewModelProvider.notifier).build();
+      await ref.read(userRepositoryProvider).getUser();
     });
   }
 

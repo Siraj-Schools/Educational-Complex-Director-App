@@ -5,6 +5,7 @@ import 'package:educational_complex_director_app/utils/s_config.dart';
 
 import 'package:educational_complex_director_app/utils/s_responsive_layout.dart';
 import 'package:educational_complex_director_app/view/components/error_dialog.dart';
+import 'package:educational_complex_director_app/view/components/language_dropdown.dart';
 import 'package:educational_complex_director_app/view/components/loading_dialog.dart';
 import 'package:educational_complex_director_app/view/pages/authpage/auth_page_desktop_and_tablet.dart';
 import 'package:educational_complex_director_app/view/pages/authpage/auth_page_mobile.dart';
@@ -161,19 +162,20 @@ class _AuthPageState extends ConsumerState<AuthPage> {
 
           SConfig.spaceSmall,
 
-          Align(
-            alignment: local.localeName != "ar"
-                ? Alignment.centerLeft
-                : Alignment.centerRight,
-            child: TextButton(
-              onPressed: () {},
-              child: Text(
-                local.forgotPassword,
-                style: const TextStyle(
-                  color: SConfig.accentColor,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: Text(
+                  local.forgotPassword,
+                  style: const TextStyle(
+                    color: SConfig.accentColor,
+                  ),
                 ),
               ),
-            ),
+              const LanguageDropdown(),
+            ],
           ),
 
           SConfig.spaceMedium,

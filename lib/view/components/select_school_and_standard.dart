@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
 import 'package:educational_complex_director_app/models/constants/school_types.dart';
 import 'package:educational_complex_director_app/models/school/standard.dart';
+// ignore: unused_import
 import 'package:educational_complex_director_app/services/log_services.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:educational_complex_director_app/view/components/error_dialog.dart';

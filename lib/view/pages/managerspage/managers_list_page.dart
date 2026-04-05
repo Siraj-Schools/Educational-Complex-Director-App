@@ -218,7 +218,7 @@ class _ManagersListPageState extends ConsumerState<ManagersListPage>
                 // ),
 
                 /// ADD BUTTON
-                if (ref.read(userViewModelProvider).value!.isDirector)
+                if (ref.watch(userViewModelProvider).value?.isDirector ?? false)
                   SizedBox(
                     height: 40,
                     child: ElevatedButton.icon(

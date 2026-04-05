@@ -19,6 +19,7 @@ import 'package:educational_complex_director_app/view_model/Geography/states.dar
 import 'package:educational_complex_director_app/view_model/bread_crumb_notifier.dart';
 import 'package:educational_complex_director_app/view_model/school/school_details.dart';
 import 'package:educational_complex_director_app/view_model/school/schools.dart';
+import 'package:educational_complex_director_app/view_model/user.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -279,6 +280,9 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
     VoidCallback? onSave,
     VoidCallback? onCancel,
   }) {
+    final isDirector =
+        ref.watch(userViewModelProvider).value?.isDirector ?? false;
+
     final loc = AppLocalizations.of(context)!;
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
@@ -323,7 +327,7 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                 ),
                 const Spacer(),
 
-                if (!isAdding && onEdit != null)
+                if (!isAdding && onEdit != null && isDirector)
                   if (isSectionEditing == true)
                     Row(
                       children: [
@@ -612,6 +616,8 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
   Widget build(BuildContext context) {
     SConfig.init(context);
     final loc = AppLocalizations.of(context)!;
+    final isDirector =
+        ref.watch(userViewModelProvider).value?.isDirector ?? false;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
@@ -642,7 +648,10 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                 const SizedBox(height: 20),
 
                 // ── View-mode banner ─────────────────────────────────────────
-                if (!isSchoolEditing && !isManagerEditing && !isAdding)
+                if (!isSchoolEditing &&
+                    !isManagerEditing &&
+                    !isAdding &&
+                    isDirector)
                   _viewModeBanner(context),
 
                 // ── 🛡️ SCHOOL STUFF ─────────────────────────────────────────
@@ -796,7 +805,7 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                     ],
                   ),
                 ),
-                if (!isAdding && widget.details?.manager != null)
+                if (!isAdding && widget.details?.manager != null && isDirector)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

@@ -154,7 +154,9 @@ class ShowNewCredentialsDialog extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: () => Get.back(),
+                  onPressed: () {
+                    Get.back();
+                  },
                   child: Text(
                     loc.ok,
                     style: const TextStyle(fontWeight: FontWeight.bold),

@@ -12,6 +12,7 @@ import 'package:educational_complex_director_app/view/components/select_school_a
 import 'package:educational_complex_director_app/view/pages/teacherspage/teacher_info_form.dart';
 import 'package:educational_complex_director_app/view_model/bread_crumb_notifier.dart';
 import 'package:educational_complex_director_app/view_model/teacher/teacher_details.dart';
+import 'package:educational_complex_director_app/view_model/user.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -294,86 +295,89 @@ class TeacherDetailsPage extends ConsumerWidget {
 
     final double itemWidth = SConfig.isMobile() ? double.infinity : 220;
     final double largeItemWidth = SConfig.isMobile() ? double.infinity : 280;
+    final isDirector =
+        ref.watch(userViewModelProvider).value?.isDirector ?? false;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         /// TOP ACTIONS
-        SizedBox(
-          width: double.infinity,
-          child: Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            alignment: SConfig.isMobile()
-                ? WrapAlignment.start
-                : WrapAlignment.end,
-            children: details.school != null
-                ? [
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: SConfig.primaryColor.withAlpha(20),
-                        foregroundColor: SConfig.primaryColor,
-                        elevation: 0,
-                        shadowColor: Colors.transparent,
+        if (isDirector)
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              alignment: SConfig.isMobile()
+                  ? WrapAlignment.start
+                  : WrapAlignment.end,
+              children: details.school != null
+                  ? [
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: SConfig.primaryColor.withAlpha(20),
+                          foregroundColor: SConfig.primaryColor,
+                          elevation: 0,
+                          shadowColor: Colors.transparent,
 
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                        icon: const Icon(
+                          Icons.transfer_within_a_station,
+                          size: 20,
                         ),
-                      ),
-                      icon: const Icon(
-                        Icons.transfer_within_a_station,
-                        size: 20,
-                      ),
-                      label: Text(
-                        loc.transferTeacherToAnotherSchool,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () async {
-                        await handleChangingAndAssigningTeacherSchool(
-                          ref,
-                          context,
-                          details,
-                        );
-                      },
-                    ),
-                  ]
-                : [
-                    ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: SConfig.primaryColor.withAlpha(20),
-                        foregroundColor: SConfig.primaryColor,
-                        elevation: 0,
-                        shadowColor: Colors.transparent,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 12,
+                        label: Text(
+                          loc.transferTeacherToAnotherSchool,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                        onPressed: () async {
+                          await handleChangingAndAssigningTeacherSchool(
+                            ref,
+                            context,
+                            details,
+                          );
+                        },
+                      ),
+                    ]
+                  : [
+                      ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: SConfig.primaryColor.withAlpha(20),
+                          foregroundColor: SConfig.primaryColor,
+                          elevation: 0,
+                          shadowColor: Colors.transparent,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
+                        icon: const Icon(Icons.person_remove, size: 20),
+                        label: Text(
+                          loc.assignTeacherToSchool,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () async {
+                          await handleChangingAndAssigningTeacherSchool(
+                            ref,
+                            context,
+                            details,
+                            true,
+                          );
+                        },
                       ),
-                      icon: const Icon(Icons.person_remove, size: 20),
-                      label: Text(
-                        loc.assignTeacherToSchool,
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: () async {
-                        await handleChangingAndAssigningTeacherSchool(
-                          ref,
-                          context,
-                          details,
-                          true,
-                        );
-                      },
-                    ),
-                  ],
+                    ],
+            ),
           ),
-        ),
 
         const SizedBox(height: 24),
 

@@ -606,6 +606,8 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
   Widget build(BuildContext context) {
     SConfig.init(context);
     final loc = AppLocalizations.of(context)!;
+    final isDirector =
+        ref.watch(userViewModelProvider).value?.isDirector ?? false;
 
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
@@ -617,7 +619,8 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (!isEditing && !isAdding) _viewModeBanner(context),
+                if (!isEditing && !isAdding && isDirector)
+                  _viewModeBanner(context),
                 _topBar(context),
                 const SizedBox(height: 20),
                 // ── Account Information ──────────────────────────────────────
