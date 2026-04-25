@@ -29,11 +29,6 @@ class BreadCrumbNotifier extends StateNotifier<List<ScreenNames>> {
   }
 }
 
-final homeBreadcrumbProvider =
-    StateNotifierProvider<BreadCrumbNotifier, List<ScreenNames>>(
-      (ref) => BreadCrumbNotifier(ScreenNames.home),
-    );
-
 final schoolsBreadcrumbProvider =
     StateNotifierProvider<BreadCrumbNotifier, List<ScreenNames>>(
       (ref) => BreadCrumbNotifier(ScreenNames.schools),
@@ -58,4 +53,4 @@ final settingsBreadcrumbProvider =
     StateNotifierProvider<BreadCrumbNotifier, List<ScreenNames>>(
       (ref) => BreadCrumbNotifier(ScreenNames.settings),
     );
-final activePageProvider = StateProvider<int>((ref) => 0);
+final activePageProvider = StateProvider.autoDispose<int>((ref) => 0);

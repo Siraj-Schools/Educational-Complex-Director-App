@@ -24,6 +24,12 @@ class School {
     required this.schoolType,
     required this.emisNumber,
   });
+  String normalizedDescription() {
+    if (schoolTypeDescription.contains("-")) {
+      return schoolTypeDescription.split(" ").last;
+    }
+    return schoolTypeDescription;
+  }
 
   factory School.fromJson(Map<String, dynamic> json) {
     return School(

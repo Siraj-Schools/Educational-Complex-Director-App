@@ -342,10 +342,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get removeTeacherFromSchool => 'إزالة من المدرسة';
 
   @override
-  String get required => 'Required';
-
-  @override
-  String get requiredAr => 'مطلوب';
+  String get required => 'مطلوب';
 
   @override
   String get retry => 'اعادة المحاولة';
@@ -580,4 +577,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get widowed => 'أرمل';
+
+  @override
+  String get literary => 'أدبي';
+
+  @override
+  String get scientific => 'علمي';
+
+  @override
+  String get grade => 'الصف';
 }

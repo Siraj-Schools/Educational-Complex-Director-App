@@ -767,12 +767,6 @@ abstract class AppLocalizations {
   /// **'Required'**
   String get required;
 
-  /// No description provided for @requiredAr.
-  ///
-  /// In en, this message translates to:
-  /// **'مطلوب'**
-  String get requiredAr;
-
   /// No description provided for @retry.
   ///
   /// In en, this message translates to:
@@ -1240,6 +1234,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Widowed'**
   String get widowed;
+
+  /// No description provided for @literary.
+  ///
+  /// In en, this message translates to:
+  /// **'Literary'**
+  String get literary;
+
+  /// No description provided for @scientific.
+  ///
+  /// In en, this message translates to:
+  /// **'Scientific'**
+  String get scientific;
+
+  /// No description provided for @grade.
+  ///
+  /// In en, this message translates to:
+  /// **'Grade'**
+  String get grade;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

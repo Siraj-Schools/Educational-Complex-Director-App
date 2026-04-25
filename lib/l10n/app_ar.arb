@@ -104,6 +104,7 @@
   "removeManager": "إزالة المدير",
   "removeTeacherFromSchool": "إزالة من المدرسة",
   "retry": "اعادة المحاولة",
+  "required": "مطلوب",
   "roleDirectorate": "المديرية",
   "roleEducationalComplexPrincipel": "مدير المجمع التربوي",
   "ruralDamascus": "ريف دمشق",
@@ -181,5 +182,8 @@
   "vocationalIndustrial": "مهني صناعي",
   "vocationalTechnical": "مهني فني",
   "welcome": "مرحباً بك",
-  "widowed": "أرمل"
+  "widowed": "أرمل",
+  "literary": "أدبي",
+  "scientific": "علمي",
+  "grade": "الصف"
 }

@@ -61,33 +61,27 @@ class MainDrawer extends ConsumerWidget {
               // NAVIGATION
               _buildItem(
                 context,
-                Icons.home,
-                AppLocalizations.of(context)!.home,
-                0,
-              ),
-              _buildItem(
-                context,
                 Icons.school_rounded,
                 AppLocalizations.of(context)!.schools,
-                1,
+                0,
               ),
               _buildItem(
                 context,
                 Icons.person_rounded,
                 AppLocalizations.of(context)!.managers,
-                2,
+                1,
               ),
               _buildItem(
                 context,
                 Icons.app_registration_rounded,
                 AppLocalizations.of(context)!.teachers,
-                3,
+                2,
               ),
               _buildItem(
                 context,
                 Icons.person_outline_rounded,
                 AppLocalizations.of(context)!.students,
-                4,
+                3,
               ),
 
               const Spacer(),

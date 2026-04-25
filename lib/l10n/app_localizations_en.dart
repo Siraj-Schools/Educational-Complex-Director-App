@@ -345,9 +345,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get required => 'Required';
 
   @override
-  String get requiredAr => 'مطلوب';
-
-  @override
   String get retry => 'Retry';
 
   @override
@@ -580,4 +577,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get widowed => 'Widowed';
+
+  @override
+  String get literary => 'Literary';
+
+  @override
+  String get scientific => 'Scientific';
+
+  @override
+  String get grade => 'Grade';
 }

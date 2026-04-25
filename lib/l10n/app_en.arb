@@ -112,7 +112,6 @@
   "removeManager": "Remove Manager",
   "removeTeacherFromSchool": "Remove from School",
   "required": "Required",
-  "requiredAr": "مطلوب",
   "retry": "Retry",
   "roleDirectorate": "Directorate",
   "roleEducationalComplexPrincipel": "Educational Complex Principal",
@@ -190,5 +189,8 @@
   "vocationalIndustrial": "Vocational Industrial",
   "vocationalTechnical": "Vocational Technical",
   "welcome": "Welcome",
-  "widowed": "Widowed"
+  "widowed": "Widowed",
+  "literary": "Literary",
+  "scientific": "Scientific",
+  "grade": "Grade"
 }

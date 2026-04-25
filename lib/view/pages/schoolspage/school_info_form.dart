@@ -12,7 +12,6 @@ import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:educational_complex_director_app/view/components/confirmation_dialog.dart';
 import 'package:educational_complex_director_app/view/components/error_dialog.dart';
 import 'package:educational_complex_director_app/view/components/geo_error.dart';
-import 'package:educational_complex_director_app/view/components/geo_loading.dart';
 import 'package:educational_complex_director_app/view/components/loading_dialog.dart';
 import 'package:educational_complex_director_app/view/components/select_manager_dialog.dart';
 import 'package:educational_complex_director_app/view_model/Geography/cities.dart';

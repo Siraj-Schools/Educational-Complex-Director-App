@@ -81,7 +81,7 @@ class StudentDetailsPage extends ConsumerWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    "${loc.standardName}: ${student.student.standardName}",
+                                    "${loc.standardName}: ${student.student.getLocalizedStandardName(loc)}",
                                     style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.white.withAlpha(200),

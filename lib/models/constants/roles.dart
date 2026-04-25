@@ -4,6 +4,7 @@ import 'package:educational_complex_director_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 enum Roles {
+  None,
   EducationalComplexPrincipel,
   Directorate,
 }
@@ -16,6 +17,8 @@ extension RolesExtension on Roles {
         return localizations.roleEducationalComplexPrincipel;
       case Roles.Directorate:
         return localizations.roleDirectorate;
+      case Roles.None:
+        return "";
     }
   }
 }

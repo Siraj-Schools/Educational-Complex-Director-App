@@ -136,7 +136,7 @@ class StudentCard extends StatelessWidget {
                         child: _infoLabel(
                           context,
                           loc.standardName,
-                          student.standardName,
+                          student.getLocalizedStandardName(loc),
                         ),
                       ),
                       const SizedBox(width: 12),

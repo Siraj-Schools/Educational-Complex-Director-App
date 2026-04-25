@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
 import 'package:educational_complex_director_app/models/constants/school_types.dart';
+import 'package:educational_complex_director_app/models/constants/standard_type.dart';
 import 'package:educational_complex_director_app/models/school/standard.dart';
 // ignore: unused_import
 import 'package:educational_complex_director_app/services/log_services.dart';
@@ -291,8 +292,8 @@ class _SelectSchoolAndStandardDialogState
         final standard = standards[index];
         final isSelected = _selectedStandardId == standard.id;
         return _buildSelectionItem(
-          title: standard.name,
-          subtitle: standard.type,
+          title: standard.getLocalizedStandardName(loc),
+          subtitle: standard.type.loc(loc),
           isSelected: isSelected,
           onTap: () => setState(() => _selectedStandardId = standard.id),
         );

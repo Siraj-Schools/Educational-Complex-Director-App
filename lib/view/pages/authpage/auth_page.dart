@@ -111,52 +111,61 @@ class _AuthPageState extends ConsumerState<AuthPage> {
 
           SConfig.spaceBig,
 
-          TextFormField(
-            controller: emailController,
-            textDirection: TextDirection.ltr,
-            onFieldSubmitted: (value) async => await handleLogin(),
-            decoration: InputDecoration(
-              labelText: local.email,
-              prefixIcon: const Icon(
-                Icons.email_outlined,
-                color: SConfig.secondaryBackground,
-              ),
-              hintText: "example@gmail.com",
-              hintTextDirection: TextDirection.ltr,
-            ),
-            validator: emailValidator,
-          ),
-
-          SConfig.spaceMedium,
-
-          TextFormField(
-            controller: passwordController,
-            obscureText: obscurePassword,
-            validator: passwordValidator,
-            onFieldSubmitted: (value) async => await handleLogin(),
-
-            textDirection: TextDirection.ltr,
-
-            decoration: InputDecoration(
-              labelText: local.password,
-              prefixIcon: const Icon(
-                Icons.lock_outline,
-                color: SConfig.secondaryBackground,
-              ),
-              hintText: "********",
-              hintTextDirection: TextDirection.ltr,
-
-              suffixIcon: IconButton(
-                icon: Icon(
-                  obscurePassword ? Icons.visibility_off : Icons.visibility,
-                  color: SConfig.primaryColor,
+          AutofillGroup(
+            child: Column(
+              children: [
+                TextFormField(
+                  controller: emailController,
+                  textDirection: TextDirection.ltr,
+                  autofillHints: const [AutofillHints.email],
+                  onFieldSubmitted: (value) async => await handleLogin(),
+                  decoration: InputDecoration(
+                    labelText: local.email,
+                    prefixIcon: const Icon(
+                      Icons.email_outlined,
+                      color: SConfig.secondaryBackground,
+                    ),
+                    hintText: "example@gmail.com",
+                    hintTextDirection: TextDirection.ltr,
+                  ),
+                  validator: emailValidator,
                 ),
-                onPressed: () {
-                  setState(() {
-                    obscurePassword = !obscurePassword;
-                  });
-                },
-              ),
+                SConfig.spaceMedium,
+
+                TextFormField(
+                  controller: passwordController,
+                  obscureText: obscurePassword,
+                  autofillHints: const [AutofillHints.password],
+                  validator: passwordValidator,
+                  onFieldSubmitted: (value) async => await handleLogin(),
+
+                  textDirection: TextDirection.ltr,
+
+                  decoration: InputDecoration(
+                    labelText: local.password,
+                    prefixIcon: const Icon(
+                      Icons.lock_outline,
+                      color: SConfig.secondaryBackground,
+                    ),
+                    hintText: "********",
+                    hintTextDirection: TextDirection.ltr,
+
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        obscurePassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: SConfig.primaryColor,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          obscurePassword = !obscurePassword;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 

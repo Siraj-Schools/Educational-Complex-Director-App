@@ -12,11 +12,6 @@ class MainBody extends StatelessWidget {
     required this.pageController,
   });
   final List<Widget> pages = const [
-    Center(
-      child: Text(
-        "Dashboard Page",
-      ),
-    ),
     SchoolsPage(),
     ManagersPage(),
     TeachersPage(),

@@ -13,12 +13,11 @@ class User {
         (role) =>
             role.name.toLowerCase() ==
             (json['roles'] as List<dynamic>)[0].toLowerCase(),
+        orElse: () => Roles.None,
       ),
     );
   }
-  factory User.empty() {
-    return const User(id: '', email: '', role: Roles.Directorate);
-  }
+
   Map<String, dynamic> toJson() {
     return {
       'userId': id,

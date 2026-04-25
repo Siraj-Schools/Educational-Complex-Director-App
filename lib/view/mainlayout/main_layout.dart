@@ -89,12 +89,10 @@ class _MainLayoutState extends ConsumerState<MainLayout> {
                         builder: (context, ref, child) {
                           final activePage = ref.watch(activePageProvider);
                           final items = switch (activePage) {
-                            0 => ref.watch(homeBreadcrumbProvider),
-                            1 => ref.watch(schoolsBreadcrumbProvider),
-                            2 => ref.watch(managersBreadcrumbProvider),
-
-                            3 => ref.watch(teachersBreadcrumbProvider),
-                            4 => ref.watch(studentsBreadcrumbProvider),
+                            0 => ref.watch(schoolsBreadcrumbProvider),
+                            1 => ref.watch(managersBreadcrumbProvider),
+                            2 => ref.watch(teachersBreadcrumbProvider),
+                            3 => ref.watch(studentsBreadcrumbProvider),
                             _ => ref.watch(settingsBreadcrumbProvider),
                           };
                           final theme = Theme.of(context);

@@ -202,7 +202,7 @@ class SchoolCard extends StatelessWidget {
                         child: _infoBlock(
                           context,
                           "",
-                          school.schoolTypeDescription,
+                          school.normalizedDescription(),
                         ),
                       ),
                     ],
