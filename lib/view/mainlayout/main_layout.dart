@@ -1,7 +1,6 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
 import 'package:educational_complex_director_app/routes/enums/screen_names.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
-
 import 'package:educational_complex_director_app/utils/s_config.dart';
 import 'package:educational_complex_director_app/view/components/error_dialog.dart';
 import 'package:educational_complex_director_app/view/components/loading_dialog.dart';
@@ -11,6 +10,7 @@ import 'package:educational_complex_director_app/view/mainlayout/main_header.dar
 import 'package:educational_complex_director_app/view_model/auth.dart';
 import 'package:educational_complex_director_app/view_model/bread_crumb_notifier.dart';
 import 'package:educational_complex_director_app/view_model/user.dart';
+
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'package:flutter/material.dart';
@@ -26,15 +26,24 @@ class MainLayout extends ConsumerStatefulWidget {
 }
 
 class _MainLayoutState extends ConsumerState<MainLayout> {
-  int selectedIndex = 0;
-  final PageController _pageController = PageController();
+  late PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+      initialPage: ref.read(activePageProvider),
+    );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   void onItemSelected(int index) async {
-    if (selectedIndex == index) return;
-
-    setState(() {
-      selectedIndex = index;
-    });
+    if (ref.read(activePageProvider) == index) return;
 
     ref.read(activePageProvider.notifier).state = index;
 
@@ -45,7 +54,7 @@ class _MainLayoutState extends ConsumerState<MainLayout> {
     );
 
     if (!SConfig.isDesktop()) {
-      Get.back();
+      Get.back(); // This closes the drawer if applicable
     }
   }
 
@@ -53,17 +62,29 @@ class _MainLayoutState extends ConsumerState<MainLayout> {
   Widget build(BuildContext context) {
     SConfig.init(context);
 
-    final drawer = MainDrawer(
-      selectedIndex: selectedIndex,
-      onItemSelected: onItemSelected,
-    );
-
-    final body = MainBody(pageController: _pageController);
     final isDesktop = SConfig.isDesktop();
 
     final user = ref.watch(userViewModelProvider);
     return user.when(
       data: (user) {
+        final activePage = ref.watch(activePageProvider);
+        final List<ScreenNames> items = switch (activePage) {
+          0 => ref.watch(schoolsBreadcrumbProvider),
+          1 => ref.watch(managersBreadcrumbProvider),
+          2 => ref.watch(teachersBreadcrumbProvider),
+          3 => ref.watch(studentsBreadcrumbProvider),
+          _ => [],
+        };
+
+        final theme = Theme.of(context);
+        final drawer = MainDrawer(
+          selectedIndex: activePage,
+          onItemSelected: onItemSelected,
+        );
+        final body = MainBody(
+          pageController: _pageController,
+        );
+
         final header = MainHeader(
           user: user,
         );
@@ -85,59 +106,48 @@ class _MainLayoutState extends ConsumerState<MainLayout> {
                   child: Column(
                     children: [
                       if (isDesktop) header,
-                      Consumer(
-                        builder: (context, ref, child) {
-                          final activePage = ref.watch(activePageProvider);
-                          final items = switch (activePage) {
-                            0 => ref.watch(schoolsBreadcrumbProvider),
-                            1 => ref.watch(managersBreadcrumbProvider),
-                            2 => ref.watch(teachersBreadcrumbProvider),
-                            3 => ref.watch(studentsBreadcrumbProvider),
-                            _ => ref.watch(settingsBreadcrumbProvider),
-                          };
-                          final theme = Theme.of(context);
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Row(
+                          children: List.generate(items.length, (index) {
+                            final isLast = index == items.length - 1;
 
-                          return Padding(
-                            padding: const EdgeInsets.all(8),
-                            child: Row(
-                              children: List.generate(items.length, (index) {
-                                final isLast = index == items.length - 1;
+                            return Row(
+                              children: [
+                                Text(
+                                  items[index].getTitle(
+                                    context,
+                                  ),
 
-                                return Row(
-                                  children: [
-                                    Text(
-                                      items[index].getTitle(context),
-                                      style: theme.textTheme.headlineSmall
-                                          ?.copyWith(
-                                            fontWeight: isLast
-                                                ? FontWeight.bold
-                                                : FontWeight.w500,
-                                            color: isLast
-                                                ? SConfig.primaryColor
-                                                : theme.colorScheme.onSurface
-                                                      .withAlpha(
-                                                        160,
-                                                      ),
-                                          ),
-                                    ),
-                                    if (!isLast)
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 8,
-                                        ),
-                                        child: Icon(
-                                          Icons.chevron_right_rounded,
-                                          size: 18,
-                                          color: theme.colorScheme.onSurface
-                                              .withAlpha(120),
-                                        ),
+                                  style: theme.textTheme.headlineSmall
+                                      ?.copyWith(
+                                        fontWeight: isLast
+                                            ? FontWeight.bold
+                                            : FontWeight.w500,
+                                        color: isLast
+                                            ? SConfig.primaryColor
+                                            : theme.colorScheme.onSurface
+                                                  .withAlpha(
+                                                    160,
+                                                  ),
                                       ),
-                                  ],
-                                );
-                              }),
-                            ),
-                          );
-                        },
+                                ),
+                                if (!isLast)
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                    ),
+                                    child: Icon(
+                                      Icons.chevron_right_rounded,
+                                      size: 18,
+                                      color: theme.colorScheme.onSurface
+                                          .withAlpha(120),
+                                    ),
+                                  ),
+                              ],
+                            );
+                          }),
+                        ),
                       ),
                       Expanded(child: body),
                     ],

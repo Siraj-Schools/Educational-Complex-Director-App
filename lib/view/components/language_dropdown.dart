@@ -16,7 +16,12 @@ class LanguageDropdown extends ConsumerWidget {
           initialValue: value,
 
           tooltip: 'Select Language',
+          menuPadding: EdgeInsets.zero,
 
+          shape: BeveledRectangleBorder(
+            borderRadius: BorderRadiusGeometry.circular(4),
+          ),
+          borderRadius: BorderRadius.circular(30),
           style: const ButtonStyle(
             backgroundColor: WidgetStatePropertyAll(Colors.transparent),
             foregroundColor: WidgetStatePropertyAll(Colors.transparent),
@@ -35,7 +40,11 @@ class LanguageDropdown extends ConsumerWidget {
               value: 'ar',
               child: Row(
                 children: [
-                  Icon(Icons.language, size: 18),
+                  Icon(
+                    Icons.language,
+                    size: 18,
+                    color: SConfig.secondaryBackground,
+                  ),
                   SizedBox(width: 8),
                   Text('العربية'),
                 ],
@@ -45,7 +54,11 @@ class LanguageDropdown extends ConsumerWidget {
               value: 'en',
               child: Row(
                 children: [
-                  Icon(Icons.language, size: 18),
+                  Icon(
+                    Icons.language,
+                    size: 18,
+                    color: SConfig.secondaryBackground,
+                  ),
                   SizedBox(width: 8),
                   Text('English'),
                 ],

@@ -49,8 +49,4 @@ final studentsBreadcrumbProvider =
       (ref) => BreadCrumbNotifier(ScreenNames.students),
     );
 
-final settingsBreadcrumbProvider =
-    StateNotifierProvider<BreadCrumbNotifier, List<ScreenNames>>(
-      (ref) => BreadCrumbNotifier(ScreenNames.settings),
-    );
-final activePageProvider = StateProvider.autoDispose<int>((ref) => 0);
+final activePageProvider = StateProvider<int>((ref) => 0);
