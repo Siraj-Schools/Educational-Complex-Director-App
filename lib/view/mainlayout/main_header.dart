@@ -2,7 +2,6 @@ import 'package:educational_complex_director_app/models/constants/roles.dart';
 import 'package:educational_complex_director_app/models/user.dart';
 import 'package:educational_complex_director_app/utils/s_config.dart';
 
-import 'package:educational_complex_director_app/view/mainlayout/notification_bell.dart';
 import 'package:flutter/material.dart';
 
 class MainHeader extends StatelessWidget implements PreferredSizeWidget {
@@ -71,8 +70,6 @@ class MainHeader extends StatelessWidget implements PreferredSizeWidget {
                   ),
                 ],
               ),
-              const SizedBox(width: 25),
-              const NotifiactionBell(),
             ],
           ),
         ],
