@@ -73,6 +73,7 @@ class _MainLayoutState extends ConsumerState<MainLayout> {
           1 => ref.watch(managersBreadcrumbProvider),
           2 => ref.watch(teachersBreadcrumbProvider),
           3 => ref.watch(studentsBreadcrumbProvider),
+          4 => ref.watch(systemSettingsBreadcrumbProvider),
           _ => [],
         };
 

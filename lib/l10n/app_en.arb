@@ -192,5 +192,22 @@
   "widowed": "Widowed",
   "literary": "Literary",
   "scientific": "Scientific",
-  "grade": "Grade"
+  "grade": "Grade",
+  "systemSettings": "System Settings",
+  "addAcademicYear": "Add Academic Year",
+  "academicYearName": "Academic Year Name",
+  "currentAcademicYear": "Current Academic Year",
+  "nextAcademicYear": "Next Academic Year",
+  "currentChapter": "Current Academic Year",
+  "chapter1": "First Academic Year",
+  "chapter2": "Second Academic Year",
+  "isPromotion": "Promotion Active",
+  "isChapterPromotion": "Chapter Promotion Active",
+  "update": "Update",
+  "name": "Name",
+  "selectAcademicYear": "Select Academic Year",
+  "saveChanges": "Save Changes",
+  "updateCurrentChapter": "Update Current Chapter",
+  "enterChapterId": "Enter Chapter ID",
+  "chapterId": "Chapter ID"
 }

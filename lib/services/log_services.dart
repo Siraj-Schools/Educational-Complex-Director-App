@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/web.dart';
 
 class LogService {
@@ -18,3 +19,7 @@ class LogService {
   static void e(String message, [Object? error, StackTrace? stackTrace]) =>
       _logger.e(message, error: error, stackTrace: stackTrace);
 }
+
+final logServiceProvider = Provider<LogService>((ref) {
+  return LogService();
+});

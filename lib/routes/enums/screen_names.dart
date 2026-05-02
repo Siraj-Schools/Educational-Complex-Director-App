@@ -16,6 +16,7 @@ enum ScreenNames {
   students,
   addStudent,
   studentDetails,
+  systemSettings,
 }
 
 extension ScreenNamesExtension on ScreenNames {
@@ -52,6 +53,8 @@ extension ScreenNamesExtension on ScreenNames {
         return loc.studentDetails;
       case ScreenNames.addStudent:
         return loc.addStudent;
+      case ScreenNames.systemSettings:
+        return loc.systemSettings;
     }
   }
 }

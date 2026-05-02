@@ -30,6 +30,9 @@ class LanguageDropdown extends ConsumerWidget {
             elevation: WidgetStatePropertyAll(0),
           ),
           onSelected: (String newValue) async {
+            if (newValue == value) {
+              return;
+            }
             await ref
                 .read(languageViewModelProvider.notifier)
                 .setLanguage(newValue);

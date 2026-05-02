@@ -185,5 +185,22 @@
   "widowed": "أرمل",
   "literary": "أدبي",
   "scientific": "علمي",
-  "grade": "الصف"
+  "grade": "الصف",
+  "systemSettings": "إعدادات النظام",
+  "addAcademicYear": "إضافة عام دراسي",
+  "academicYearName": "اسم العام الدراسي",
+  "currentAcademicYear": "العام الدراسي الحالي",
+  "nextAcademicYear": "العام الدراسي القادم",
+  "currentChapter": "الفصل الدراسي الحالي",
+  "chapter1": "الفصل الدراسي الأول",
+  "chapter2": "الفصل الدراسي الثاني",
+  "isPromotion": "السماح بترقية الطلاب للصف التالي",
+  "isChapterPromotion": "السماح بترقية الطلاب إلى الفصل الثاني",
+  "update": "تحديث",
+  "name": "الاسم",
+  "selectAcademicYear": "اختر العام الدراسي",
+  "saveChanges": "حفظ التغييرات",
+  "updateCurrentChapter": "تحديث الفصل الحالي",
+  "enterChapterId": "أدخل معرف الفصل",
+  "chapterId": "معرف الفصل"
 }

@@ -586,4 +586,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get grade => 'Grade';
+
+  @override
+  String get systemSettings => 'System Settings';
+
+  @override
+  String get addAcademicYear => 'Add Academic Year';
+
+  @override
+  String get academicYearName => 'Academic Year Name';
+
+  @override
+  String get currentAcademicYear => 'Current Academic Year';
+
+  @override
+  String get nextAcademicYear => 'Next Academic Year';
+
+  @override
+  String get currentChapter => 'Current Academic Year';
+
+  @override
+  String get chapter1 => 'First Academic Year';
+
+  @override
+  String get chapter2 => 'Second Academic Year';
+
+  @override
+  String get isPromotion => 'Promotion Active';
+
+  @override
+  String get isChapterPromotion => 'Chapter Promotion Active';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get selectAcademicYear => 'Select Academic Year';
+
+  @override
+  String get saveChanges => 'Save Changes';
+
+  @override
+  String get updateCurrentChapter => 'Update Current Chapter';
+
+  @override
+  String get enterChapterId => 'Enter Chapter ID';
+
+  @override
+  String get chapterId => 'Chapter ID';
 }

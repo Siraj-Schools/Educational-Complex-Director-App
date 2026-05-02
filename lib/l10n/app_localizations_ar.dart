@@ -586,4 +586,55 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get grade => 'الصف';
+
+  @override
+  String get systemSettings => 'إعدادات النظام';
+
+  @override
+  String get addAcademicYear => 'إضافة عام دراسي';
+
+  @override
+  String get academicYearName => 'اسم العام الدراسي';
+
+  @override
+  String get currentAcademicYear => 'العام الدراسي الحالي';
+
+  @override
+  String get nextAcademicYear => 'العام الدراسي القادم';
+
+  @override
+  String get currentChapter => 'الفصل الدراسي الحالي';
+
+  @override
+  String get chapter1 => 'الفصل الدراسي الأول';
+
+  @override
+  String get chapter2 => 'الفصل الدراسي الثاني';
+
+  @override
+  String get isPromotion => 'السماح بترقية الطلاب للصف التالي';
+
+  @override
+  String get isChapterPromotion => 'السماح بترقية الطلاب إلى الفصل الثاني';
+
+  @override
+  String get update => 'تحديث';
+
+  @override
+  String get name => 'الاسم';
+
+  @override
+  String get selectAcademicYear => 'اختر العام الدراسي';
+
+  @override
+  String get saveChanges => 'حفظ التغييرات';
+
+  @override
+  String get updateCurrentChapter => 'تحديث الفصل الحالي';
+
+  @override
+  String get enterChapterId => 'أدخل معرف الفصل';
+
+  @override
+  String get chapterId => 'معرف الفصل';
 }

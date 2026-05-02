@@ -1,9 +1,11 @@
 import 'package:educational_complex_director_app/l10n/app_localizations.dart';
+
 import 'package:educational_complex_director_app/view/components/language_dropdown.dart';
 import 'package:educational_complex_director_app/view_model/auth.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
 
 import 'package:educational_complex_director_app/utils/s_config.dart';
+import 'package:educational_complex_director_app/view_model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/route_manager.dart';
@@ -83,6 +85,13 @@ class MainDrawer extends ConsumerWidget {
                 AppLocalizations.of(context)!.students,
                 3,
               ),
+              if (ref.watch(userViewModelProvider).value!.isDirector)
+                _buildItem(
+                  context,
+                  Icons.settings_rounded,
+                  AppLocalizations.of(context)!.systemSettings,
+                  4,
+                ),
 
               const Spacer(),
               const Row(

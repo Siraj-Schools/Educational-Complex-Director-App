@@ -1252,6 +1252,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Grade'**
   String get grade;
+
+  /// No description provided for @systemSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'System Settings'**
+  String get systemSettings;
+
+  /// No description provided for @addAcademicYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Academic Year'**
+  String get addAcademicYear;
+
+  /// No description provided for @academicYearName.
+  ///
+  /// In en, this message translates to:
+  /// **'Academic Year Name'**
+  String get academicYearName;
+
+  /// No description provided for @currentAcademicYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Academic Year'**
+  String get currentAcademicYear;
+
+  /// No description provided for @nextAcademicYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Next Academic Year'**
+  String get nextAcademicYear;
+
+  /// No description provided for @currentChapter.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Academic Year'**
+  String get currentChapter;
+
+  /// No description provided for @chapter1.
+  ///
+  /// In en, this message translates to:
+  /// **'First Academic Year'**
+  String get chapter1;
+
+  /// No description provided for @chapter2.
+  ///
+  /// In en, this message translates to:
+  /// **'Second Academic Year'**
+  String get chapter2;
+
+  /// No description provided for @isPromotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotion Active'**
+  String get isPromotion;
+
+  /// No description provided for @isChapterPromotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter Promotion Active'**
+  String get isChapterPromotion;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @selectAcademicYear.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Academic Year'**
+  String get selectAcademicYear;
+
+  /// No description provided for @saveChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get saveChanges;
+
+  /// No description provided for @updateCurrentChapter.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Current Chapter'**
+  String get updateCurrentChapter;
+
+  /// No description provided for @enterChapterId.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Chapter ID'**
+  String get enterChapterId;
+
+  /// No description provided for @chapterId.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter ID'**
+  String get chapterId;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

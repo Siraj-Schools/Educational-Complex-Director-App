@@ -26,6 +26,7 @@ class AuthViewModel extends AsyncNotifier<void> {
       ref.invalidate(managersBreadcrumbProvider);
       ref.invalidate(teachersBreadcrumbProvider);
       ref.invalidate(studentsBreadcrumbProvider);
+      ref.invalidate(systemSettingsBreadcrumbProvider);
     });
   }
 }
