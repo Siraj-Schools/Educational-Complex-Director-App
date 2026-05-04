@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:educational_complex_director_app/Repositories/system_settings_repository.dart';
-import 'package:educational_complex_director_app/models/academic_year.dart';
 import 'package:educational_complex_director_app/models/system_settings.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -29,7 +28,10 @@ class SystemSettingsNotifier extends AsyncNotifier<SystemSettings> {
     try {
       await ref
           .read(systemSettingsRepositoryProvider)
-          .updateCurrentChapter(chapterId: chapterId);
+          .updateCurrentChapter(
+            chapterId: chapterId,
+            currentSettings: state.value!,
+          );
     } catch (e) {
       if (e is Exception) {
         error = e;

@@ -59,7 +59,10 @@ class SystemSettingsRepository {
     }
   }
 
-  Future<void> updateCurrentChapter({required String chapterId}) async {
+  Future<void> updateCurrentChapter({
+    required String chapterId,
+    required SystemSettings currentSettings,
+  }) async {
     try {
       final token = LocalStorageService.getToken;
       if (token == null) {
@@ -69,6 +72,18 @@ class SystemSettingsRepository {
         token: token,
         chapterId: chapterId,
       );
+      if (currentSettings.isChapterPromotion) {
+        await systemSettingsServices.updateChapterPromotionStatus(
+          token: token,
+          isChapterPromotion: false,
+        );
+      }
+      if (currentSettings.isPromotion) {
+        await systemSettingsServices.updatePromotionStatus(
+          token: token,
+          isPromotion: false,
+        );
+      }
     } catch (e) {
       LogService.e(e.toString());
       rethrow;
