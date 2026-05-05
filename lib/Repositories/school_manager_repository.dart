@@ -11,6 +11,7 @@ class SchoolManagerRepository {
     String searchQuery = '',
     int page = 1,
     int pageSize = 6,
+    bool? hasSchool,
   }) async {
     final token = LocalStorageService.getToken;
     if (token == null) {
@@ -21,6 +22,7 @@ class SchoolManagerRepository {
       searchQuery: searchQuery,
       page: page,
       pageSize: pageSize,
+      hasSchool: hasSchool,
     );
   }
 

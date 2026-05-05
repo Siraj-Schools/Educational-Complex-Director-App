@@ -44,4 +44,22 @@ class Parent {
       ),
     );
   }
+  factory Parent.fromParentApi(Map<String, dynamic> json) {
+    return Parent(
+      parentFirstName: json['firstName'],
+      parentMiddleName: json['middleName'],
+      parentLastName: json['lastName'],
+      parentFullName: json['fullName'],
+      parentEmail: json['email'],
+      parentNationalId: json['nationalId'],
+      parentMobileNumber: json['mobileNumber'],
+      parentGender: GenderEnum.values.firstWhere(
+        (e) => e.name == json['gender'],
+      ),
+      parentDateOfBirth: DateTime.parse(json['dateOfBirth']),
+      parentRelation: ParentRelationEnum.values.firstWhere(
+        (e) => e.name == json['relation'],
+      ),
+    );
+  }
 }

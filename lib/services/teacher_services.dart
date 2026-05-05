@@ -51,8 +51,7 @@ class TeacherServices {
       ),
     );
     if (response.statusCode != 200) {
-      LogService.e(response.data['title']);
-      throw Exception('Failed to load school');
+      throw Exception(response.data['title']);
     }
     return TeacherDetails.fromJson(response.data);
   }

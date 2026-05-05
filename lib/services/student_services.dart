@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:educational_complex_director_app/models/helpers/new_credentials.dart';
 import 'package:educational_complex_director_app/models/helpers/paginated_response.dart';
+import 'package:educational_complex_director_app/models/student/parent.dart';
 import 'package:educational_complex_director_app/models/student/student.dart';
 import 'package:educational_complex_director_app/models/student/student_details.dart';
 import 'package:educational_complex_director_app/services/dio.dart';
@@ -34,6 +35,25 @@ class StudentService {
       throw Exception('Failed to get students');
     }
     return PaginatedResponse<Student>.fromJson(response.data);
+  }
+
+  Future<Parent> getParent({
+    required String token,
+    required String nationalId,
+  }) async {
+    final response = await dio.get(
+      '/parents',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+      ),
+      queryParameters: {'NationalId': nationalId},
+    );
+    if (response.statusCode != 200 || response.data['items'].isEmpty) {
+      throw Exception('No parent with this national ID');
+    }
+    return Parent.fromParentApi(response.data["items"][0]);
   }
 
   Future<StudentDetails> getStudentDetails({

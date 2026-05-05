@@ -202,5 +202,13 @@
   "saveChanges": "حفظ التغييرات",
   "updateCurrentChapter": "تحديث الفصل الحالي",
   "enterChapterId": "أدخل معرف الفصل",
-  "chapterId": "معرف الفصل"
+  "chapterId": "معرف الفصل",
+  "fillNewParentForm": "تعبئة نموذج ولي أمر جديد",
+  "useExistingParent": "استخدام ولي أمر مسجل مسبقاً",
+  "parentSearchHint": "أدخل الرقم الوطني لولي الأمر",
+  "parentFound": "تم العثور على ولي الأمر",
+  "confirmParentDetails": "تأكيد بيانات ولي الأمر",
+  "noParentFound": "لا يوجد ولي أمر بهذا الرقم الوطني",
+  "searching": "جاري البحث...",
+  "pleaseSearchParent": "يرجى البحث عن ولي الأمر وتأكيده أولاً"
 }

@@ -7,6 +7,10 @@ import 'package:educational_complex_director_app/models/constants/parent_relatio
 import 'package:educational_complex_director_app/models/constants/qualifications.dart';
 import 'package:educational_complex_director_app/models/geography.dart';
 import 'package:educational_complex_director_app/models/helpers/new_credentials.dart';
+import 'package:educational_complex_director_app/models/student/parent.dart'
+    as model;
+import 'package:educational_complex_director_app/view_model/student/parent.dart';
+import 'package:educational_complex_director_app/view/components/parent_details_dialog.dart';
 import 'package:educational_complex_director_app/models/student/student_details.dart';
 import 'package:educational_complex_director_app/routes/routes.dart';
 import 'package:educational_complex_director_app/services/log_services.dart';
@@ -91,6 +95,8 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
   late final bool isAdding;
   bool isEditing = false;
   bool isSomethingEdited = false;
+  bool isExistingParent = false;
+  model.Parent? searchedParent;
 
   // ── Validators ───────────────────────────────────────────────────────────────
   final _emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$');
@@ -183,6 +189,7 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
     String? hint,
     bool obscure = false,
     String? Function(String?)? validator,
+    void Function(String)? onChanged,
   }) {
     final loc = AppLocalizations.of(context)!;
     return SizedBox(
@@ -192,7 +199,10 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
         enabled: enabled,
         keyboardType: keyboard,
         obscureText: obscure,
-        onChanged: (_) => setState(() => isSomethingEdited = true),
+        onChanged: (v) {
+          setState(() => isSomethingEdited = true);
+          onChanged?.call(v);
+        },
         validator:
             validator ??
             (v) => (v == null || v.isEmpty) ? '$label ${loc.required}' : null,
@@ -380,6 +390,189 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
     );
   }
 
+  Widget _parentOptionSelector(AppLocalizations loc) {
+    return Container(
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: SConfig.primaryColor.withAlpha(15),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          _optionButton(
+            label: loc.fillNewParentForm,
+            isSelected: !isExistingParent,
+            onTap: () => setState(() => isExistingParent = false),
+          ),
+          _optionButton(
+            label: loc.useExistingParent,
+            isSelected: isExistingParent,
+            onTap: () => setState(() => isExistingParent = true),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _optionButton({
+    required String label,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            color: isSelected ? SConfig.primaryColor : Colors.transparent,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: isSelected
+                ? [
+                    BoxShadow(
+                      color: SConfig.primaryColor.withAlpha(60),
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                : [],
+          ),
+          child: Text(
+            label,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: isSelected ? Colors.white : SConfig.textDark,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+              fontSize: 13,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _existingParentSearch(BuildContext context, AppLocalizations loc) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _textField(
+              context,
+              parentNationalId,
+              loc.nationalId,
+              hint: loc.parentSearchHint,
+              keyboard: TextInputType.number,
+              onChanged: (v) {
+                if (searchedParent != null &&
+                    searchedParent!.parentNationalId != v) {
+                  setState(() => searchedParent = null);
+                }
+              },
+              validator: (v) {
+                if (v == null || v.isEmpty) return loc.required;
+                if (searchedParent == null ||
+                    searchedParent!.parentNationalId != v) {
+                  return loc.pleaseSearchParent;
+                }
+                return null;
+              },
+            ),
+            const SizedBox(width: 12),
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: SConfig.accentColor,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 16,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                ),
+                onPressed: () => _handleParentSearch(parentNationalId.text),
+                icon: const Icon(Icons.search_rounded),
+                label: Text(loc.searchManager.split(" ")[0]),
+              ),
+            ),
+          ],
+        ),
+        if (searchedParent != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: SConfig.successColor.withAlpha(20),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: SConfig.successColor.withAlpha(50)),
+              ),
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.check_circle_outline,
+                    color: SConfig.successColor,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(
+                      '${loc.parentFound}: ${searchedParent!.parentFullName}',
+                      style: const TextStyle(
+                        color: SConfig.successColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+
+  Future<void> _handleParentSearch(String nationalId) async {
+    if (nationalId.isEmpty) return;
+    final loc = AppLocalizations.of(context)!;
+
+    final fetchedParent = await Get.showOverlay<model.Parent?>(
+      asyncFunction: () async {
+        try {
+          return await ref.read(parentProvider(nationalId).future);
+        } catch (e) {
+          return null;
+        }
+      },
+      loadingWidget: LoadingDialog(extraMessage: loc.searching),
+    );
+
+    if (fetchedParent != null) {
+      final confirmed = await Get.dialog<bool>(
+        ParentDetailsDialog(parent: fetchedParent),
+      );
+      if (confirmed == true) {
+        setState(() {
+          searchedParent = fetchedParent;
+          parentFirstName.text = fetchedParent.parentFirstName;
+          parentMiddleName.text = fetchedParent.parentMiddleName;
+          parentLastName.text = fetchedParent.parentLastName;
+          parentMobileNumber.text = fetchedParent.parentMobileNumber;
+          parentRelation = fetchedParent.parentRelation.index;
+          parentGender = fetchedParent.parentGender.index;
+          parentDob = fetchedParent.parentDateOfBirth;
+        });
+      }
+    } else {
+      Get.dialog(ErrorDialog(message: loc.noParentFound));
+    }
+  }
+
   // ── Action Handlers ──────────────────────────────────────────────────────────
 
   Future<void> _handleSave(BuildContext context) async {
@@ -413,19 +606,21 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
             "studentStateId": studentStateId,
             "studentCountryId": studentCountryId,
             "motherName": motherName.text,
-            "parentFirstName": parentFirstName.text,
-            "parentMiddleName": parentMiddleName.text,
-            "parentLastName": parentLastName.text,
             "parentNationalId": parentNationalId.text,
-            "parentMobileNumber": parentMobileNumber.text,
-            "parentGender": parentGender,
-            "parentDob": parentDob?.toIso8601String().split('T')[0],
-            "parentMaritalStatus": parentMaritalStatus,
-            "parentCityId": parentCityId,
-            "parentStateId": parentStateId,
-            "parentCountryId": parentCountryId,
-            "parentRelation": parentRelation,
-            "parentQualificationId": parentQualificationId,
+            if (!isExistingParent) ...{
+              "parentRelation": parentRelation,
+              "parentFirstName": parentFirstName.text,
+              "parentMiddleName": parentMiddleName.text,
+              "parentLastName": parentLastName.text,
+              "parentMobileNumber": parentMobileNumber.text,
+              "parentGender": parentGender,
+              "parentDob": parentDob?.toIso8601String().split('T')[0],
+              "parentMaritalStatus": parentMaritalStatus,
+              "parentCityId": parentCityId,
+              "parentStateId": parentStateId,
+              "parentCountryId": parentCountryId,
+              "parentQualificationId": parentQualificationId,
+            },
           }
         : {
             "userId": widget.studentDetails!.student.id,
@@ -869,122 +1064,136 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
                   context: context,
                   icon: Icons.family_restroom_rounded,
                   title: loc.parentInformation,
-                  content: Wrap(
-                    spacing: 24,
-                    runSpacing: 20,
+                  content: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (!isAdding)
-                        _textField(
-                          context,
-                          parentEmail,
-                          loc.email,
-                          enabled: isAdding,
-                          keyboard: TextInputType.emailAddress,
-                          validator: (v) => _emailRegex.hasMatch(v ?? '')
-                              ? null
-                              : loc.invalidEmail,
-                        ),
+                      if (isAdding) ...[
+                        _parentOptionSelector(loc),
+                        const SizedBox(height: 24),
+                      ],
+                      if (isAdding && isExistingParent)
+                        _existingParentSearch(context, loc)
+                      else
+                        Wrap(
+                          spacing: 24,
+                          runSpacing: 20,
+                          children: [
+                            if (!isAdding)
+                              _textField(
+                                context,
+                                parentEmail,
+                                loc.email,
+                                enabled: isAdding,
+                                keyboard: TextInputType.emailAddress,
+                                validator: (v) => _emailRegex.hasMatch(v ?? '')
+                                    ? null
+                                    : loc.invalidEmail,
+                              ),
 
-                      _textField(
-                        context,
-                        parentFirstName,
-                        loc.firstName,
-                        enabled: isAdding,
-                      ),
-                      _textField(
-                        context,
-                        parentMiddleName,
-                        loc.middleName,
-                        enabled: isAdding,
-                      ),
-                      _textField(
-                        context,
-                        parentLastName,
-                        loc.lastName,
-                        enabled: isAdding,
-                      ),
-                      _textField(
-                        context,
-                        parentNationalId,
-                        loc.nationalId,
-                        enabled: isAdding,
-                        keyboard: TextInputType.number,
-                      ),
-                      _textField(
-                        context,
-                        parentMobileNumber,
-                        loc.phone,
-                        enabled: isAdding,
-                        keyboard: TextInputType.phone,
-                      ),
-                      _dropdownEnum(
-                        label: loc.relation,
-                        value: parentRelation,
-                        enabled: isAdding,
-                        onChanged: (v) => setState(() => parentRelation = v!),
-                        items: ParentRelationEnum.values
-                            .map(
-                              (r) => DropdownMenuItem(
-                                value: r.index,
-                                child: Text(r.loc(loc)),
+                            _textField(
+                              context,
+                              parentFirstName,
+                              loc.firstName,
+                              enabled: isAdding,
+                            ),
+                            _textField(
+                              context,
+                              parentMiddleName,
+                              loc.middleName,
+                              enabled: isAdding,
+                            ),
+                            _textField(
+                              context,
+                              parentLastName,
+                              loc.lastName,
+                              enabled: isAdding,
+                            ),
+                            _textField(
+                              context,
+                              parentNationalId,
+                              loc.nationalId,
+                              enabled: isAdding,
+                              keyboard: TextInputType.number,
+                            ),
+                            _textField(
+                              context,
+                              parentMobileNumber,
+                              loc.phone,
+                              enabled: isAdding,
+                              keyboard: TextInputType.phone,
+                            ),
+                            _dropdownEnum(
+                              label: loc.relation,
+                              value: parentRelation,
+                              enabled: isAdding,
+                              onChanged: (v) =>
+                                  setState(() => parentRelation = v!),
+                              items: ParentRelationEnum.values
+                                  .map(
+                                    (r) => DropdownMenuItem(
+                                      value: r.index,
+                                      child: Text(r.loc(loc)),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                            _dropdownEnum(
+                              label: loc.gender,
+                              value: parentGender,
+                              enabled: isAdding,
+                              onChanged: (v) =>
+                                  setState(() => parentGender = v!),
+                              items: GenderEnum.values
+                                  .where((e) => e != GenderEnum.None)
+                                  .map(
+                                    (g) => DropdownMenuItem(
+                                      value: g.index,
+                                      child: Text(g.loc(loc)),
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                            _datePickerField(
+                              context: context,
+                              label: loc.dateOfBirth,
+                              value: parentDob,
+                              enabled: isAdding,
+                              onPicked: (d) => setState(() => parentDob = d),
+                            ),
+                            _dropdownEnum(
+                              label: "${loc.qualification} (${loc.optional})",
+                              value: QualificationEnum.values
+                                  .firstWhere(
+                                    (e) => e.id == parentQualificationId,
+                                    orElse: () => QualificationEnum.None,
+                                  )
+                                  .index,
+                              enabled: isAdding,
+                              onChanged: (v) => setState(
+                                () {
+                                  if (v == 0) {
+                                    parentQualificationId = null;
+                                  } else {
+                                    parentQualificationId =
+                                        QualificationEnum.values[v!].id;
+                                  }
+                                },
                               ),
-                            )
-                            .toList(),
-                      ),
-                      _dropdownEnum(
-                        label: loc.gender,
-                        value: parentGender,
-                        enabled: isAdding,
-                        onChanged: (v) => setState(() => parentGender = v!),
-                        items: GenderEnum.values
-                            .where((e) => e != GenderEnum.None)
-                            .map(
-                              (g) => DropdownMenuItem(
-                                value: g.index,
-                                child: Text(g.loc(loc)),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                      _datePickerField(
-                        context: context,
-                        label: loc.dateOfBirth,
-                        value: parentDob,
-                        enabled: isAdding,
-                        onPicked: (d) => setState(() => parentDob = d),
-                      ),
-                      _dropdownEnum(
-                        label: "${loc.qualification} (${loc.optional})",
-                        value: QualificationEnum.values
-                            .firstWhere(
-                              (e) => e.id == parentQualificationId,
-                              orElse: () => QualificationEnum.None,
-                            )
-                            .index,
-                        enabled: isAdding,
-                        onChanged: (v) => setState(
-                          () {
-                            if (v == 0) {
-                              parentQualificationId = null;
-                            } else {
-                              parentQualificationId =
-                                  QualificationEnum.values[v!].id;
-                            }
-                          },
+                              items: QualificationEnum.values.map(
+                                (q) {
+                                  return DropdownMenuItem(
+                                    value: q.index,
+                                    child: Text(q.loc(loc)),
+                                  );
+                                },
+                              ).toList(),
+                            ),
+                          ],
                         ),
-                        items: QualificationEnum.values.map(
-                          (q) {
-                            return DropdownMenuItem(
-                              value: q.index,
-                              child: Text(q.loc(loc)),
-                            );
-                          },
-                        ).toList(),
-                      ),
                     ],
                   ),
                 ),
-                if (isAdding)
+                if (isAdding && !isExistingParent)
                   _sectionCard(
                     context: context,
                     icon: Icons.location_on_rounded,

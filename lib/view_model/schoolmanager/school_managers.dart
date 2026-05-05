@@ -10,6 +10,8 @@ class SchoolManagersNotifier extends AsyncNotifier<List<SchoolManager>> {
   bool isLoadingMore = false;
   Exception? errorLoadingMore;
   Exception? errorAddingManager;
+  final bool isManagersPage;
+  SchoolManagersNotifier({required this.isManagersPage});
   @override
   Future<List<SchoolManager>> build() async {
     return await getManagers();
@@ -20,7 +22,11 @@ class SchoolManagersNotifier extends AsyncNotifier<List<SchoolManager>> {
 
     final response = await ref
         .read(schoolManagerRepositoryProvider)
-        .getManagers(searchQuery: searchQuery, page: page);
+        .getManagers(
+          searchQuery: searchQuery,
+          page: page,
+          hasSchool: isManagersPage ? null : false,
+        );
     hasNextPage = response.hasNextPage;
     page = response.currentPage;
 
@@ -95,5 +101,6 @@ final schoolManagersNotifierProvider =
       List<SchoolManager>,
       bool
     >(
-      (isManagersPage) => SchoolManagersNotifier(),
+      (isManagersPage) =>
+          SchoolManagersNotifier(isManagersPage: isManagersPage),
     );

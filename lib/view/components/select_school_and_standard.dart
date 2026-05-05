@@ -192,6 +192,9 @@ class _SelectSchoolAndStandardDialogState
             onCancel: () => setState(() => _step = 0),
             onNext: _selectedStandardId != null
                 ? () {
+                    print('schoolId: $_selectedSchoolId');
+                    print('standardId: $_selectedStandardId');
+                    print('schoolName: $_selectedSchoolName');
                     Get.back<Map<String, String>>(
                       result: {
                         'schoolId': _selectedSchoolId!,

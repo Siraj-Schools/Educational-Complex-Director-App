@@ -637,4 +637,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chapterId => 'معرف الفصل';
+
+  @override
+  String get fillNewParentForm => 'تعبئة نموذج ولي أمر جديد';
+
+  @override
+  String get useExistingParent => 'استخدام ولي أمر مسجل مسبقاً';
+
+  @override
+  String get parentSearchHint => 'أدخل الرقم الوطني لولي الأمر';
+
+  @override
+  String get parentFound => 'تم العثور على ولي الأمر';
+
+  @override
+  String get confirmParentDetails => 'تأكيد بيانات ولي الأمر';
+
+  @override
+  String get noParentFound => 'لا يوجد ولي أمر بهذا الرقم الوطني';
+
+  @override
+  String get searching => 'جاري البحث...';
+
+  @override
+  String get pleaseSearchParent => 'يرجى البحث عن ولي الأمر وتأكيده أولاً';
 }

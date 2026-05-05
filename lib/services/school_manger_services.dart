@@ -12,6 +12,7 @@ class SchoolMangerServices {
 
   Future<PaginatedResponse<SchoolManager>> getManagers({
     required String token,
+    bool? hasSchool,
     String searchQuery = '',
     int page = 1,
     int pageSize = 6,
@@ -27,6 +28,7 @@ class SchoolMangerServices {
         if (searchQuery.isNotEmpty) 'SearchTerm': searchQuery,
         'PageNumber': page,
         'PageSize': pageSize,
+        'HasSchool': ?hasSchool,
       },
     );
     if (response.statusCode != 200) {

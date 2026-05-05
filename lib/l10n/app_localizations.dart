@@ -1354,6 +1354,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Chapter ID'**
   String get chapterId;
+
+  /// No description provided for @fillNewParentForm.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill New Parent Form'**
+  String get fillNewParentForm;
+
+  /// No description provided for @useExistingParent.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Existing Parent'**
+  String get useExistingParent;
+
+  /// No description provided for @parentSearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter parent national ID'**
+  String get parentSearchHint;
+
+  /// No description provided for @parentFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Parent Found'**
+  String get parentFound;
+
+  /// No description provided for @confirmParentDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm Parent Details'**
+  String get confirmParentDetails;
+
+  /// No description provided for @noParentFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No parent found with this national ID'**
+  String get noParentFound;
+
+  /// No description provided for @searching.
+  ///
+  /// In en, this message translates to:
+  /// **'Searching...'**
+  String get searching;
+
+  /// No description provided for @pleaseSearchParent.
+  ///
+  /// In en, this message translates to:
+  /// **'Please search and confirm the parent first'**
+  String get pleaseSearchParent;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

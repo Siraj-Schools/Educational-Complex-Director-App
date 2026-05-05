@@ -1,5 +1,6 @@
 import 'package:educational_complex_director_app/models/helpers/new_credentials.dart';
 import 'package:educational_complex_director_app/models/helpers/paginated_response.dart';
+import 'package:educational_complex_director_app/models/student/parent.dart';
 import 'package:educational_complex_director_app/models/student/student.dart';
 import 'package:educational_complex_director_app/models/student/student_details.dart';
 import 'package:educational_complex_director_app/services/local_storage_services.dart';
@@ -24,6 +25,17 @@ class StudentRepository {
       searchQuery: searchQuery,
       page: page,
       pageSize: pageSize,
+    );
+  }
+
+  Future<Parent> getParent({required String nationalId}) async {
+    final token = LocalStorageService.getToken;
+    if (token == null) {
+      throw Exception('Token not found');
+    }
+    return await studentService.getParent(
+      token: token,
+      nationalId: nationalId,
     );
   }
 

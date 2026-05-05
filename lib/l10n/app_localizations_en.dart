@@ -637,4 +637,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chapterId => 'Chapter ID';
+
+  @override
+  String get fillNewParentForm => 'Fill New Parent Form';
+
+  @override
+  String get useExistingParent => 'Use Existing Parent';
+
+  @override
+  String get parentSearchHint => 'Enter parent national ID';
+
+  @override
+  String get parentFound => 'Parent Found';
+
+  @override
+  String get confirmParentDetails => 'Confirm Parent Details';
+
+  @override
+  String get noParentFound => 'No parent found with this national ID';
+
+  @override
+  String get searching => 'Searching...';
+
+  @override
+  String get pleaseSearchParent => 'Please search and confirm the parent first';
 }

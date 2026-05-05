@@ -209,5 +209,13 @@
   "saveChanges": "Save Changes",
   "updateCurrentChapter": "Update Current Chapter",
   "enterChapterId": "Enter Chapter ID",
-  "chapterId": "Chapter ID"
+  "chapterId": "Chapter ID",
+  "fillNewParentForm": "Fill New Parent Form",
+  "useExistingParent": "Use Existing Parent",
+  "parentSearchHint": "Enter parent national ID",
+  "parentFound": "Parent Found",
+  "confirmParentDetails": "Confirm Parent Details",
+  "noParentFound": "No parent found with this national ID",
+  "searching": "Searching...",
+  "pleaseSearchParent": "Please search and confirm the parent first"
 }

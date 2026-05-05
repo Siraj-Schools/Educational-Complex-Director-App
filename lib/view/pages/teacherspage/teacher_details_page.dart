@@ -514,68 +514,68 @@ class TeacherDetailsPage extends ConsumerWidget {
                 ),
 
                 /// ACADEMIC YEAR HEADER
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 16,
-                  ),
-                  color: SConfig.accentColor.withAlpha(15),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.date_range, color: SConfig.accentColor),
-                      const SizedBox(width: 12),
-                      Text(
-                        loc.academicYearInfo,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Container(
+                //   padding: const EdgeInsets.symmetric(
+                //     horizontal: 24,
+                //     vertical: 16,
+                //   ),
+                //   color: SConfig.accentColor.withAlpha(15),
+                //   child: Row(
+                //     children: [
+                //       const Icon(Icons.date_range, color: SConfig.accentColor),
+                //       const SizedBox(width: 12),
+                //       Text(
+                //         loc.academicYearInfo,
+                //         style: theme.textTheme.titleMedium?.copyWith(
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
-                /// ACADEMIC YEAR BODY
-                Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Wrap(
-                    spacing: 24,
-                    runSpacing: 24,
-                    children: [
-                      SizedBox(
-                        width: largeItemWidth,
-                        child: _infoColumn(
-                          loc.academicYear,
-                          details.academicYear.name,
-                          context,
-                        ),
-                      ),
-                      SizedBox(
-                        width: itemWidth,
-                        child: _infoColumn(
-                          loc.startDate,
-                          details.academicYear.startDate
-                              .toLocal()
-                              .toString()
-                              .split(' ')[0],
-                          context,
-                        ),
-                      ),
-                      SizedBox(
-                        width: itemWidth,
-                        child: _infoColumn(
-                          loc.endDate,
-                          details.academicYear.endDate
-                              .toLocal()
-                              .toString()
-                              .split(
-                                ' ',
-                              )[0],
-                          context,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // /// ACADEMIC YEAR BODY
+                // Padding(
+                //   padding: const EdgeInsets.all(24),
+                //   child: Wrap(
+                //     spacing: 24,
+                //     runSpacing: 24,
+                //     children: [
+                //       SizedBox(
+                //         width: largeItemWidth,
+                //         child: _infoColumn(
+                //           loc.academicYear,
+                //           details.academicYear.name,
+                //           context,
+                //         ),
+                //       ),
+                //       SizedBox(
+                //         width: itemWidth,
+                //         child: _infoColumn(
+                //           loc.startDate,
+                //           details.academicYear.startDate
+                //               .toLocal()
+                //               .toString()
+                //               .split(' ')[0],
+                //           context,
+                //         ),
+                //       ),
+                //       SizedBox(
+                //         width: itemWidth,
+                //         child: _infoColumn(
+                //           loc.endDate,
+                //           details.academicYear.endDate
+                //               .toLocal()
+                //               .toString()
+                //               .split(
+                //                 ' ',
+                //               )[0],
+                //           context,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),

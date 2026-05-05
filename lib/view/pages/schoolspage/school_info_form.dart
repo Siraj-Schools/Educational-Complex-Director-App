@@ -419,21 +419,21 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                   "schoolCityId": schoolCityId,
                   "schoolTypeId": SchoolTypeEnum.values[selectedSchoolType].id,
                   "emisNumber": emis.text,
-                  "managerEmail": managerEmail.text,
-                  "userName": username.text,
-                  "password": password.text,
-                  "nationalId": nationalId.text,
-                  "firstName": firstName.text,
-                  "middleName": middleName.text,
-                  "lastName": lastName.text,
-                  "managerMobileNumber": managerPhone.text,
-                  "gender": selectedGender,
-                  "dateOfBirth":
-                      '${dateOfBirth!.year}-${dateOfBirth!.month.toString().padLeft(2, '0')}-${dateOfBirth!.day.toString().padLeft(2, '0')}',
-                  "maritalStatus": selectedMarital,
-                  "managerCityId": managerCityId,
-                  "managerStateId": managerStateId,
-                  "managerCountryId": managerCountryId,
+                  // "managerEmail": managerEmail.text,
+                  // "userName": username.text,
+                  // "password": password.text,
+                  // "nationalId": nationalId.text,
+                  // "firstName": firstName.text,
+                  // "middleName": middleName.text,
+                  // "lastName": lastName.text,
+                  // "managerMobileNumber": managerPhone.text,
+                  // "gender": selectedGender,
+                  // "dateOfBirth":
+                  //     '${dateOfBirth!.year}-${dateOfBirth!.month.toString().padLeft(2, '0')}-${dateOfBirth!.day.toString().padLeft(2, '0')}',
+                  // "maritalStatus": selectedMarital,
+                  // "managerCityId": managerCityId,
+                  // "managerStateId": managerStateId,
+                  // "managerCountryId": managerCountryId,
                 },
               );
 
@@ -869,7 +869,7 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
                 const SizedBox(height: 20),
 
                 // ── 👤 MANAGER STUFF ─────────────────────────────────────────
-                if (widget.details?.manager != null || isAdding)
+                if (widget.details?.manager != null && !isAdding)
                   _sectionCard(
                     context: context,
                     icon: Icons.manage_accounts_rounded,
