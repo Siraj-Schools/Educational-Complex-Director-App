@@ -77,7 +77,6 @@ class StudentsNotifier extends AsyncNotifier<List<Student>> {
     ref.notifyListeners();
     try {
       await ref.read(studentRepositoryProvider).createStudent(body: body);
-      await refresh();
     } catch (e) {
       if (e is Exception) {
         errorAddingStudent = e;

@@ -2,6 +2,7 @@ import 'package:educational_complex_director_app/Repositories/teacher_repostory.
 import 'package:educational_complex_director_app/models/constants/teacher_designation.dart';
 import 'package:educational_complex_director_app/models/helpers/new_credentials.dart';
 import 'package:educational_complex_director_app/models/teacher/teacher_details.dart';
+import 'package:educational_complex_director_app/view_model/teacher/teachers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final teacherDetailsNotifierProvider = AsyncNotifierProvider.autoDispose
@@ -40,7 +41,7 @@ class TeacherDetailsNotifier extends AsyncNotifier<TeacherDetails> {
       await ref
           .read(teacherRepositoryProvider)
           .updateTeacher(id: id, body: body);
-      refresh();
+      ref.invalidate(teachersNotifierProvider, asReload: true);
     } catch (e) {
       if (e is Exception) {
         error = e;
@@ -66,7 +67,6 @@ class TeacherDetailsNotifier extends AsyncNotifier<TeacherDetails> {
             teacherId: id,
             designation: designation,
           );
-      refresh();
     } catch (e) {
       if (e is Exception) {
         error = e;
@@ -92,7 +92,6 @@ class TeacherDetailsNotifier extends AsyncNotifier<TeacherDetails> {
             teacherId: id,
             designation: designation,
           );
-      refresh();
     } catch (e) {
       if (e is Exception) {
         error = e;

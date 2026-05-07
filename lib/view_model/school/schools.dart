@@ -78,9 +78,6 @@ class SchoolsNotifier extends AsyncNotifier<List<School>> {
     ref.notifyListeners();
     try {
       await ref.read(schoolRepositoryProvider).createSchool(body: body);
-      await refresh();
-      await ref.read(schoolManagersNotifierProvider(true).notifier).refresh();
-      await ref.read(schoolsNotifierProvider(false).notifier).refresh();
     } catch (e) {
       if (e is Exception) {
         errorAddingSchool = e;

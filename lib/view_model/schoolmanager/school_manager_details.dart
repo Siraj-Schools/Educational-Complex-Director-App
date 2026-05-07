@@ -39,8 +39,8 @@ class SchoolManagerDetailsNotifier extends AsyncNotifier<SchoolManager> {
       await ref
           .read(schoolManagerRepositoryProvider)
           .updateManager(managerId: id, body: body);
-      await refresh();
-      await ref.read(schoolManagersNotifierProvider(true).notifier).refresh();
+      ref.invalidate(schoolManagersNotifierProvider(false), asReload: true);
+      ref.invalidate(schoolManagersNotifierProvider(true), asReload: true);
     } catch (e) {
       if (e is Exception) {
         error = e;

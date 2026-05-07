@@ -627,11 +627,6 @@ class TeacherDetailsPage extends ConsumerWidget {
               selectedSchoolAndDesignation['designation'],
             );
           }
-          await notifier.changeTeacherSchool(
-            selectedSchoolAndDesignation['schoolId'],
-
-            selectedSchoolAndDesignation['designation'],
-          );
 
           return notifier.error == null;
         },
@@ -650,6 +645,8 @@ class TeacherDetailsPage extends ConsumerWidget {
           ErrorDialog(message: loc.errorOccurred),
           barrierDismissible: false,
         );
+      } else {
+        await notifier.refresh();
       }
     }
   }

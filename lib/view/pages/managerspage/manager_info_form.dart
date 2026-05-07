@@ -426,9 +426,19 @@ class _ManagerInfoFormState extends ConsumerState<ManagerInfoForm> {
 
     if (success == true) {
       if (isAdding) {
+        ref.invalidate(schoolManagersNotifierProvider(false), asReload: true);
+        ref.invalidate(schoolManagersNotifierProvider(true), asReload: true);
+
         ref.read(managersBreadcrumbProvider.notifier).pop();
         Get.back(id: Sroutes.managersNavigationId);
       } else {
+        await ref
+            .read(
+              schoolManagerDetailsNotifierProvider(
+                widget.manager!.userId,
+              ).notifier,
+            )
+            .refresh();
         if (mounted) {
           setState(() {
             isManagerEditing = false;

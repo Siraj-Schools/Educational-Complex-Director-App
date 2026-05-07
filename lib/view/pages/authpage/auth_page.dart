@@ -171,20 +171,24 @@ class _AuthPageState extends ConsumerState<AuthPage> {
 
           SConfig.spaceSmall,
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  local.forgotPassword,
-                  style: const TextStyle(
-                    color: SConfig.accentColor,
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    local.forgotPassword,
+                    style: const TextStyle(
+                      color: SConfig.accentColor,
+                    ),
                   ),
                 ),
-              ),
-              const LanguageDropdown(),
-            ],
+                const LanguageDropdown(),
+              ],
+            ),
           ),
 
           SConfig.spaceMedium,

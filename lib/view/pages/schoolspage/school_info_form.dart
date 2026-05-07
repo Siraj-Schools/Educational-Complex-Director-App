@@ -20,6 +20,7 @@ import 'package:educational_complex_director_app/view_model/Geography/states.dar
 import 'package:educational_complex_director_app/view_model/bread_crumb_notifier.dart';
 import 'package:educational_complex_director_app/view_model/school/school_details.dart';
 import 'package:educational_complex_director_app/view_model/school/schools.dart';
+import 'package:educational_complex_director_app/view_model/schoolmanager/school_managers.dart';
 import 'package:educational_complex_director_app/view_model/user.dart';
 
 import 'package:flutter/material.dart';
@@ -472,9 +473,18 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
 
     if (success == true) {
       if (isAdding) {
+        ref.invalidate(schoolsNotifierProvider(true), asReload: true);
+        ref.invalidate(schoolsNotifierProvider(false), asReload: true);
         ref.read(schoolsBreadcrumbProvider.notifier).pop();
         Get.back(id: Sroutes.schoolsNavigationId);
       } else {
+        await ref
+            .read(
+              schoolDetailsNotifierProvider(
+                widget.details!.school.id,
+              ).notifier,
+            )
+            .refresh();
         if (mounted) {
           setState(() {
             isSchoolEditing = false;
@@ -529,6 +539,10 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
         ErrorDialog(message: loc.errorOccurred),
         barrierDismissible: false,
       );
+    } else {
+      ref.invalidate(schoolManagersNotifierProvider(false));
+
+      await notifier.refresh();
     }
   }
 
@@ -574,6 +588,10 @@ class _SchoolInfoFormState extends ConsumerState<SchoolInfoForm> {
           ErrorDialog(message: loc.errorOccurred),
           barrierDismissible: false,
         );
+      } else {
+        ref.invalidate(schoolManagersNotifierProvider(false));
+
+        await notifier.refresh();
       }
     }
   }

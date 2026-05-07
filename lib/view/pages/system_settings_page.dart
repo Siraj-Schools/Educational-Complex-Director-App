@@ -149,15 +149,17 @@ class SystemSettingsPage extends ConsumerWidget {
                 context,
                 title: loc.isPromotion,
                 value: settings.isPromotion,
-                onChanged: (val) async {
-                  _updateField(
-                    ref,
-                    () => ref
-                        .read(systemSettingsProvider.notifier)
-                        .updatePromotionStatus(isPromotion: val),
-                    loc,
-                  );
-                },
+                onChanged: settings.isFirstChapter
+                    ? null
+                    : (val) async {
+                        _updateField(
+                          ref,
+                          () => ref
+                              .read(systemSettingsProvider.notifier)
+                              .updatePromotionStatus(isPromotion: val),
+                          loc,
+                        );
+                      },
                 loc: loc,
               ),
               SConfig.spaceSmall,
@@ -165,17 +167,19 @@ class SystemSettingsPage extends ConsumerWidget {
                 context,
                 title: loc.isChapterPromotion,
                 value: settings.isChapterPromotion,
-                onChanged: (val) async {
-                  _updateField(
-                    ref,
-                    () => ref
-                        .read(systemSettingsProvider.notifier)
-                        .updateChapterPromotionStatus(
-                          isChapterPromotion: val,
-                        ),
-                    loc,
-                  );
-                },
+                onChanged: !settings.isFirstChapter
+                    ? null
+                    : (val) async {
+                        _updateField(
+                          ref,
+                          () => ref
+                              .read(systemSettingsProvider.notifier)
+                              .updateChapterPromotionStatus(
+                                isChapterPromotion: val,
+                              ),
+                          loc,
+                        );
+                      },
                 loc: loc,
               ),
             ],
@@ -253,7 +257,7 @@ class SystemSettingsPage extends ConsumerWidget {
     BuildContext context, {
     required String title,
     required bool value,
-    required ValueChanged<bool> onChanged,
+    required ValueChanged<bool>? onChanged,
     required AppLocalizations loc,
   }) {
     return Card(
@@ -277,10 +281,21 @@ class SystemSettingsPage extends ConsumerWidget {
               child: Switch(
                 value: value,
                 onChanged: onChanged,
-                activeThumbColor: Colors.white,
-                inactiveThumbColor: Colors.white,
-                activeTrackColor: SConfig.successColor,
-                inactiveTrackColor: SConfig.errorColor.withAlpha(200),
+                thumbColor: WidgetStateProperty.resolveWith<Color?>((states) {
+                  if (states.contains(WidgetState.disabled)) {
+                    return Colors.grey.shade400;
+                  }
+                  return Colors.white;
+                }),
+                trackColor: WidgetStateProperty.resolveWith<Color?>((states) {
+                  if (states.contains(WidgetState.disabled)) {
+                    return Colors.grey.shade300;
+                  }
+                  if (states.contains(WidgetState.selected)) {
+                    return SConfig.successColor;
+                  }
+                  return SConfig.errorColor.withAlpha(200);
+                }),
                 trackOutlineColor: WidgetStateProperty.all(Colors.transparent),
                 thumbIcon: WidgetStateProperty.all(
                   const Icon(Icons.circle, color: Colors.transparent),

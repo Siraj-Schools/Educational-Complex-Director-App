@@ -24,8 +24,9 @@ class SystemSettings {
   });
   static String firstChapterId = "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa";
   static String secondChapterId = "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb";
+  bool get isFirstChapter => currentChapterId == firstChapterId;
   String getLocalizedName(AppLocalizations loc) {
-    if (currentChapterId == firstChapterId) {
+    if (isFirstChapter) {
       return loc.chapter1;
     }
     return loc.chapter2;

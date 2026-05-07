@@ -445,7 +445,7 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
             style: TextStyle(
               color: isSelected ? Colors.white : SConfig.textDark,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-              fontSize: 13,
+              fontSize: 14,
             ),
           ),
         ),
@@ -663,9 +663,18 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
 
     if (success == true) {
       if (isAdding) {
+        ref.invalidate(studentsNotifierProvider, asReload: true);
+
         ref.read(studentsBreadcrumbProvider.notifier).pop();
         Get.back(id: Sroutes.studentsNavigationId);
       } else {
+        await ref
+            .read(
+              studentDetailsNotifierProvider(
+                widget.studentDetails!.student.id,
+              ).notifier,
+            )
+            .refresh();
         if (mounted) {
           setState(() {
             isEditing = false;
@@ -1497,6 +1506,14 @@ class _StudentInfoFormState extends ConsumerState<StudentInfoForm> {
           ErrorDialog(message: loc.errorOccurred),
           barrierDismissible: false,
         );
+      } else {
+        await ref
+            .read(
+              studentDetailsNotifierProvider(
+                widget.studentDetails!.student.id,
+              ).notifier,
+            )
+            .refresh();
       }
     }
   }

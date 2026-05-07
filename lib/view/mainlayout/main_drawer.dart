@@ -40,85 +40,96 @@ class MainDrawer extends ConsumerWidget {
           ),
         ),
         child: SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(height: 10),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 10),
 
-              // 🔰 LOGO SECTION
-              _buildLogo(),
+                        // 🔰 LOGO SECTION
+                        _buildLogo(),
 
-              const SizedBox(height: 10),
+                        const SizedBox(height: 10),
 
-              // Soft separator
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Divider(
-                  color: Colors.white.withAlpha(51),
-                  thickness: 1,
-                ),
-              ),
+                        // Soft separator
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Divider(
+                            color: Colors.white.withAlpha(51),
+                            thickness: 1,
+                          ),
+                        ),
 
-              const SizedBox(height: 10),
+                        const SizedBox(height: 10),
 
-              // NAVIGATION
-              _buildItem(
-                context,
-                Icons.school_rounded,
-                AppLocalizations.of(context)!.schools,
-                0,
-              ),
-              _buildItem(
-                context,
-                Icons.person_rounded,
-                AppLocalizations.of(context)!.managers,
-                1,
-              ),
-              _buildItem(
-                context,
-                Icons.app_registration_rounded,
-                AppLocalizations.of(context)!.teachers,
-                2,
-              ),
-              _buildItem(
-                context,
-                Icons.person_outline_rounded,
-                AppLocalizations.of(context)!.students,
-                3,
-              ),
-              if (ref.watch(userViewModelProvider).value!.isDirector)
-                _buildItem(
-                  context,
-                  Icons.settings_rounded,
-                  AppLocalizations.of(context)!.systemSettings,
-                  4,
-                ),
+                        // NAVIGATION
+                        _buildItem(
+                          context,
+                          Icons.school_rounded,
+                          AppLocalizations.of(context)!.schools,
+                          0,
+                        ),
+                        _buildItem(
+                          context,
+                          Icons.person_rounded,
+                          AppLocalizations.of(context)!.managers,
+                          1,
+                        ),
+                        _buildItem(
+                          context,
+                          Icons.app_registration_rounded,
+                          AppLocalizations.of(context)!.teachers,
+                          2,
+                        ),
+                        _buildItem(
+                          context,
+                          Icons.person_outline_rounded,
+                          AppLocalizations.of(context)!.students,
+                          3,
+                        ),
+                        if (ref.watch(userViewModelProvider).value!.isDirector)
+                          _buildItem(
+                            context,
+                            Icons.settings_rounded,
+                            AppLocalizations.of(context)!.systemSettings,
+                            4,
+                          ),
 
-              const Spacer(),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24),
-                    child: LanguageDropdown(
-                      isWhiteBackGround: true,
+                        const Spacer(),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 24),
+                              child: LanguageDropdown(
+                                isWhiteBackGround: true,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Divider(
+                            color: Colors.white.withAlpha(51),
+                            thickness: 1,
+                          ),
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        _buildLogout(context, ref),
+
+                        const SizedBox(height: 20),
+                      ],
                     ),
                   ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Divider(
-                  color: Colors.white.withAlpha(51),
-                  thickness: 1,
                 ),
-              ),
-
-              const SizedBox(height: 10),
-
-              _buildLogout(context, ref),
-
-              const SizedBox(height: 20),
-            ],
+              );
+            },
           ),
         ),
       ),

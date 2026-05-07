@@ -591,13 +591,23 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
 
     if (success == true) {
       if (isAdding) {
+        ref.invalidate(teachersNotifierProvider, asReload: true);
         ref.read(teachersBreadcrumbProvider.notifier).pop();
         Get.back(id: Sroutes.teachersNavigationId);
       } else {
-        setState(() {
-          isEditing = false;
-          isSomethingEdited = false;
-        });
+        await ref
+            .read(
+              teacherDetailsNotifierProvider(
+                widget.details!.teacher.id,
+              ).notifier,
+            )
+            .refresh();
+        if (mounted) {
+          setState(() {
+            isEditing = false;
+            isSomethingEdited = false;
+          });
+        }
       }
     } else {
       await Get.dialog<void>(

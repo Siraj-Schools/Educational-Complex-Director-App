@@ -1,6 +1,7 @@
 import 'package:educational_complex_director_app/Repositories/school_repository.dart';
 import 'package:educational_complex_director_app/models/school/school_details.dart';
 import 'package:educational_complex_director_app/view_model/school/schools.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final schoolDetailsNotifierProvider = AsyncNotifierProvider.autoDispose
@@ -34,8 +35,8 @@ class SchoolDetailsNotifier extends AsyncNotifier<SchoolDetails> {
     ref.notifyListeners();
     try {
       await ref.read(schoolRepositoryProvider).updateSchool(id: id, body: body);
-      await refresh();
-      await ref.read(schoolsNotifierProvider(true).notifier).refresh();
+      ref.invalidate(schoolsNotifierProvider(true), asReload: true);
+      ref.invalidate(schoolsNotifierProvider(false), asReload: true);
     } catch (e) {
       if (e is Exception) {
         error = e;
@@ -50,7 +51,6 @@ class SchoolDetailsNotifier extends AsyncNotifier<SchoolDetails> {
     ref.notifyListeners();
     try {
       await ref.read(schoolRepositoryProvider).removeManager(id: id);
-      await refresh();
     } catch (e) {
       if (e is Exception) {
         error = e;
@@ -70,7 +70,6 @@ class SchoolDetailsNotifier extends AsyncNotifier<SchoolDetails> {
             schoolId: id,
             newManagerId: newManagerId,
           );
-      await refresh();
     } catch (e) {
       if (e is Exception) {
         error = e;
