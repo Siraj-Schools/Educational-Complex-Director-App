@@ -27,7 +27,7 @@ class SystemSettingsServices {
     final response = await dio.get(
       '/academic-years',
       options: Options(headers: {'Authorization': 'Bearer $token'}),
-      queryParameters: {"Page": "1", "PageSize": "1000"},
+      queryParameters: {"Page": 1, "PageSize": 1000},
     );
     if (response.statusCode != 200) {
       throw Exception(response.data["title"]);

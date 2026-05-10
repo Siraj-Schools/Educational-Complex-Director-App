@@ -152,7 +152,7 @@ class TeacherDetailsPage extends ConsumerWidget {
                             const SizedBox(height: 6),
 
                             Text(
-                              "${details.designation.localizedName(loc)} • ${details.teacher.countryName}",
+                              "${details.teacher.qualificationName.loc(loc)} • ${details.teacher.countryName}",
                               style: const TextStyle(color: Colors.white70),
                             ),
 

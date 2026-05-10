@@ -864,95 +864,96 @@ class _TeacherInfoFormState extends ConsumerState<TeacherInfoForm> {
                 ),
 
                 // ── Professional Information ─────────────────────────────────
-                _sectionCard(
-                  context: context,
-                  icon: Icons.work_rounded,
-                  title: loc.professionalInformation,
-                  content: Wrap(
-                    spacing: 24,
-                    runSpacing: 24,
-                    children: [
-                      _dropdownEnum(
-                        label: loc.qualification,
-                        value: QualificationEnum.values.indexWhere(
-                          (e) => e.id == qualificationId,
+                if (isAdding)
+                  _sectionCard(
+                    context: context,
+                    icon: Icons.work_rounded,
+                    title: loc.professionalInformation,
+                    content: Wrap(
+                      spacing: 24,
+                      runSpacing: 24,
+                      children: [
+                        _dropdownEnum(
+                          label: loc.qualification,
+                          value: QualificationEnum.values.indexWhere(
+                            (e) => e.id == qualificationId,
+                          ),
+                          enabled: isAdding,
+                          onChanged: (v) => setState(
+                            () => qualificationId =
+                                QualificationEnum.values[v!].id,
+                          ),
+                          items: QualificationEnum.values
+                              .where((e) => e != QualificationEnum.None)
+                              .map(
+                                (q) => DropdownMenuItem(
+                                  value: q.index,
+                                  child: Text(q.loc(loc)),
+                                ),
+                              )
+                              .toList(),
                         ),
-                        enabled: isAdding,
-                        onChanged: (v) => setState(
-                          () =>
-                              qualificationId = QualificationEnum.values[v!].id,
-                        ),
-                        items: QualificationEnum.values
-                            .where((e) => e != QualificationEnum.None)
-                            .map(
-                              (q) => DropdownMenuItem(
-                                value: q.index,
-                                child: Text(q.loc(loc)),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                      if (isAdding)
-                        SizedBox(
-                          width: _fieldWidth(),
-                          child: InkWell(
-                            onTap: () async {
-                              final result =
-                                  await Get.dialog<Map<String, dynamic>>(
-                                    const SelectSchoolAndDesignationDialog(
-                                      isSchoolOnly: true,
+                        if (isAdding)
+                          SizedBox(
+                            width: _fieldWidth(),
+                            child: InkWell(
+                              onTap: () async {
+                                final result =
+                                    await Get.dialog<Map<String, dynamic>>(
+                                      const SelectSchoolAndDesignationDialog(
+                                        isSchoolOnly: true,
+                                      ),
+                                    );
+                                if (result != null) {
+                                  setState(() {
+                                    schoolId = result['schoolId'];
+                                    schoolName = result['schoolName'];
+                                  });
+                                }
+                              },
+                              child: IgnorePointer(
+                                child: TextFormField(
+                                  readOnly: true,
+                                  controller: TextEditingController(
+                                    text: schoolName ?? '',
+                                  ),
+                                  style: const TextStyle(
+                                    color: SConfig.textDark,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  validator: (v) => (schoolId == null)
+                                      ? '${loc.school} ${loc.required}'
+                                      : null,
+                                  decoration: InputDecoration(
+                                    labelText: loc.school,
+                                    suffixIcon: const Icon(
+                                      Icons.search,
+                                      color: SConfig.primaryColor,
                                     ),
-                                  );
-                              if (result != null) {
-                                setState(() {
-                                  schoolId = result['schoolId'];
-                                  schoolName = result['schoolName'];
-                                });
-                              }
-                            },
-                            child: IgnorePointer(
-                              child: TextFormField(
-                                readOnly: true,
-                                controller: TextEditingController(
-                                  text: schoolName ?? '',
-                                ),
-                                style: const TextStyle(
-                                  color: SConfig.textDark,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                validator: (v) => (schoolId == null)
-                                    ? '${loc.school} ${loc.required}'
-                                    : null,
-                                decoration: InputDecoration(
-                                  labelText: loc.school,
-                                  suffixIcon: const Icon(
-                                    Icons.search,
-                                    color: SConfig.primaryColor,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
 
-                      _dropdownEnum(
-                        label: loc.designation,
-                        value: selectedDesignation,
-                        enabled: isAdding,
-                        onChanged: (v) =>
-                            setState(() => selectedDesignation = v!),
-                        items: TeacherDesignation.values
-                            .map(
-                              (d) => DropdownMenuItem(
-                                value: d.index,
-                                child: Text(d.localizedName(loc)),
-                              ),
-                            )
-                            .toList(),
-                      ),
-                    ],
+                        _dropdownEnum(
+                          label: loc.designation,
+                          value: selectedDesignation,
+                          enabled: isAdding,
+                          onChanged: (v) =>
+                              setState(() => selectedDesignation = v!),
+                          items: TeacherDesignation.values
+                              .map(
+                                (d) => DropdownMenuItem(
+                                  value: d.index,
+                                  child: Text(d.localizedName(loc)),
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
 
                 if (isAdding)
                   Align(
